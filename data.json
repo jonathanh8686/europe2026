@@ -83,8 +83,8 @@
     },
     {
       "name": "Trevor Guo",
-      "confirmed": false,
-      "pending": true,
+      "confirmed": true,
+      "pending": false,
       "joinedDate": "2026-05-04"
     }
   ],
