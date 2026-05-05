@@ -30,11 +30,13 @@
     {
       "name": "Tompson Hsu",
       "confirmed": false,
+      "notGoing": true,
       "joinedDate": "2026-05-04"
     },
     {
       "name": "Kyle Lu",
       "confirmed": false,
+      "notGoing": true,
       "joinedDate": "2026-05-04"
     },
     {
