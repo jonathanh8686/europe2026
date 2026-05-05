@@ -26,6 +26,16 @@
       "name": "Yongjae Lee",
       "confirmed": true,
       "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Mark Tompson Hsu",
+      "confirmed": false,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Kyle Lu",
+      "confirmed": false,
+      "joinedDate": "2026-05-04"
     }
   ],
   "itinerary": [],
