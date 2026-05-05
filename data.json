@@ -7,96 +7,194 @@
     "homeAirport": "LAX"
   },
   "attendees": [
+    { "name": "Jonathan Hsieh", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Sean Chen", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Derek Wen", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Yongjae Lee", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Tompson Hsu", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
+    { "name": "Kyle Lu", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
+    { "name": "Aiden Zhang", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
+    { "name": "Andy Nilipour", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
+    { "name": "Anthony Yao", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
+    { "name": "Brian Zhu", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
+    { "name": "Demitrius Hong", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
+    { "name": "Michael Chen", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
+    { "name": "Shreyank Kadadi", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
+    { "name": "Trevor Guo", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" }
+  ],
+  "itinerary": [
     {
-      "name": "Jonathan Hsieh",
-      "confirmed": true,
-      "joinedDate": "2026-05-04"
+      "date": "2026-09-05",
+      "city": "London",
+      "country": "England",
+      "flag": "🇬🇧",
+      "emoji": "🎡",
+      "nights": 3,
+      "activities": [
+        "Arrive at Heathrow, check in",
+        "Borough Market & Thames walk",
+        "British Museum & Covent Garden"
+      ],
+      "notes": "Jet lag day - take it easy on arrival."
     },
     {
-      "name": "Sean Chen",
-      "confirmed": true,
-      "joinedDate": "2026-05-04"
+      "date": "2026-09-08",
+      "city": "Paris",
+      "country": "France",
+      "flag": "🇫🇷",
+      "emoji": "🗼",
+      "nights": 2,
+      "activities": [
+        "Eurostar from St Pancras",
+        "Louvre Museum",
+        "Eiffel Tower & Champ de Mars"
+      ],
+      "notes": "Book Louvre tickets in advance."
     },
     {
-      "name": "Derek Wen",
-      "confirmed": true,
-      "joinedDate": "2026-05-04"
+      "date": "2026-09-10",
+      "city": "Rome",
+      "country": "Italy",
+      "flag": "🇮🇹",
+      "emoji": "🏛️",
+      "nights": 2,
+      "activities": [
+        "Flight from Paris to Rome",
+        "Colosseum & Roman Forum",
+        "Vatican Museums & Sistine Chapel",
+        "Trastevere neighborhood dinner"
+      ],
+      "notes": "Vatican tickets must be pre-booked."
     },
     {
-      "name": "Yongjae Lee",
-      "confirmed": true,
-      "joinedDate": "2026-05-04"
-    },
-    {
-      "name": "Tompson Hsu",
-      "confirmed": false,
-      "notGoing": true,
-      "joinedDate": "2026-05-04"
-    },
-    {
-      "name": "Kyle Lu",
-      "confirmed": false,
-      "notGoing": true,
-      "joinedDate": "2026-05-04"
-    },
-    {
-      "name": "Aiden Zhang",
-      "confirmed": false,
-      "pending": true,
-      "joinedDate": "2026-05-04"
-    },
-    {
-      "name": "Andy Nilipour",
-      "confirmed": false,
-      "pending": true,
-      "joinedDate": "2026-05-04"
-    },
-    {
-      "name": "Anthony Yao",
-      "confirmed": false,
-      "pending": true,
-      "joinedDate": "2026-05-04"
-    },
-    {
-      "name": "Brian Zhu",
-      "confirmed": false,
-      "pending": true,
-      "joinedDate": "2026-05-04"
-    },
-    {
-      "name": "Demitrius Hong",
-      "confirmed": false,
-      "pending": true,
-      "joinedDate": "2026-05-04"
-    },
-    {
-      "name": "Michael Chen",
-      "confirmed": false,
-      "pending": true,
-      "joinedDate": "2026-05-04"
-    },
-    {
-      "name": "Shreyank Kadadi",
-      "confirmed": false,
-      "pending": true,
-      "joinedDate": "2026-05-04"
-    },
-    {
-      "name": "Trevor Guo",
-      "confirmed": true,
-      "pending": false,
-      "joinedDate": "2026-05-04"
+      "date": "2026-09-12",
+      "city": "Home",
+      "country": "",
+      "flag": "🇺🇸",
+      "emoji": "✈️",
+      "nights": 0,
+      "activities": [
+        "Flight from Rome back home"
+      ],
+      "notes": ""
     }
   ],
-  "itinerary": [],
-  "flights": [],
-  "hotels": [],
+  "flights": [
+    {
+      "id": "f1",
+      "type": "flight",
+      "date": "2026-09-05",
+      "from": "LAX",
+      "to": "LHR",
+      "fromCity": "Los Angeles",
+      "toCity": "London",
+      "airline": "British Airways",
+      "flightNum": "BA268",
+      "departure": "16:50",
+      "arrival": "11:25+1",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": ""
+    },
+    {
+      "id": "f2",
+      "type": "train",
+      "date": "2026-09-08",
+      "from": "London St Pancras",
+      "to": "Paris Gare du Nord",
+      "fromCity": "London",
+      "toCity": "Paris",
+      "airline": "Eurostar",
+      "flightNum": "ES9029",
+      "departure": "09:31",
+      "arrival": "13:02",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": "Check in 30 min early; passport control required."
+    },
+    {
+      "id": "f3",
+      "type": "flight",
+      "date": "2026-09-10",
+      "from": "CDG",
+      "to": "FCO",
+      "fromCity": "Paris",
+      "toCity": "Rome",
+      "airline": "Air France",
+      "flightNum": "AF1204",
+      "departure": "10:30",
+      "arrival": "12:50",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": ""
+    },
+    {
+      "id": "f4",
+      "type": "flight",
+      "date": "2026-09-12",
+      "from": "FCO",
+      "to": "LAX",
+      "fromCity": "Rome",
+      "toCity": "Los Angeles",
+      "airline": "Delta",
+      "flightNum": "DL183",
+      "departure": "10:15",
+      "arrival": "14:30",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": ""
+    }
+  ],
+  "hotels": [
+    {
+      "id": "h1",
+      "city": "London",
+      "name": "TBD - London Hotel",
+      "checkIn": "2026-09-05",
+      "checkOut": "2026-09-08",
+      "nights": 3,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 200,
+      "booked": false,
+      "notes": ""
+    },
+    {
+      "id": "h2",
+      "city": "Paris",
+      "name": "TBD - Paris Hotel",
+      "checkIn": "2026-09-08",
+      "checkOut": "2026-09-10",
+      "nights": 2,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 220,
+      "booked": false,
+      "notes": ""
+    },
+    {
+      "id": "h3",
+      "city": "Rome",
+      "name": "TBD - Rome Hotel",
+      "checkIn": "2026-09-10",
+      "checkOut": "2026-09-12",
+      "nights": 2,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 190,
+      "booked": false,
+      "notes": ""
+    }
+  ],
   "budget": {
     "total": 8000,
     "currency": "USD",
     "categories": [
       { "name": "Flights", "emoji": "✈️", "budgeted": 2500, "spent": 0 },
-      { "name": "Hotels", "emoji": "🏨", "budgeted": 2700, "spent": 0 },
+      { "name": "Hotels", "emoji": "🏨", "budgeted": 1400, "spent": 0 },
       { "name": "Food & Drink", "emoji": "🍽️", "budgeted": 1000, "spent": 0 },
       { "name": "Activities", "emoji": "🎟️", "budgeted": 600, "spent": 0 },
       { "name": "Transport", "emoji": "🚆", "budgeted": 400, "spent": 0 },
