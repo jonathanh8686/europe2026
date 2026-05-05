@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Europe 2026 - Trip Calendar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0a1628 0%, #1a2d47 60%, #1e4080 100%);
+      color: #e8edf5;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #e8edf5;
+    }
+
+    .trip-dates {
+      font-size: 1.1rem;
+      color: #8fa3bc;
+      margin-bottom: 20px;
+    }
+
+    .calendar {
+      background: #162338;
+      border: 1px solid #1f3454;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #1f3454;
+    }
+
+    .month-year {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .weekday {
+      text-align: center;
+      font-weight: 600;
+      color: #8fa3bc;
+      padding: 10px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+
+    .day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+      position: relative;
+      background: #0f1b2d;
+      color: #8fa3bc;
+      font-size: 0.95rem;
+    }
+
+    .day:hover {
+      background: #1a2d47;
+    }
+
+    .day.other-month {
+      color: #2d4563;
+    }
+
+    .day.trip-day {
+      background: linear-gradient(135deg, #1e5fa8 0%, #2d7dd2 100%);
+      color: #e8edf5;
+      border-color: #f5a623;
+      box-shadow: 0 4px 12px rgba(30, 95, 168, 0.3);
+    }
+
+    .day.trip-day:hover {
+      background: linear-gradient(135deg, #2d7dd2 0%, #3a8fe6 100%);
+      box-shadow: 0 6px 16px rgba(30, 95, 168, 0.4);
+      transform: scale(1.05);
+    }
+
+    .day.trip-start::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: #f5a623;
+      border-radius: 50%;
+    }
+
+    .day.trip-end::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: #27ae60;
+      border-radius: 50%;
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: #8fa3bc;
+    }
+
+    .legend-color {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      border: 2px solid transparent;
+    }
+
+    .legend-color.trip {
+      background: linear-gradient(135deg, #1e5fa8 0%, #2d7dd2 100%);
+      border-color: #f5a623;
+    }
+
+    .attendees {
+      background: #162338;
+      border: 1px solid #1f3454;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .attendees h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .attendees-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .attendee {
+      background: #0f1b2d;
+      border: 1px solid #1f3454;
+      border-radius: 12px;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+
+    .attendee:hover {
+      background: #1a2d47;
+      border-color: #2d7dd2;
+    }
+
+    .attendee-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1e5fa8 0%, #2d7dd2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #e8edf5;
+      flex-shrink: 0;
+    }
+
+    .attendee-info {
+      flex: 1;
+    }
+
+    .attendee-name {
+      font-weight: 600;
+      color: #e8edf5;
+      margin-bottom: 2px;
+    }
+
+    .attendee-status {
+      font-size: 0.8rem;
+      color: #27ae60;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: #27ae60;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .info-box {
+      background: rgba(30, 95, 168, 0.1);
+      border: 1px solid rgba(30, 95, 168, 0.3);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: #2d7dd2;
+    }
+
+    .info-box strong {
+      color: #e8edf5;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .calendar {
+        padding: 20px;
+      }
+
+      .day {
+        font-size: 0.85rem;
+      }
+
+      .attendees {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌍 Europe 2026</h1>
+      <div class="trip-dates">September 5 – 12, 2026 (8 days)</div>
+    </header>
+
+    <div class="calendar">
+      <div class="calendar-header">
+        <h2 class="month-year">September 2026</h2>
+      </div>
+
+      <div class="weekdays">
+        <div class="weekday">Sun</div>
+        <div class="weekday">Mon</div>
+        <div class="weekday">Tue</div>
+        <div class="weekday">Wed</div>
+        <div class="weekday">Thu</div>
+        <div class="weekday">Fri</div>
+        <div class="weekday">Sat</div>
+      </div>
+
+      <div class="days" id="calendar"></div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color trip"></div>
+          <span>Trip dates (Sept 5-12)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="attendees">
+      <h2>👥 Confirmed Attendees</h2>
+      <div class="info-box">
+        <strong>Total:</strong> 1 confirmed attendee
+      </div>
+      <div class="attendees-list" id="attendeesList"></div>
+    </div>
+  </div>
+
+  <script>
+    function generateCalendar() {
+      const year = 2026;
+      const month = 8; // September (0-indexed)
+      const tripStart = 5;
+      const tripEnd = 12;
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+      const calendarDiv = document.getElementById('calendar');
+      calendarDiv.innerHTML = '';
+
+      // Previous month's days
+      for (let i = firstDay - 1; i >= 0; i--) {
+        const day = document.createElement('div');
+        day.className = 'day other-month';
+        day.textContent = daysInPrevMonth - i;
+        calendarDiv.appendChild(day);
+      }
+
+      // Current month's days
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day';
+        dayDiv.textContent = day;
+
+        if (day >= tripStart && day <= tripEnd) {
+          dayDiv.classList.add('trip-day');
+          if (day === tripStart) dayDiv.classList.add('trip-start');
+          if (day === tripEnd) dayDiv.classList.add('trip-end');
+        }
+
+        calendarDiv.appendChild(dayDiv);
+      }
+
+      // Next month's days
+      const totalCells = calendarDiv.children.length;
+      const remainingCells = 42 - totalCells;
+      for (let day = 1; day <= remainingCells; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day other-month';
+        dayDiv.textContent = day;
+        calendarDiv.appendChild(dayDiv);
+      }
+    }
+
+    function loadAttendees() {
+      const attendees = [
+        { name: 'Jonathan Hsieh', confirmed: true }
+      ];
+
+      const list = document.getElementById('attendeesList');
+      list.innerHTML = attendees.map(attendee => `
+        <div class="attendee">
+          <div class="attendee-avatar">${attendee.name.charAt(0)}</div>
+          <div class="attendee-info">
+            <div class="attendee-name">${attendee.name}</div>
+            <div class="attendee-status">
+              <span class="status-dot"></span>
+              Confirmed
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Initialize
+    generateCalendar();
+    loadAttendees();
+  </script>
+</body>
+</html>
