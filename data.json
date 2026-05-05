@@ -20,7 +20,7 @@
     { "name": "Demitrius Hong", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Michael Chen", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Shreyank Kadadi", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
-    { "name": "Trevor Guo", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" }
+    { "name": "Trevor Guo", "confirmed": true, "pending": false, "joinedDate": "2026-05-04" }
   ],
   "itinerary": [
     {
