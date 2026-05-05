@@ -3,12 +3,27 @@
     "name": "Europe 2026",
     "startDate": "2026-09-05",
     "endDate": "2026-09-12",
-    "travelers": 1,
+    "travelers": 4,
     "homeAirport": "LAX"
   },
   "attendees": [
     {
       "name": "Jonathan Hsieh",
+      "confirmed": true,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Sean Chen",
+      "confirmed": true,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Derek Wen",
+      "confirmed": true,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Yongjae Lee",
       "confirmed": true,
       "joinedDate": "2026-05-04"
     }
