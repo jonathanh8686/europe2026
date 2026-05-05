@@ -55,44 +55,50 @@
       padding: 0 32px;
     }
 
+    .main-row {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
     .calendar-container {
       background: var(--card);
       border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 24px;
-      margin-bottom: 40px;
-      max-width: 500px;
+      padding: 16px;
+      flex-shrink: 0;
+      width: 220px;
     }
 
     .calendar-header {
-      font-size: 1.4rem;
+      font-size: 0.85rem;
       font-weight: 700;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .weekdays {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
-      margin-bottom: 10px;
+      gap: 2px;
+      margin-bottom: 4px;
     }
 
     .weekday {
       text-align: center;
       font-weight: 600;
       color: var(--text-muted);
-      padding: 6px 2px;
-      font-size: 0.75rem;
+      padding: 2px 0;
+      font-size: 0.6rem;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .days {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
+      gap: 2px;
     }
 
     .day {
@@ -100,58 +106,49 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: 2px solid transparent;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: default;
+      border: 1px solid transparent;
       background: #0f1b2d;
       color: var(--text-muted);
-      font-size: 0.8rem;
-      padding: 4px;
-    }
-
-    .day:hover {
-      background: #1a2d47;
+      font-size: 0.65rem;
     }
 
     .day.other-month {
       color: #2d4563;
+      background: transparent;
     }
 
     .day.trip-day {
       background: linear-gradient(135deg, #1e5fa8 0%, #2d7dd2 100%);
       color: var(--text);
       border-color: var(--accent);
-      box-shadow: 0 4px 12px rgba(30, 95, 168, 0.3);
-    }
-
-    .day.trip-day:hover {
-      background: linear-gradient(135deg, #2d7dd2 0%, #3a8fe6 100%);
-      box-shadow: 0 6px 16px rgba(30, 95, 168, 0.4);
-      transform: scale(1.05);
     }
 
     .attendees-container {
       background: var(--card);
       border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 30px;
+      padding: 24px;
+      flex: 1;
+      min-width: 0;
     }
 
     .attendees-header {
-      font-size: 1.8rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
 
     .attendee-count {
       background: rgba(30, 95, 168, 0.1);
       border: 1px solid rgba(30, 95, 168, 0.3);
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 25px;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
       color: var(--blue-light);
+      font-size: 0.85rem;
     }
 
     .attendee-count strong {
@@ -161,17 +158,17 @@
     .attendees-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 6px;
     }
 
     .attendee {
       background: #0f1b2d;
       border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 15px 20px;
+      border-radius: 8px;
+      padding: 10px 14px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       transition: all 0.2s;
     }
 
@@ -181,43 +178,53 @@
     }
 
     .attendee-avatar {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: linear-gradient(135deg, #1e5fa8 0%, #2d7dd2 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
+      font-size: 0.75rem;
       color: var(--text);
       flex-shrink: 0;
     }
 
+    .attendee-avatar.pending {
+      background: linear-gradient(135deg, #44475a 0%, #6272a4 100%);
+    }
+
     .attendee-info {
       flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
     }
 
     .attendee-name {
       font-weight: 600;
       color: var(--text);
+      font-size: 0.9rem;
     }
 
     .attendee-status {
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       color: var(--green);
-      margin-top: 2px;
+      white-space: nowrap;
     }
 
-    .attendee-status.not-going {
-      color: #d97706;
+    .attendee-status.pending {
+      color: #8fa3bc;
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 700px) {
       header { padding: 30px 20px; }
       .trip-title { font-size: 1.8rem; }
       main { padding: 0 20px; margin: 30px auto; }
-      .calendar-container { padding: 20px; }
-      .attendees-container { padding: 20px; }
+      .main-row { flex-direction: column; }
+      .calendar-container { width: 100%; }
     }
   </style>
 </head>
@@ -225,30 +232,32 @@
 
 <header>
   <div class="trip-title">🌍 Europe <span>2026</span></div>
-  <div class="trip-meta">September 5 – 12, 2026 • 4 confirmed</div>
+  <div class="trip-meta" id="headerMeta">September 5 – 12, 2026</div>
 </header>
 
 <main>
-  <div class="calendar-container">
-    <div class="calendar-header">September 2026</div>
-    <div class="weekdays">
-      <div class="weekday">Sun</div>
-      <div class="weekday">Mon</div>
-      <div class="weekday">Tue</div>
-      <div class="weekday">Wed</div>
-      <div class="weekday">Thu</div>
-      <div class="weekday">Fri</div>
-      <div class="weekday">Sat</div>
+  <div class="main-row">
+    <div class="calendar-container">
+      <div class="calendar-header">September 2026</div>
+      <div class="weekdays">
+        <div class="weekday">S</div>
+        <div class="weekday">M</div>
+        <div class="weekday">T</div>
+        <div class="weekday">W</div>
+        <div class="weekday">T</div>
+        <div class="weekday">F</div>
+        <div class="weekday">S</div>
+      </div>
+      <div class="days" id="calendar"></div>
     </div>
-    <div class="days" id="calendar"></div>
-  </div>
 
-  <div class="attendees-container">
-    <div class="attendees-header">👥 Attendees</div>
-    <div class="attendee-count">
-      <strong id="attendeeStats">Loading...</strong>
+    <div class="attendees-container">
+      <div class="attendees-header">👥 Attendees</div>
+      <div class="attendee-count">
+        <strong id="attendeeStats">Loading...</strong>
+      </div>
+      <div class="attendees-list" id="attendeesList"></div>
     </div>
-    <div class="attendees-list" id="attendeesList"></div>
   </div>
 </main>
 
@@ -290,66 +299,59 @@
     // No next month's days - keep calendar compact
   }
 
+  function renderAttendees(attendees) {
+    const list = document.getElementById('attendeesList');
+    const statsDiv = document.getElementById('attendeeStats');
+    const confirmed = attendees.filter(a => a.confirmed);
+    const pending = attendees.filter(a => !a.confirmed);
+
+    statsDiv.textContent = `${confirmed.length} confirmed · ${pending.length} pending`;
+
+    const html = [
+      ...confirmed.map(a => `
+        <div class="attendee">
+          <div class="attendee-avatar">${a.name.charAt(0)}</div>
+          <div class="attendee-info">
+            <div class="attendee-name">${a.name}</div>
+            <div class="attendee-status">✓ Going</div>
+          </div>
+        </div>
+      `),
+      ...pending.map(a => `
+        <div class="attendee">
+          <div class="attendee-avatar pending">${a.name.charAt(0)}</div>
+          <div class="attendee-info">
+            <div class="attendee-name">${a.name}</div>
+            <div class="attendee-status pending">⏳ Pending</div>
+          </div>
+        </div>
+      `)
+    ].join('');
+
+    list.innerHTML = html;
+  }
+
   function loadAttendees() {
     fetch('data.json')
       .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById('attendeesList');
-        const statsDiv = document.getElementById('attendeeStats');
-        const confirmedAttendees = data.attendees.filter(a => a.confirmed);
-        const notConfirmedAttendees = data.attendees.filter(a => !a.confirmed);
-
-        // Update stats
-        statsDiv.textContent = `${confirmedAttendees.length} going, ${notConfirmedAttendees.length} not going`;
-
-        const html = [
-          ...confirmedAttendees.map(attendee => `
-            <div class="attendee">
-              <div class="attendee-avatar">${attendee.name.charAt(0)}</div>
-              <div class="attendee-info">
-                <div class="attendee-name">${attendee.name}</div>
-                <div class="attendee-status">✓ Going</div>
-              </div>
-            </div>
-          `),
-          ...notConfirmedAttendees.map(attendee => `
-            <div class="attendee">
-              <div class="attendee-avatar">${attendee.name.charAt(0)}</div>
-              <div class="attendee-info">
-                <div class="attendee-name">${attendee.name}</div>
-                <div class="attendee-status not-going">✗ Not going</div>
-              </div>
-            </div>
-          `)
-        ].join('');
-
-        list.innerHTML = html;
-      })
-      .catch(err => {
-        console.error('Error loading attendees:', err);
-        // Fallback to hardcoded list
-        const list = document.getElementById('attendeesList');
-        const statsDiv = document.getElementById('attendeeStats');
-        const attendees = [
+      .then(data => renderAttendees(data.attendees))
+      .catch(() => {
+        renderAttendees([
           { name: 'Jonathan Hsieh', confirmed: true },
           { name: 'Sean Chen', confirmed: true },
           { name: 'Derek Wen', confirmed: true },
           { name: 'Yongjae Lee', confirmed: true },
-          { name: 'Mark Tompson Hsu', confirmed: false },
-          { name: 'Kyle Lu', confirmed: false }
-        ];
-        const going = attendees.filter(a => a.confirmed).length;
-        const notGoing = attendees.filter(a => !a.confirmed).length;
-        statsDiv.textContent = `${going} going, ${notGoing} not going`;
-        list.innerHTML = attendees.map(a => `
-          <div class="attendee">
-            <div class="attendee-avatar">${a.name.charAt(0)}</div>
-            <div class="attendee-info">
-              <div class="attendee-name">${a.name}</div>
-              <div class="attendee-status ${a.confirmed ? '' : 'not-going'}">${a.confirmed ? '✓ Going' : '✗ Not going'}</div>
-            </div>
-          </div>
-        `).join('');
+          { name: 'Tompson Hsu', confirmed: false },
+          { name: 'Kyle Lu', confirmed: false },
+          { name: 'Aiden Zhang', confirmed: false },
+          { name: 'Andy Nilipour', confirmed: false },
+          { name: 'Anthony Yao', confirmed: false },
+          { name: 'Brian Zhu', confirmed: false },
+          { name: 'Demitrius Hong', confirmed: false },
+          { name: 'Michael Chen', confirmed: false },
+          { name: 'Shreyank Kadadi', confirmed: false },
+          { name: 'Trevor Guo', confirmed: false }
+        ]);
       });
   }
 
