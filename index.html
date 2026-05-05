@@ -85,6 +85,8 @@
     .map-city-dates { font-size:0.75rem; color:var(--text-muted); margin-bottom:6px; }
     .map-city-nights { display:inline-block; background:rgba(30,95,168,.2); color:var(--blue-light); font-size:0.7rem; padding:2px 8px; border-radius:10px; font-weight:600; }
     .map-empty-state { padding:30px; text-align:center; color:var(--text-muted); font-size:0.85rem; }
+    #version-badge { position:fixed; bottom:12px; right:14px; background:rgba(15,27,45,.85); border:1px solid var(--card-border); border-radius:8px; padding:5px 10px; font-size:0.68rem; color:var(--text-muted); font-family:ui-monospace,SFMono-Regular,monospace; z-index:9999; backdrop-filter:blur(4px); line-height:1.5; pointer-events:none; }
+    #version-badge .vb-hash { color:var(--accent); font-weight:700; }
     @media (max-width:700px) {
       header { padding:24px 16px 0; }
       .trip-title { font-size:1.6rem; }
@@ -175,7 +177,7 @@ function renderAttendees(attendees) {
   var pending = attendees.filter(function(a){return !a.confirmed && !a.notGoing;});
   stats.textContent = confirmed.length + ' confirmed, ' + pending.length + ' pending, ' + notGoing.length + ' not going';
   function row(a, cls, label) {
-    return '<div class="attendee"><div class="attendee-avatar'+(cls?' '+cls:'')+'">'+a.name.charAt(0)+'</div><div class="attendee-info"><div class="attendee-name">'+a.name+'</div><div class="attendee-status'+(cls?' '+cls:'')+'">'+label+'</div></div></div>';
+    return '<div class="attendee"><div class="attendee-avatar'+(cls?' '+cls:')+'">'+a.name.charAt(0)+'</div><div class="attendee-info"><div class="attendee-name">'+a.name+'</div><div class="attendee-status'+(cls?' '+cls:'')+'">'+label+'</div></div></div>';
   }
   list.innerHTML =
     confirmed.map(function(a){return row(a,'','Going');}).join('') +
@@ -400,6 +402,27 @@ function loadData() {
 generateCalendar();
 setupTabs();
 loadData();
+</script>
+
+<div id="version-badge">loading…</div>
+
+<script>
+(function() {
+  fetch('https://api.github.com/repos/jonathanh8686/europe2026/commits/main')
+    .then(function(r){ return r.json(); })
+    .then(function(d) {
+      var hash = d.sha ? d.sha.slice(0,7) : '?';
+      var date = d.commit && d.commit.author && d.commit.author.date
+        ? new Date(d.commit.author.date) : null;
+      var dateStr = date
+        ? date.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' +
+          date.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false})
+        : '?';
+      document.getElementById('version-badge').innerHTML =
+        '<span class="vb-hash">' + hash + '</span> · ' + dateStr;
+    })
+    .catch(function(){ document.getElementById('version-badge').textContent = 'version unknown'; });
+})();
 </script>
 
 </body>
