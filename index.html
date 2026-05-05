@@ -59,31 +59,32 @@
       background: var(--card);
       border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 30px;
+      padding: 24px;
       margin-bottom: 40px;
+      max-width: 500px;
     }
 
     .calendar-header {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
       border-bottom: 1px solid var(--card-border);
     }
 
     .weekdays {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
-      margin-bottom: 15px;
+      gap: 6px;
+      margin-bottom: 10px;
     }
 
     .weekday {
       text-align: center;
       font-weight: 600;
       color: var(--text-muted);
-      padding: 10px;
-      font-size: 0.9rem;
+      padding: 6px 2px;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -91,7 +92,7 @@
     .days {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
+      gap: 6px;
     }
 
     .day {
@@ -99,14 +100,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 12px;
+      border-radius: 8px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
       border: 2px solid transparent;
       background: #0f1b2d;
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.8rem;
+      padding: 4px;
     }
 
     .day:hover {
@@ -206,6 +208,10 @@
       margin-top: 2px;
     }
 
+    .attendee-status.not-going {
+      color: #d97706;
+    }
+
     @media (max-width: 640px) {
       header { padding: 30px 20px; }
       .trip-title { font-size: 1.8rem; }
@@ -219,7 +225,7 @@
 
 <header>
   <div class="trip-title">🌍 Europe <span>2026</span></div>
-  <div class="trip-meta">September 5–12, 2026 • 4 confirmed</div>
+  <div class="trip-meta">September 5 – 12, 2026 • 4 confirmed</div>
 </header>
 
 <main>
@@ -238,9 +244,9 @@
   </div>
 
   <div class="attendees-container">
-    <div class="attendees-header">👥 Confirmed Attendees</div>
+    <div class="attendees-header">👥 Attendees</div>
     <div class="attendee-count">
-      <strong>Total:</strong> 4 confirmed attendees
+      <strong id="attendeeStats">Loading...</strong>
     </div>
     <div class="attendees-list" id="attendeesList"></div>
   </div>
@@ -281,35 +287,70 @@
       calendarDiv.appendChild(dayDiv);
     }
 
-    // Next month's days
-    const totalCells = calendarDiv.children.length;
-    const remainingCells = 42 - totalCells;
-    for (let day = 1; day <= remainingCells; day++) {
-      const dayDiv = document.createElement('div');
-      dayDiv.className = 'day other-month';
-      dayDiv.textContent = day;
-      calendarDiv.appendChild(dayDiv);
-    }
+    // No next month's days - keep calendar compact
   }
 
   function loadAttendees() {
-    const attendees = [
-      'Jonathan Hsieh',
-      'Sean Chen',
-      'Derek Wen',
-      'Yongjae Lee'
-    ];
+    fetch('data.json')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('attendeesList');
+        const statsDiv = document.getElementById('attendeeStats');
+        const confirmedAttendees = data.attendees.filter(a => a.confirmed);
+        const notConfirmedAttendees = data.attendees.filter(a => !a.confirmed);
 
-    const list = document.getElementById('attendeesList');
-    list.innerHTML = attendees.map(name => `
-      <div class="attendee">
-        <div class="attendee-avatar">${name.charAt(0)}</div>
-        <div class="attendee-info">
-          <div class="attendee-name">${name}</div>
-          <div class="attendee-status">✓ Confirmed</div>
-        </div>
-      </div>
-    `).join('');
+        // Update stats
+        statsDiv.textContent = `${confirmedAttendees.length} going, ${notConfirmedAttendees.length} not going`;
+
+        const html = [
+          ...confirmedAttendees.map(attendee => `
+            <div class="attendee">
+              <div class="attendee-avatar">${attendee.name.charAt(0)}</div>
+              <div class="attendee-info">
+                <div class="attendee-name">${attendee.name}</div>
+                <div class="attendee-status">✓ Going</div>
+              </div>
+            </div>
+          `),
+          ...notConfirmedAttendees.map(attendee => `
+            <div class="attendee">
+              <div class="attendee-avatar">${attendee.name.charAt(0)}</div>
+              <div class="attendee-info">
+                <div class="attendee-name">${attendee.name}</div>
+                <div class="attendee-status not-going">✗ Not going</div>
+              </div>
+            </div>
+          `)
+        ].join('');
+
+        list.innerHTML = html;
+      })
+      .catch(err => {
+        console.error('Error loading attendees:', err);
+        // Fallback to hardcoded list
+        const list = document.getElementById('attendeesList');
+        const statsDiv = document.getElementById('attendeeStats');
+        const attendees = [
+          { name: 'Jonathan Hsieh', confirmed: true },
+          { name: 'Sean Chen', confirmed: true },
+          { name: 'Derek Wen', confirmed: true },
+          { name: 'Yongjae Lee', confirmed: true },
+          { name: 'Mark Tompson Hsu', confirmed: false },
+          { name: 'Kyle Lu', confirmed: false }
+        ];
+        const going = attendees.filter(a => a.confirmed).length;
+        const notGoing = attendees.filter(a => !a.confirmed).length;
+        statsDiv.textContent = `${going} going, ${notGoing} not going`;
+        list.innerHTML = attendees.map(a => `
+          <div class="attendee">
+            <div class="attendee-avatar">${a.name.charAt(0)}</div>
+            <div class="attendee-info">
+              <div class="attendee-name">${a.name}</div>
+              <div class="attendee-status ${a.confirmed ? '' : 'not-going'}">${a.confirmed ? '✓ Going' : '✗ Not going'}</div>
+            </div>
+          </div>
+        `).join('');
+      });
   }
 
   generateCalendar();
