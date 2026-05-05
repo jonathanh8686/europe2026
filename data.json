@@ -3,7 +3,7 @@
     "name": "Europe 2026",
     "startDate": "2026-09-05",
     "endDate": "2026-09-12",
-    "travelers": 4,
+    "travelers": 1,
     "homeAirport": "LAX"
   },
   "attendees": [
@@ -28,13 +28,61 @@
       "joinedDate": "2026-05-04"
     },
     {
-      "name": "Mark Tompson Hsu",
+      "name": "Tompson Hsu",
       "confirmed": false,
       "joinedDate": "2026-05-04"
     },
     {
       "name": "Kyle Lu",
       "confirmed": false,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Aiden Zhang",
+      "confirmed": false,
+      "pending": true,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Andy Nilipour",
+      "confirmed": false,
+      "pending": true,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Anthony Yao",
+      "confirmed": false,
+      "pending": true,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Brian Zhu",
+      "confirmed": false,
+      "pending": true,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Demitrius Hong",
+      "confirmed": false,
+      "pending": true,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Michael Chen",
+      "confirmed": false,
+      "pending": true,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Shreyank Kadadi",
+      "confirmed": false,
+      "pending": true,
+      "joinedDate": "2026-05-04"
+    },
+    {
+      "name": "Trevor Guo",
+      "confirmed": false,
+      "pending": true,
       "joinedDate": "2026-05-04"
     }
   ],
