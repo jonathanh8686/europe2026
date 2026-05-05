@@ -1,0 +1,325 @@
+{
+  "trip": {
+    "name": "Europe 2026",
+    "startDate": "2026-06-01",
+    "endDate": "2026-06-21",
+    "travelers": 1,
+    "homeAirport": "JFK"
+  },
+  "itinerary": [
+    {
+      "date": "2026-06-01",
+      "city": "London",
+      "country": "England",
+      "flag": "🇬🇧",
+      "emoji": "🎡",
+      "nights": 3,
+      "activities": [
+        "Arrive at Heathrow, check in",
+        "Borough Market & Thames walk",
+        "British Museum & Covent Garden"
+      ],
+      "notes": "Jet lag day — take it easy on arrival."
+    },
+    {
+      "date": "2026-06-04",
+      "city": "Paris",
+      "country": "France",
+      "flag": "🇫🇷",
+      "emoji": "🗼",
+      "nights": 4,
+      "activities": [
+        "Eurostar from St Pancras",
+        "Eiffel Tower & Champ de Mars",
+        "Louvre Museum",
+        "Versailles day trip"
+      ],
+      "notes": "Book Louvre tickets in advance."
+    },
+    {
+      "date": "2026-06-08",
+      "city": "Amsterdam",
+      "country": "Netherlands",
+      "flag": "🇳🇱",
+      "emoji": "🚲",
+      "nights": 3,
+      "activities": [
+        "Train from Paris Gare du Nord",
+        "Rijksmuseum",
+        "Canal bike tour",
+        "Anne Frank House"
+      ],
+      "notes": "Book Anne Frank House tickets months ahead — sells out fast."
+    },
+    {
+      "date": "2026-06-11",
+      "city": "Rome",
+      "country": "Italy",
+      "flag": "🇮🇹",
+      "emoji": "🏛️",
+      "nights": 4,
+      "activities": [
+        "Flight from Amsterdam to Rome",
+        "Colosseum & Roman Forum",
+        "Vatican Museums & Sistine Chapel",
+        "Trastevere neighborhood dinner"
+      ],
+      "notes": "Vatican tickets must be pre-booked."
+    },
+    {
+      "date": "2026-06-15",
+      "city": "Barcelona",
+      "country": "Spain",
+      "flag": "🇪🇸",
+      "emoji": "🏖️",
+      "nights": 4,
+      "activities": [
+        "Flight from Rome to Barcelona",
+        "Sagrada Família",
+        "Park Güell",
+        "Las Ramblas & Gothic Quarter",
+        "Beach day at Barceloneta"
+      ],
+      "notes": "Sagrada Família requires timed entry — book online."
+    },
+    {
+      "date": "2026-06-19",
+      "city": "Lisbon",
+      "country": "Portugal",
+      "flag": "🇵🇹",
+      "emoji": "🚋",
+      "nights": 2,
+      "activities": [
+        "Flight from Barcelona to Lisbon",
+        "Belém Tower & Pastéis de Belém",
+        "Alfama district & São Jorge Castle"
+      ],
+      "notes": "Try the famous pastel de nata at the original bakery."
+    },
+    {
+      "date": "2026-06-21",
+      "city": "Home",
+      "country": "",
+      "flag": "🇺🇸",
+      "emoji": "✈️",
+      "nights": 0,
+      "activities": [
+        "Flight from Lisbon back home"
+      ],
+      "notes": ""
+    }
+  ],
+  "flights": [
+    {
+      "id": "f1",
+      "type": "flight",
+      "date": "2026-06-01",
+      "from": "JFK",
+      "to": "LHR",
+      "fromCity": "New York",
+      "toCity": "London",
+      "airline": "British Airways",
+      "flightNum": "BA112",
+      "departure": "20:00",
+      "arrival": "08:00+1",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": ""
+    },
+    {
+      "id": "f2",
+      "type": "train",
+      "date": "2026-06-04",
+      "from": "London St Pancras",
+      "to": "Paris Gare du Nord",
+      "fromCity": "London",
+      "toCity": "Paris",
+      "airline": "Eurostar",
+      "flightNum": "ES9029",
+      "departure": "09:31",
+      "arrival": "13:02",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": "Check in 30 min early, passport control required."
+    },
+    {
+      "id": "f3",
+      "type": "train",
+      "date": "2026-06-08",
+      "from": "Paris Gare du Nord",
+      "to": "Amsterdam Centraal",
+      "fromCity": "Paris",
+      "toCity": "Amsterdam",
+      "airline": "Thalys / Eurostar",
+      "flightNum": "TBD",
+      "departure": "10:25",
+      "arrival": "13:48",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": ""
+    },
+    {
+      "id": "f4",
+      "type": "flight",
+      "date": "2026-06-11",
+      "from": "AMS",
+      "to": "FCO",
+      "fromCity": "Amsterdam",
+      "toCity": "Rome",
+      "airline": "KLM",
+      "flightNum": "KL1617",
+      "departure": "07:15",
+      "arrival": "09:30",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": ""
+    },
+    {
+      "id": "f5",
+      "type": "flight",
+      "date": "2026-06-15",
+      "from": "FCO",
+      "to": "BCN",
+      "fromCity": "Rome",
+      "toCity": "Barcelona",
+      "airline": "Vueling",
+      "flightNum": "VY6102",
+      "departure": "09:50",
+      "arrival": "12:15",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": ""
+    },
+    {
+      "id": "f6",
+      "type": "flight",
+      "date": "2026-06-19",
+      "from": "BCN",
+      "to": "LIS",
+      "fromCity": "Barcelona",
+      "toCity": "Lisbon",
+      "airline": "TAP Air Portugal",
+      "flightNum": "TP1044",
+      "departure": "10:20",
+      "arrival": "11:50",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": ""
+    },
+    {
+      "id": "f7",
+      "type": "flight",
+      "date": "2026-06-21",
+      "from": "LIS",
+      "to": "JFK",
+      "fromCity": "Lisbon",
+      "toCity": "New York",
+      "airline": "TAP Air Portugal",
+      "flightNum": "TP201",
+      "departure": "14:00",
+      "arrival": "17:30",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": ""
+    }
+  ],
+  "hotels": [
+    {
+      "id": "h1",
+      "city": "London",
+      "name": "TBD — London Hotel",
+      "checkIn": "2026-06-01",
+      "checkOut": "2026-06-04",
+      "nights": 3,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 200,
+      "booked": false,
+      "notes": ""
+    },
+    {
+      "id": "h2",
+      "city": "Paris",
+      "name": "TBD — Paris Hotel",
+      "checkIn": "2026-06-04",
+      "checkOut": "2026-06-08",
+      "nights": 4,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 220,
+      "booked": false,
+      "notes": ""
+    },
+    {
+      "id": "h3",
+      "city": "Amsterdam",
+      "name": "TBD — Amsterdam Hotel",
+      "checkIn": "2026-06-08",
+      "checkOut": "2026-06-11",
+      "nights": 3,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 180,
+      "booked": false,
+      "notes": ""
+    },
+    {
+      "id": "h4",
+      "city": "Rome",
+      "name": "TBD — Rome Hotel",
+      "checkIn": "2026-06-11",
+      "checkOut": "2026-06-15",
+      "nights": 4,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 190,
+      "booked": false,
+      "notes": ""
+    },
+    {
+      "id": "h5",
+      "city": "Barcelona",
+      "name": "TBD — Barcelona Hotel",
+      "checkIn": "2026-06-15",
+      "checkOut": "2026-06-19",
+      "nights": 4,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 175,
+      "booked": false,
+      "notes": ""
+    },
+    {
+      "id": "h6",
+      "city": "Lisbon",
+      "name": "TBD — Lisbon Hotel",
+      "checkIn": "2026-06-19",
+      "checkOut": "2026-06-21",
+      "nights": 2,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 150,
+      "booked": false,
+      "notes": ""
+    }
+  ],
+  "budget": {
+    "total": 8000,
+    "currency": "USD",
+    "categories": [
+      { "name": "Flights", "emoji": "✈️", "budgeted": 2500, "spent": 0 },
+      { "name": "Hotels", "emoji": "🏨", "budgeted": 2700, "spent": 0 },
+      { "name": "Food & Drink", "emoji": "🍽️", "budgeted": 1000, "spent": 0 },
+      { "name": "Activities", "emoji": "🎟️", "budgeted": 600, "spent": 0 },
+      { "name": "Transport", "emoji": "🚆", "budgeted": 400, "spent": 0 },
+      { "name": "Shopping", "emoji": "🛍️", "budgeted": 500, "spent": 0 },
+      { "name": "Misc", "emoji": "💡", "budgeted": 300, "spent": 0 }
+    ]
+  }
+}

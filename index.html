@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Europe 2026 ✈️</title>
+  <style>
+    :root {
+      --navy: #0f1b2d;
+      --navy-light: #1a2d47;
+      --blue: #1e5fa8;
+      --blue-light: #2d7dd2;
+      --accent: #f5a623;
+      --accent-light: #ffc14d;
+      --green: #27ae60;
+      --red: #e74c3c;
+      --text: #e8edf5;
+      --text-muted: #8fa3bc;
+      --card: #162338;
+      --card-border: #1f3454;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #0a1628 0%, #1a2d47 60%, #1e4080 100%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 28px 32px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .trip-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .trip-title span {
+      color: var(--accent);
+    }
+
+    .trip-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .countdown {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px 18px;
+      text-align: center;
+      min-width: 120px;
+    }
+
+    .countdown-num {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .countdown-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 3px;
+    }
+
+    /* ── TABS ── */
+    nav.tabs {
+      display: flex;
+      gap: 4px;
+    }
+
+    nav.tabs button {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    nav.tabs button:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+    }
+
+    nav.tabs button.active {
+      color: var(--accent);
+      background: rgba(245,166,35,0.1);
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 32px;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+    }
+
+    /* ── OVERVIEW STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      text-align: center;
+    }
+
+    .stat-emoji { font-size: 1.5rem; margin-bottom: 6px; }
+    .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--text); }
+    .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ── ITINERARY ── */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--blue-light), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -24px;
+      top: 20px;
+      width: 18px;
+      height: 18px;
+      background: var(--blue);
+      border: 3px solid var(--navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stop-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      transition: border-color 0.15s;
+    }
+
+    .stop-card:hover { border-color: var(--blue-light); }
+
+    .stop-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .stop-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .stop-emoji { font-size: 1.5rem; }
+
+    .stop-city { font-size: 1.1rem; font-weight: 600; }
+
+    .stop-country {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .stop-badge {
+      background: rgba(30,95,168,0.25);
+      color: var(--blue-light);
+      border: 1px solid rgba(30,95,168,0.4);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .stop-dates {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .activities-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .activities-list li {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .activities-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+
+    .stop-note {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--accent-light);
+      background: rgba(245,166,35,0.08);
+      border-left: 3px solid var(--accent);
+      padding: 6px 10px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* ── FLIGHTS ── */
+    .flight-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.15s;
+    }
+
+    .flight-card:hover { border-color: var(--blue-light); }
+
+    .flight-endpoint { }
+
+    .flight-code {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .flight-city {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .flight-time {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    .flight-arrow {
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .flight-type-badge {
+      font-size: 1.2rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .flight-line {
+      width: 60px;
+      height: 1px;
+      background: var(--card-border);
+      margin: 0 auto;
+    }
+
+    .flight-meta {
+      text-align: right;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .flight-airline { font-weight: 600; color: var(--text); font-size: 0.9rem; }
+    .flight-num { margin-top: 2px; }
+    .flight-conf { margin-top: 4px; }
+
+    .conf-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .conf-booked { background: rgba(39,174,96,0.15); color: var(--green); border: 1px solid rgba(39,174,96,0.3); }
+    .conf-tbd { background: rgba(245,166,35,0.12); color: var(--accent); border: 1px solid rgba(245,166,35,0.3); }
+
+    .flight-date-row {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    /* ── HOTELS ── */
+    .hotel-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      transition: border-color 0.15s;
+    }
+
+    .hotel-card:hover { border-color: var(--blue-light); }
+
+    .hotel-left { display: flex; align-items: center; gap: 14px; }
+    .hotel-icon { font-size: 1.8rem; }
+    .hotel-name { font-size: 1rem; font-weight: 600; }
+    .hotel-location { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+    .hotel-right { text-align: right; }
+    .hotel-dates { font-size: 0.85rem; color: var(--text); }
+    .hotel-nights { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+    .hotel-price { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-top: 4px; }
+
+    .hotel-status {
+      margin-top: 6px;
+    }
+
+    /* ── BUDGET ── */
+    .budget-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .budget-stat {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      text-align: center;
+    }
+
+    .budget-stat-value { font-size: 1.5rem; font-weight: 700; }
+    .budget-stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 3px; }
+
+    .budget-row {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 16px 22px;
+      margin-bottom: 10px;
+    }
+
+    .budget-row-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .budget-row-left { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+    .budget-row-emoji { font-size: 1.1rem; }
+    .budget-row-amounts { font-size: 0.82rem; color: var(--text-muted); }
+    .budget-row-amounts strong { color: var(--text); }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--card-border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--green);
+      transition: width 0.4s ease;
+    }
+
+    .progress-fill.warn { background: var(--accent); }
+    .progress-fill.over { background: var(--red); }
+
+    .budget-total-row {
+      border-top: 1px solid var(--card-border);
+      margin-top: 16px;
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+    }
+
+    /* ── LOADING ── */
+    #loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      gap: 16px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--card-border);
+      border-top-color: var(--blue-light);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #app { display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      header { padding: 18px 16px 14px; }
+      main { padding: 20px 16px; }
+      .flight-card { grid-template-columns: 1fr auto 1fr; }
+      .flight-meta { display: none; }
+      .trip-title { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <div style="color:var(--text-muted);font-size:0.9rem">Loading trip data…</div>
+</div>
+
+<div id="app">
+  <header>
+    <div class="header-inner">
+      <div class="header-top">
+        <div>
+          <div class="trip-title" id="tripTitle">Europe <span>2026</span></div>
+          <div class="trip-meta" id="tripMeta"></div>
+        </div>
+        <div class="countdown" id="countdown">
+          <div class="countdown-num" id="countdownNum">—</div>
+          <div class="countdown-label">days to go</div>
+        </div>
+      </div>
+      <nav class="tabs">
+        <button class="active" onclick="showTab('overview')">🗺️ Overview</button>
+        <button onclick="showTab('itinerary')">📅 Itinerary</button>
+        <button onclick="showTab('transport')">✈️ Flights & Transport</button>
+        <button onclick="showTab('hotels')">🏨 Hotels</button>
+        <button onclick="showTab('budget')">💰 Budget</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- OVERVIEW -->
+    <div class="tab-panel active" id="tab-overview">
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="card">
+        <div class="section-title">Trip Route</div>
+        <div id="routeDisplay" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:0.95rem;"></div>
+      </div>
+      <div class="card" id="upNextCard">
+        <div class="section-title">Up Next</div>
+        <div id="upNext"></div>
+      </div>
+    </div>
+
+    <!-- ITINERARY -->
+    <div class="tab-panel" id="tab-itinerary">
+      <div class="timeline" id="timeline"></div>
+    </div>
+
+    <!-- TRANSPORT -->
+    <div class="tab-panel" id="tab-transport">
+      <div id="flightsList"></div>
+    </div>
+
+    <!-- HOTELS -->
+    <div class="tab-panel" id="tab-hotels">
+      <div id="hotelsList"></div>
+    </div>
+
+    <!-- BUDGET -->
+    <div class="tab-panel" id="tab-budget">
+      <div class="budget-summary" id="budgetSummary"></div>
+      <div class="card">
+        <div class="section-title">Breakdown</div>
+        <div id="budgetBreakdown"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+let DATA = null;
+
+// ── UTILS ──
+function fmt(date) {
+  return new Date(date + 'T12:00:00').toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+}
+
+function fmtShort(date) {
+  return new Date(date + 'T12:00:00').toLocaleDateString('en-US', { month:'short', day:'numeric' });
+}
+
+function usd(n) {
+  return '$' + n.toLocaleString();
+}
+
+function daysUntil(dateStr) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const target = new Date(dateStr + 'T00:00:00');
+  return Math.ceil((target - today) / 86400000);
+}
+
+// ── TAB SWITCHING ──
+function showTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── RENDER OVERVIEW ──
+function renderOverview(d) {
+  const totalNights = d.itinerary.filter(s => s.nights > 0).reduce((a, s) => a + s.nights, 0);
+  const totalCities = d.itinerary.filter(s => s.country).length;
+  const totalCountries = [...new Set(d.itinerary.filter(s => s.country).map(s => s.country))].length;
+  const bookedHotels = d.hotels.filter(h => h.booked).length;
+  const totalBudget = d.budget.total;
+  const totalSpent = d.budget.categories.reduce((a, c) => a + c.spent, 0);
+
+  const stats = [
+    { emoji: '🌍', value: totalCountries, label: 'Countries' },
+    { emoji: '🏙️', value: totalCities - 1, label: 'Cities' },
+    { emoji: '🌙', value: totalNights, label: 'Nights' },
+    { emoji: '✈️', value: d.flights.filter(f => f.type === 'flight').length, label: 'Flights' },
+    { emoji: '🚆', value: d.flights.filter(f => f.type === 'train').length, label: 'Trains' },
+    { emoji: '💰', value: usd(totalBudget), label: 'Total Budget' },
+  ];
+
+  document.getElementById('statsGrid').innerHTML = stats.map(s => `
+    <div class="stat-card">
+      <div class="stat-emoji">${s.emoji}</div>
+      <div class="stat-value">${s.value}</div>
+      <div class="stat-label">${s.label}</div>
+    </div>
+  `).join('');
+
+  // Route
+  const stops = d.itinerary.filter(s => s.city);
+  document.getElementById('routeDisplay').innerHTML = stops.map((s, i) => {
+    const arrow = i < stops.length - 1 ? '<span style="color:var(--text-muted)">→</span>' : '';
+    return `<span title="${s.country}">${s.flag || ''} ${s.city}</span>${arrow}`;
+  }).join(' ');
+
+  // Up next
+  const days = daysUntil(d.trip.startDate);
+  if (days > 0) {
+    document.getElementById('upNext').innerHTML = `
+      <div style="font-size:1.1rem">Trip starts <strong>${fmt(d.trip.startDate)}</strong> — <span style="color:var(--accent)">${days} day${days === 1 ? '' : 's'} to go!</span></div>
+      <div style="color:var(--text-muted);font-size:0.85rem;margin-top:6px">First stop: ${d.itinerary[0]?.emoji} ${d.itinerary[0]?.city}, ${d.itinerary[0]?.country}</div>
+    `;
+  } else if (days <= 0 && daysUntil(d.trip.endDate) >= 0) {
+    const current = d.itinerary.find(s => {
+      const start = new Date(s.date + 'T00:00:00');
+      const end = new Date(start); end.setDate(end.getDate() + (s.nights || 1));
+      const today = new Date(); today.setHours(0,0,0,0);
+      return today >= start && today < end;
+    });
+    document.getElementById('upNext').innerHTML = current
+      ? `<div style="font-size:1.1rem">You're in <strong>${current.emoji} ${current.city}</strong>! Enjoy! 🎉</div>`
+      : `<div style="font-size:1.1rem">Trip in progress — have a great time! 🎉</div>`;
+  } else {
+    document.getElementById('upNext').innerHTML = `<div style="font-size:1.1rem">Trip complete! Hope it was amazing. 🥂</div>`;
+  }
+}
+
+// ── RENDER ITINERARY ──
+function renderItinerary(d) {
+  document.getElementById('timeline').innerHTML = d.itinerary.map(stop => {
+    const noteHtml = stop.notes ? `<div class="stop-note">💡 ${stop.notes}</div>` : '';
+    const acts = stop.activities.map(a => `<li>${a}</li>`).join('');
+    const nightsLabel = stop.nights > 0 ? `${stop.nights} night${stop.nights > 1 ? 's' : ''}` : 'Departure day';
+    return `
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="stop-card">
+          <div class="stop-header">
+            <div class="stop-name">
+              <span class="stop-emoji">${stop.emoji}</span>
+              <div>
+                <div class="stop-city">${stop.flag || ''} ${stop.city}${stop.country ? ', ' + stop.country : ''}</div>
+                <div class="stop-country">${fmt(stop.date)}</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <span class="stop-badge">${nightsLabel}</span>
+            </div>
+          </div>
+          <ul class="activities-list">${acts}</ul>
+          ${noteHtml}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ── RENDER TRANSPORT ──
+function renderTransport(d) {
+  const typeIcon = t => t === 'train' ? '🚆' : '✈️';
+  const typeLabel = t => t === 'train' ? 'Train' : 'Flight';
+
+  document.getElementById('flightsList').innerHTML = d.flights.map(f => {
+    const isBooked = f.confirmation && f.confirmation !== 'TBD';
+    const confHtml = `<span class="conf-badge ${isBooked ? 'conf-booked' : 'conf-tbd'}">${isBooked ? '✓ ' + f.confirmation : 'Not booked'}</span>`;
+    const noteHtml = f.notes ? `<div style="font-size:0.78rem;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--card-border)">💡 ${f.notes}</div>` : '';
+    return `
+      <div class="card" style="margin-bottom:14px">
+        <div class="flight-date-row">${typeIcon(f.type)} <strong>${typeLabel(f.type)}</strong> &nbsp;·&nbsp; ${fmt(f.date)}</div>
+        <div class="flight-card" style="background:transparent;border:none;padding:0;margin:0">
+          <div class="flight-endpoint">
+            <div class="flight-code">${f.from}</div>
+            <div class="flight-city">${f.fromCity}</div>
+            <div class="flight-time">${f.departure}</div>
+          </div>
+          <div class="flight-arrow">
+            <span class="flight-type-badge">${typeIcon(f.type)}</span>
+            <div class="flight-line"></div>
+          </div>
+          <div class="flight-endpoint">
+            <div class="flight-code">${f.to}</div>
+            <div class="flight-city">${f.toCity}</div>
+            <div class="flight-time">${f.arrival}</div>
+          </div>
+          <div class="flight-meta">
+            <div class="flight-airline">${f.airline}</div>
+            <div class="flight-num">${f.flightNum}</div>
+            <div class="flight-conf" style="margin-top:6px">${confHtml}</div>
+          </div>
+        </div>
+        ${noteHtml}
+      </div>
+    `;
+  }).join('');
+}
+
+// ── RENDER HOTELS ──
+function renderHotels(d) {
+  document.getElementById('hotelsList').innerHTML = d.hotels.map(h => {
+    const isBooked = h.booked;
+    const confHtml = `<span class="conf-badge ${isBooked ? 'conf-booked' : 'conf-tbd'}">${isBooked ? '✓ ' + h.confirmation : 'Not booked'}</span>`;
+    const total = h.nights * h.pricePerNight;
+    return `
+      <div class="hotel-card">
+        <div class="hotel-left">
+          <div class="hotel-icon">🏨</div>
+          <div>
+            <div class="hotel-name">${h.name}</div>
+            <div class="hotel-location">${h.city}${h.address ? ' · ' + h.address : ''}</div>
+            <div class="hotel-status" style="margin-top:6px">${confHtml}</div>
+          </div>
+        </div>
+        <div class="hotel-right">
+          <div class="hotel-dates">${fmtShort(h.checkIn)} → ${fmtShort(h.checkOut)}</div>
+          <div class="hotel-nights">${h.nights} night${h.nights > 1 ? 's' : ''}</div>
+          <div class="hotel-price">~${usd(total)} est.</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ── RENDER BUDGET ──
+function renderBudget(d) {
+  const b = d.budget;
+  const totalBudgeted = b.categories.reduce((a, c) => a + c.budgeted, 0);
+  const totalSpent = b.categories.reduce((a, c) => a + c.spent, 0);
+  const remaining = totalBudgeted - totalSpent;
+  const pct = totalBudgeted > 0 ? Math.min((totalSpent / totalBudgeted) * 100, 100) : 0;
+
+  document.getElementById('budgetSummary').innerHTML = `
+    <div class="budget-stat">
+      <div class="budget-stat-value" style="color:var(--text)">${usd(b.total)}</div>
+      <div class="budget-stat-label">Total Budget</div>
+    </div>
+    <div class="budget-stat">
+      <div class="budget-stat-value" style="color:var(--text)">${usd(totalBudgeted)}</div>
+      <div class="budget-stat-label">Allocated</div>
+    </div>
+    <div class="budget-stat">
+      <div class="budget-stat-value" style="color:var(--accent)">${usd(totalSpent)}</div>
+      <div class="budget-stat-label">Spent So Far</div>
+    </div>
+    <div class="budget-stat">
+      <div class="budget-stat-value" style="color:${remaining >= 0 ? 'var(--green)' : 'var(--red)'}">${usd(Math.abs(remaining))}</div>
+      <div class="budget-stat-label">${remaining >= 0 ? 'Remaining' : 'Over Budget'}</div>
+    </div>
+  `;
+
+  document.getElementById('budgetBreakdown').innerHTML = b.categories.map(c => {
+    const p = c.budgeted > 0 ? Math.min((c.spent / c.budgeted) * 100, 100) : 0;
+    const cls = p >= 100 ? 'over' : p >= 80 ? 'warn' : '';
+    return `
+      <div class="budget-row">
+        <div class="budget-row-header">
+          <div class="budget-row-left">
+            <span class="budget-row-emoji">${c.emoji}</span>
+            <span>${c.name}</span>
+          </div>
+          <div class="budget-row-amounts">
+            <strong>${usd(c.spent)}</strong> / ${usd(c.budgeted)}
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill ${cls}" style="width:${p}%"></div>
+        </div>
+      </div>
+    `;
+  }).join('') + `
+    <div class="budget-total-row">
+      <span>Total</span>
+      <span>${usd(totalSpent)} / ${usd(totalBudgeted)}</span>
+    </div>
+  `;
+}
+
+// ── HEADER META ──
+function renderHeader(d) {
+  document.getElementById('tripTitle').innerHTML = d.trip.name.replace('2026', '<span>2026</span>');
+  document.getElementById('tripMeta').textContent =
+    `${fmt(d.trip.startDate)} → ${fmt(d.trip.endDate)}  ·  ${d.trip.travelers} traveler${d.trip.travelers > 1 ? 's' : ''}`;
+
+  const days = daysUntil(d.trip.startDate);
+  if (days > 0) {
+    document.getElementById('countdownNum').textContent = days;
+  } else if (days <= 0 && daysUntil(d.trip.endDate) >= 0) {
+    document.getElementById('countdownNum').textContent = '🎉';
+    document.querySelector('.countdown-label').textContent = 'in progress!';
+  } else {
+    document.getElementById('countdownNum').textContent = '✓';
+    document.querySelector('.countdown-label').textContent = 'completed';
+  }
+}
+
+// ── INIT ──
+async function init() {
+  try {
+    const res = await fetch('./data.json?t=' + Date.now());
+    DATA = await res.json();
+
+    renderHeader(DATA);
+    renderOverview(DATA);
+    renderItinerary(DATA);
+    renderTransport(DATA);
+    renderHotels(DATA);
+    renderBudget(DATA);
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+  } catch (e) {
+    document.getElementById('loading').innerHTML = `
+      <div style="color:var(--red);text-align:center">
+        <div style="font-size:2rem;margin-bottom:8px">⚠️</div>
+        <div>Could not load trip data.</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-top:6px">Make sure data.json is in the same folder and you're serving over HTTP (not file://).</div>
+      </div>
+    `;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
