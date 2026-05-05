@@ -195,6 +195,10 @@
       background: linear-gradient(135deg, #44475a 0%, #6272a4 100%);
     }
 
+    .attendee-avatar.not-going {
+      background: linear-gradient(135deg, #5a2020 0%, #8b3a3a 100%);
+    }
+
     .attendee-info {
       flex: 1;
       display: flex;
@@ -217,6 +221,10 @@
 
     .attendee-status.pending {
       color: #8fa3bc;
+    }
+
+    .attendee-status.not-going {
+      color: #e74c3c;
     }
 
     @media (max-width: 700px) {
@@ -275,7 +283,6 @@
     const calendarDiv = document.getElementById('calendar');
     calendarDiv.innerHTML = '';
 
-    // Previous month's days
     for (let i = firstDay - 1; i >= 0; i--) {
       const day = document.createElement('div');
       day.className = 'day other-month';
@@ -283,29 +290,23 @@
       calendarDiv.appendChild(day);
     }
 
-    // Current month's days
     for (let day = 1; day <= daysInMonth; day++) {
       const dayDiv = document.createElement('div');
       dayDiv.className = 'day';
       dayDiv.textContent = day;
-
-      if (day >= tripStart && day <= tripEnd) {
-        dayDiv.classList.add('trip-day');
-      }
-
+      if (day >= tripStart && day <= tripEnd) dayDiv.classList.add('trip-day');
       calendarDiv.appendChild(dayDiv);
     }
-
-    // No next month's days - keep calendar compact
   }
 
   function renderAttendees(attendees) {
     const list = document.getElementById('attendeesList');
     const statsDiv = document.getElementById('attendeeStats');
     const confirmed = attendees.filter(a => a.confirmed);
-    const pending = attendees.filter(a => !a.confirmed);
+    const notGoing = attendees.filter(a => !a.confirmed && a.notGoing);
+    const pending = attendees.filter(a => !a.confirmed && !a.notGoing);
 
-    statsDiv.textContent = `${confirmed.length} confirmed · ${pending.length} pending`;
+    statsDiv.textContent = `${confirmed.length} confirmed · ${pending.length} pending · ${notGoing.length} not going`;
 
     const html = [
       ...confirmed.map(a => `
@@ -325,6 +326,15 @@
             <div class="attendee-status pending">⏳ Pending</div>
           </div>
         </div>
+      `),
+      ...notGoing.map(a => `
+        <div class="attendee">
+          <div class="attendee-avatar not-going">${a.name.charAt(0)}</div>
+          <div class="attendee-info">
+            <div class="attendee-name">${a.name}</div>
+            <div class="attendee-status not-going">✗ Not going</div>
+          </div>
+        </div>
       `)
     ].join('');
 
@@ -341,8 +351,8 @@
           { name: 'Sean Chen', confirmed: true },
           { name: 'Derek Wen', confirmed: true },
           { name: 'Yongjae Lee', confirmed: true },
-          { name: 'Tompson Hsu', confirmed: false },
-          { name: 'Kyle Lu', confirmed: false },
+          { name: 'Tompson Hsu', confirmed: false, notGoing: true },
+          { name: 'Kyle Lu', confirmed: false, notGoing: true },
           { name: 'Aiden Zhang', confirmed: false },
           { name: 'Andy Nilipour', confirmed: false },
           { name: 'Anthony Yao', confirmed: false },
