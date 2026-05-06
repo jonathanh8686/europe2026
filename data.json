@@ -199,7 +199,7 @@
       "coords": [51.5074, -0.1278],
       "status": "planned",
       "suggestedBy": [],
-      "blurb": "A world-class city with free museums, iconic landmarks, Borough Market, and a legendary pub scene. Great jet-lag day one — everything is walkable from central."
+      "blurb": "A world-class city with free museums, iconic landmarks, Borough Market, and a legendary pub scene. Good jet-lag day one — but the group leans less on London than the other stops."
     },
     {
       "id": "paris",
@@ -222,6 +222,28 @@
       "status": "planned",
       "suggestedBy": [],
       "blurb": "2,000 years of history in one city — Colosseum, Vatican, Trastevere, and incredible pasta. Vatican tickets must be pre-booked months ahead."
+    },
+    {
+      "id": "amsterdam",
+      "name": "Amsterdam",
+      "country": "Netherlands",
+      "flag": "🇳🇱",
+      "emoji": "🌷",
+      "coords": [52.3676, 4.9041],
+      "status": "suggested",
+      "suggestedBy": ["Jonathan", "Sean"],
+      "blurb": "Canals, Rijksmuseum, vibrant food scene, and a great hub for getting around northwest Europe. Jonathan called it out and Sean was immediately on board."
+    },
+    {
+      "id": "munich",
+      "name": "Munich",
+      "country": "Germany",
+      "flag": "🇩🇪",
+      "emoji": "🎺",
+      "coords": [48.1351, 11.582],
+      "status": "suggested",
+      "suggestedBy": ["Jonathan"],
+      "blurb": "Jonathan’s top pick — great beer halls, BMW Museum, day trips to the Alps, and a vibe that’s more chill than Berlin. Sean echoed Germany as a solid choice."
     }
   ],
   "budget": {
