@@ -25,58 +25,46 @@
   "itinerary": [
     {
       "date": "2026-09-05",
-      "city": "London",
-      "country": "England",
-      "flag": "🇬🇧",
-      "emoji": "🎡",
-      "nights": 3,
-      "activities": [
-        "Arrive at Heathrow, check in",
-        "Borough Market & Thames walk",
-        "British Museum & Covent Garden"
-      ],
-      "notes": "Jet lag day - take it easy on arrival."
-    },
-    {
-      "date": "2026-09-08",
-      "city": "Paris",
-      "country": "France",
-      "flag": "🇫🇷",
-      "emoji": "🗼",
-      "nights": 2,
-      "activities": [
-        "Eurostar from St Pancras",
-        "Louvre Museum",
-        "Eiffel Tower & Champ de Mars"
-      ],
-      "notes": "Book Louvre tickets in advance."
-    },
-    {
-      "date": "2026-09-10",
       "city": "Rome",
       "country": "Italy",
       "flag": "🇮🇹",
       "emoji": "🏛️",
-      "nights": 2,
+      "nights": 3,
       "activities": [
-        "Flight from Paris to Rome",
-        "Colosseum & Roman Forum",
+        "Arrive at FCO airport, check in",
+        "Explore Rome: Colosseum & Roman Forum",
         "Vatican Museums & Sistine Chapel",
-        "Trastevere neighborhood dinner"
+        "Consider day trip to Bologna or Trastevere dinner"
       ],
-      "notes": "Vatican tickets must be pre-booked."
+      "notes": "Explore Rome and the Italian countryside. Time to visit Bologna if interested."
     },
     {
-      "date": "2026-09-12",
+      "date": "2026-09-08",
+      "city": "Interlaken",
+      "country": "Switzerland",
+      "flag": "🇸🇨",
+      "emoji": "⚰️",
+      "nights": 2,
+      "activities": [
+        "Train or flight from Italy to Interlaken",
+        "Jungfraujoch (Top of Europe) day trip",
+        "Hiking in the Bernese Oberland",
+        "Paragliding or adventure activities"
+      ],
+      "notes": "Gateway to the Swiss Alps. Book Jungfraujoch tickets in advance."
+    },
+    {
+      "date": "2026-09-10",
       "city": "Home",
       "country": "",
       "flag": "🇺🇸",
       "emoji": "✈️",
       "nights": 0,
       "activities": [
-        "Flight from Rome back home"
+        "Travel to airport",
+        "Flight from Switzerland back to LAX"
       ],
-      "notes": ""
+      "notes": "End of trip. Safe travels home!"
     }
   ],
   "flights": [
@@ -85,61 +73,45 @@
       "type": "flight",
       "date": "2026-09-05",
       "from": "LAX",
-      "to": "LHR",
+      "to": "FCO",
       "fromCity": "Los Angeles",
-      "toCity": "London",
-      "airline": "British Airways",
-      "flightNum": "BA268",
-      "departure": "16:50",
-      "arrival": "11:25+1",
+      "toCity": "Rome",
+      "airline": "TBD",
+      "flightNum": "TBD",
+      "departure": "TBD",
+      "arrival": "TBD",
       "confirmation": "TBD",
       "status": "planned",
       "notes": ""
     },
     {
       "id": "f2",
-      "type": "train",
+      "type": "flight",
       "date": "2026-09-08",
-      "from": "London St Pancras",
-      "to": "Paris Gare du Nord",
-      "fromCity": "London",
-      "toCity": "Paris",
-      "airline": "Eurostar",
-      "flightNum": "ES9029",
-      "departure": "09:31",
-      "arrival": "13:02",
+      "from": "FCO",
+      "to": "ZRH",
+      "fromCity": "Rome",
+      "toCity": "Zurich",
+      "airline": "TBD",
+      "flightNum": "TBD",
+      "departure": "TBD",
+      "arrival": "TBD",
       "confirmation": "TBD",
       "status": "planned",
-      "notes": "Check in 30 min early; passport control required."
+      "notes": "Or train from Italy to Interlaken (scenic alternative)"
     },
     {
       "id": "f3",
       "type": "flight",
       "date": "2026-09-10",
-      "from": "CDG",
-      "to": "FCO",
-      "fromCity": "Paris",
-      "toCity": "Rome",
-      "airline": "Air France",
-      "flightNum": "AF1204",
-      "departure": "10:30",
-      "arrival": "12:50",
-      "confirmation": "TBD",
-      "status": "planned",
-      "notes": ""
-    },
-    {
-      "id": "f4",
-      "type": "flight",
-      "date": "2026-09-12",
-      "from": "FCO",
+      "from": "ZRH",
       "to": "LAX",
-      "fromCity": "Rome",
+      "fromCity": "Zurich",
       "toCity": "Los Angeles",
-      "airline": "Delta",
-      "flightNum": "DL183",
-      "departure": "10:15",
-      "arrival": "14:30",
+      "airline": "TBD",
+      "flightNum": "TBD",
+      "departure": "TBD",
+      "arrival": "TBD",
       "confirmation": "TBD",
       "status": "planned",
       "notes": ""
@@ -148,45 +120,31 @@
   "hotels": [
     {
       "id": "h1",
-      "city": "London",
-      "name": "TBD - London Hotel",
+      "city": "Rome",
+      "name": "TBD - Rome Hotel",
       "checkIn": "2026-09-05",
       "checkOut": "2026-09-08",
       "nights": 3,
       "confirmation": "TBD",
       "address": "",
       "rating": 0,
-      "pricePerNight": 200,
+      "pricePerNight": 150,
       "booked": false,
-      "notes": ""
+      "notes": "Central Rome location for easy access to Colosseum and Vatican"
     },
     {
       "id": "h2",
-      "city": "Paris",
-      "name": "TBD - Paris Hotel",
+      "city": "Interlaken",
+      "name": "TBD - Interlaken Hotel",
       "checkIn": "2026-09-08",
       "checkOut": "2026-09-10",
       "nights": 2,
       "confirmation": "TBD",
       "address": "",
       "rating": 0,
-      "pricePerNight": 220,
+      "pricePerNight": 180,
       "booked": false,
-      "notes": ""
-    },
-    {
-      "id": "h3",
-      "city": "Rome",
-      "name": "TBD - Rome Hotel",
-      "checkIn": "2026-09-10",
-      "checkOut": "2026-09-12",
-      "nights": 2,
-      "confirmation": "TBD",
-      "address": "",
-      "rating": 0,
-      "pricePerNight": 190,
-      "booked": false,
-      "notes": ""
+      "notes": "Gateway to Jungfraujoch and Bernese Oberland hikes"
     }
   ],
   "citySuggestions": [
@@ -219,7 +177,7 @@
       "flag": "🇮🇹",
       "emoji": "🏛️",
       "coords": [41.9028, 12.4964],
-      "status": "suggested",
+      "status": "planned",
       "suggestedBy": [],
       "blurb": "2,000 years of history in one city — Colosseum, Vatican, Trastevere, and incredible pasta. Vatican tickets must be pre-booked months ahead."
     },
@@ -252,7 +210,7 @@
       "flag": "🇸🇨",
       "emoji": "⚰️",
       "coords": [46.6863, 8.1638],
-      "status": "suggested",
+      "status": "planned",
       "suggestedBy": ["Jonathan"],
       "blurb": "Gateway to the Swiss Alps with stunning mountain views, adventure activities like paragliding and hiking, and a charming small-town vibe nestled between two lakes."
     },
@@ -263,7 +221,7 @@
       "flag": "🇮🇹",
       "emoji": "🍝",
       "coords": [44.4939, 11.3426],
-      "status": "suggested",
+      "status": "planned",
       "suggestedBy": ["Sean Chen"],
       "blurb": "The culinary heart of Italy — famous for fresh tagliatelle, tortellini, and mortadella. Medieval towers, vibrant piazzas, and some of the best food you'll ever eat."
     }
