@@ -17,7 +17,7 @@
     { "name": "Andy Nilipour", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Anthony Yao", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Brian Zhu", "confirmed": true, "pending": false, "joinedDate": "2026-05-05" },
-    { "name": "Demitrius Hong", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
+    { "name": "Demitrius Hong", "notGoing": true, "pending": false, "joinedDate": "2026-05-05" },
     { "name": "Michael Chen", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Shreyank Kadadi", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Trevor Guo", "confirmed": true, "pending": false, "joinedDate": "2026-05-04" }
