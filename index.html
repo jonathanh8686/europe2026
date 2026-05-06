@@ -1,960 +1,630 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Europe 2026</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <style>
-        :root {
-            --navy: #0f1b2d;
-            --blue: #1e5fa8;
-            --blue-light: #2d7dd2;
-            --accent: #f5a623;
-            --green: #27ae60;
-            --text: #e8edf5;
-            --text-muted: #8fa3bc;
-            --card: #162338;
-            --card-border: #1f3454;
-            --radius: 12px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--navy);
-            color: var(--text);
-            min-height: 100vh;
-        }
-
-        header {
-            background: linear-gradient(135deg, #0a1628 0%, #1a2d47 60%, #1e4080 100%);
-            border-bottom: 1px solid var(--card-border);
-            padding: 36px 32px 0;
-            text-align: center;
-        }
-
-        .trip-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .trip-title span {
-            color: var(--navy);
-        }
-
-        .trip-meta {
-            font-size: 1rem;
-            color: var(--text-muted);
-            margin-bottom: 22px;
-        }
-
-        nav.tabs {
-            display: flex;
-            justify-content: center;
-            gap: 4px;
-            max-width: 1100px;
-            margin: 0 auto;
-            flex-wrap: wrap;
-        }
-
-        nav.tabs button {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 500;
-            padding: 12px 20px;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: color .15s, border-color .15s;
-            font-family: inherit;
-            margin-bottom: -1px;
-        }
-
-        nav.tabs button:hover {
-            color: var(--text);
-        }
-
-        nav.tabs button.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-
-        main {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 32px;
-        }
-
-        .tab-panel {
-            display: none;
-        }
-
-        .tab-panel.active {
-            display: block;
-        }
-
-        .main-row {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        .calendar-container {
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 16px;
-            flex-shrink: 0;
-            width: 220px;
-        }
-
-        .calendar-header {
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: .5px;
-        }
-
-        .weekdays {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-            margin-bottom: 4px;
-        }
-
-        .weekday {
-            text-align: center;
-            font-weight: 600;
-            color: var(--text-muted);
-            padding: 2px 0;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-        }
-
-        .days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-        }
-
-        .day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            font-weight: 500;
-            cursor: default;
-            border: 1px solid transparent;
-            background: #0f1b2d;
-            color: var(--text-muted);
-            font-size: 0.65rem;
-        }
-
-        .day.other-month {
-            color: #2d4563;
-            background: transparent;
-        }
-
-        .day.trip-day {
-            background: linear-gradient(135deg, #1e5fa8 0%, #2d7dd2 100%);
-            color: var(--text);
-            border-color: var(--accent);
-        }
-
-        .attendees-container {
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 24px;
-            flex: 1;
-            min-width: 0;
-        }
-
-        .attendees-header {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 14px;
-        }
-
-        .attendee-count {
-            background: rgba(30, 95, 168, .1);
-            border: 1px solid rgba(30, 95, 168, .3);
-            border-radius: 8px;
-            padding: 10px 14px;
-            margin-bottom: 16px;
-            color: var(--blue-light);
-            font-size: 0.85rem;
-        }
-
-        .attendee-count strong {
-            color: var(--text);
-        }
-
-        .attendees-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .attendee {
-            background: #0f1b2d;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all .2s;
-        }
-
-        .attendee:hover {
-            background: #1a2d47;
-            border-color: var(--blue-light);
-        }
-
-        .attendee-avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #1e5fa8 0%, #2d7dd2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.75rem;
-            color: var(--text);
-            flex-shrink: 0;
-        }
-
-        .attendee-avatar.pending {
-            background: linear-gradient(135deg, #44475a 0%, #6272a4 100%);
-        }
-
-        .attendee-info {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-        }
-
-        .attendee-name {
-            font-weight: 600;
-            color: var(--text);
-            font-size: 0.9rem;
-        }
-
-        .attendee-status {
-            font-size: 0.72rem;
-            color: var(--green);
-            white-space: nowrap;
-        }
-
-        .attendee-status.pending {
-            color: #8fa3bc;
-        }
-
-        .attendee-status.not-going {
-            color: #e74c3c;
-        }
-
-        .attendee-avatar.not-going {
-            background: linear-gradient(135deg, #5a2020 0%, #8b3a3a 100%);
-        }
-
-        .map-card {
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 0;
-            overflow: hidden;
-            margin-bottom: 18px;
-        }
-
-        #map {
-            width: 100%;
-            height: 460px;
-            background: #0a1628;
-        }
-
-        .leaflet-container {
-            background: #0a1628;
-            font-family: inherit;
-        }
-
-        .leaflet-popup-content-wrapper,
-        .leaflet-popup-tip {
-            background: var(--card);
-            color: var(--text);
-            border: 1px solid var(--card-border);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, .4);
-        }
-
-        .leaflet-popup-content {
-            margin: 12px 14px;
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-
-        .leaflet-popup-content strong {
-            color: var(--accent);
-        }
-
-        .leaflet-popup-close-button {
-            color: var(--text-muted) !important;
-        }
-
-        .leaflet-control-attribution {
-            background: rgba(15, 27, 45, .85) !important;
-            color: var(--text-muted) !important;
-            font-size: 10px !important;
-        }
-
-        .leaflet-control-attribution a {
-            color: var(--blue-light) !important;
-        }
-
-        .leaflet-control-zoom a {
-            background: var(--card) !important;
-            color: var(--text) !important;
-            border-color: var(--card-border) !important;
-        }
-
-        .leaflet-control-zoom a:hover {
-            background: #1a2d47 !important;
-        }
-
-        .city-marker {
-            background: transparent !important;
-            border: none !important;
-        }
-
-        .city-marker-pin {
-            width: 32px;
-            height: 32px;
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .5);
-            border: 2px solid var(--text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform .18s;
-        }
-
-        .city-marker-pin span {
-            transform: rotate(45deg);
-            color: var(--text);
-            font-weight: 700;
-            font-size: 0.8rem;
-        }
-
-        .city-marker.selected .city-marker-pin {
-            transform: rotate(-45deg) scale(1.25);
-            border-color: var(--accent);
-        }
-
-        .timeline-card {
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 18px 22px;
-            margin-bottom: 18px;
-        }
-
-        .timeline-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 14px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .timeline-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: .6px;
-        }
-
-        .timeline-range {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
-
-        .trip-timeline {
-            position: relative;
-            height: 70px;
-            background: #0a1628;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .timeline-day-grid {
-            position: absolute;
-            inset: 0;
-            display: grid;
-            pointer-events: none;
-        }
-
-        .timeline-day {
-            border-right: 1px dashed rgba(143, 163, 188, .12);
-            position: relative;
-        }
-
-        .timeline-day:last-child {
-            border-right: none;
-        }
-
-        .timeline-day-label {
-            position: absolute;
-            bottom: 4px;
-            left: 6px;
-            font-size: 9px;
-            color: var(--text-muted);
-            font-variant-numeric: tabular-nums;
-        }
-
-        .timeline-segment {
-            position: absolute;
-            top: 8px;
-            bottom: 22px;
-            border-radius: 6px;
-            padding: 6px 10px;
-            color: #fff;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            transition: filter .15s, transform .15s;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, .3);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .timeline-segment:hover {
-            filter: brightness(1.1);
-        }
-
-        .timeline-segment.selected {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
-        .timeline-segment .seg-num {
-            background: rgba(255, 255, 255, .25);
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.65rem;
-            flex-shrink: 0;
-        }
-
-        .map-cities-card {
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 18px 22px;
-        }
-
-        .map-cities-card .timeline-title {
-            margin-bottom: 14px;
-        }
-
-        .map-city-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 10px;
-            list-style: none;
-        }
-
-        .map-city {
-            background: #0f1b2d;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 12px 14px;
-            cursor: pointer;
-            transition: border-color .15s, background .15s;
-        }
-
-        .map-city:hover {
-            background: #1a2d47;
-            border-color: var(--blue-light);
-        }
-
-        .map-city.selected {
-            border-color: var(--accent);
-            background: #1a2d47;
-        }
-
-        .map-city-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
-        }
-
-        .map-city-dot {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            color: var(--text);
-            font-size: 0.7rem;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
-        }
-
-        .map-city-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-            flex: 1;
-        }
-
-        .map-city-flag {
-            font-size: 1rem;
-        }
-
-        .map-city-dates {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .map-city-nights {
-            display: inline-block;
-            background: rgba(30, 95, 168, .2);
-            color: var(--blue-light);
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-weight: 600;
-        }
-
-        .map-empty-state {
-            padding: 30px;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        #version-badge {
-            position: fixed;
-            bottom: 12px;
-            right: 14px;
-            background: rgba(15, 27, 45, .85);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 5px 10px;
-            font-size: 0.68rem;
-            color: var(--text-muted);
-            font-family: ui-monospace, SFMono-Regular, monospace;
-            z-index: 9999;
-            backdrop-filter: blur(4px);
-            line-height: 1.5;
-            pointer-events: none;
-        }
-
-        #version-badge .vb-hash {
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        @media (max-width:700px) {
-            header {
-                padding: 24px 16px 0;
-            }
-
-            .trip-title {
-                font-size: 1.6rem;
-            }
-
-            main {
-                padding: 0 16px;
-                margin: 24px auto;
-            }
-
-            .main-row {
-                flex-direction: column;
-            }
-
-            .calendar-container {
-                width: 100%;
-            }
-
-            nav.tabs button {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-
-            #map {
-                height: 360px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Europe 2026</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <style>
+    :root { --navy:#0f1b2d; --blue:#1e5fa8; --blue-light:#2d7dd2; --accent:#f5a623; --green:#27ae60; --text:#e8edf5; --text-muted:#8fa3bc; --card:#162338; --card-border:#1f3454; --radius:12px; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--navy); color:var(--text); min-height:100vh; }
+    header { background:linear-gradient(135deg,#0a1628 0%,#1a2d47 60%,#1e4080 100%); border-bottom:1px solid var(--card-border); padding:36px 32px 0; text-align:center; }
+    .trip-title { font-size:2.5rem; font-weight:700; margin-bottom:8px; }
+    .trip-title span { color:var(--navy); }
+    .trip-meta { font-size:1rem; color:var(--text-muted); margin-bottom:22px; }
+    nav.tabs { display:flex; justify-content:center; gap:4px; max-width:1100px; margin:0 auto; flex-wrap:wrap; }
+    nav.tabs button { background:transparent; border:none; color:var(--text-muted); font-size:0.95rem; font-weight:500; padding:12px 20px; cursor:pointer; border-bottom:2px solid transparent; transition:color .15s,border-color .15s; font-family:inherit; margin-bottom:-1px; }
+    nav.tabs button:hover { color:var(--text); }
+    nav.tabs button.active { color:var(--accent); border-bottom-color:var(--accent); }
+    main { max-width:1100px; margin:40px auto; padding:0 32px; }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+    .main-row { display:flex; gap:20px; align-items:flex-start; }
+    .calendar-container { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:16px; flex-shrink:0; width:220px; }
+    .calendar-header { font-size:0.85rem; font-weight:700; margin-bottom:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; }
+    .weekdays { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; margin-bottom:4px; }
+    .weekday { text-align:center; font-weight:600; color:var(--text-muted); padding:2px 0; font-size:0.6rem; text-transform:uppercase; }
+    .days { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+    .day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:4px; font-weight:500; cursor:default; border:1px solid transparent; background:#0f1b2d; color:var(--text-muted); font-size:0.65rem; }
+    .day.other-month { color:#2d4563; background:transparent; }
+    .day.trip-day { background:linear-gradient(135deg,#1e5fa8 0%,#2d7dd2 100%); color:var(--text); border-color:var(--accent); }
+    .attendees-container { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:24px; flex:1; min-width:0; }
+    .attendees-header { font-size:1.2rem; font-weight:700; margin-bottom:14px; }
+    .attendee-count { background:rgba(30,95,168,.1); border:1px solid rgba(30,95,168,.3); border-radius:8px; padding:10px 14px; margin-bottom:16px; color:var(--blue-light); font-size:0.85rem; }
+    .attendee-count strong { color:var(--text); }
+    .attendees-list { display:flex; flex-direction:column; gap:6px; }
+    .attendee { background:#0f1b2d; border:1px solid var(--card-border); border-radius:8px; padding:10px 14px; display:flex; align-items:center; gap:10px; transition:all .2s; }
+    .attendee:hover { background:#1a2d47; border-color:var(--blue-light); }
+    .attendee-avatar { width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#1e5fa8 0%,#2d7dd2 100%); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem; color:var(--text); flex-shrink:0; }
+    .attendee-avatar.pending { background:linear-gradient(135deg,#44475a 0%,#6272a4 100%); }
+    .attendee-info { flex:1; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .attendee-name { font-weight:600; color:var(--text); font-size:0.9rem; }
+    .attendee-status { font-size:0.72rem; color:var(--green); white-space:nowrap; }
+    .attendee-status.pending { color:#8fa3bc; }
+    .attendee-status.not-going { color:#e74c3c; }
+    .attendee-avatar.not-going { background:linear-gradient(135deg,#5a2020 0%,#8b3a3a 100%); }
+    .map-card { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:0; overflow:hidden; margin-bottom:18px; }
+    #map { width:100%; height:460px; background:#0a1628; }
+    .leaflet-container { background:#0a1628; font-family:inherit; }
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip { background:var(--card); color:var(--text); border:1px solid var(--card-border); box-shadow:0 6px 20px rgba(0,0,0,.4); }
+    .leaflet-popup-content { margin:12px 14px; font-size:0.85rem; line-height:1.4; }
+    .leaflet-popup-content strong { color:var(--accent); }
+    .leaflet-popup-close-button { color:var(--text-muted) !important; }
+    .leaflet-control-attribution { background:rgba(15,27,45,.85) !important; color:var(--text-muted) !important; font-size:10px !important; }
+    .leaflet-control-attribution a { color:var(--blue-light) !important; }
+    .leaflet-control-zoom a { background:var(--card) !important; color:var(--text) !important; border-color:var(--card-border) !important; }
+    .leaflet-control-zoom a:hover { background:#1a2d47 !important; }
+    .city-marker { background:transparent !important; border:none !important; }
+    .city-marker-pin { width:32px; height:32px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); box-shadow:0 2px 8px rgba(0,0,0,.5); border:2px solid var(--text); display:flex; align-items:center; justify-content:center; transition:transform .18s; }
+    .city-marker-pin span { transform:rotate(45deg); color:var(--text); font-weight:700; font-size:0.8rem; }
+    .city-marker.selected .city-marker-pin { transform:rotate(-45deg) scale(1.25); border-color:var(--accent); }
+    .timeline-card { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:18px 22px; margin-bottom:18px; }
+    .timeline-card-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; flex-wrap:wrap; gap:8px; }
+    .timeline-title { font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.6px; }
+    .timeline-range { font-size:0.78rem; color:var(--text-muted); }
+    .trip-timeline { position:relative; height:70px; background:#0a1628; border:1px solid var(--card-border); border-radius:8px; overflow:hidden; }
+    .timeline-day-grid { position:absolute; inset:0; display:grid; pointer-events:none; }
+    .timeline-day { border-right:1px dashed rgba(143,163,188,.12); position:relative; }
+    .timeline-day:last-child { border-right:none; }
+    .timeline-day-label { position:absolute; bottom:4px; left:6px; font-size:9px; color:var(--text-muted); font-variant-numeric:tabular-nums; }
+    .timeline-segment { position:absolute; top:8px; bottom:22px; border-radius:6px; padding:6px 10px; color:#fff; font-size:0.75rem; font-weight:600; cursor:pointer; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; transition:filter .15s,transform .15s; box-shadow:0 2px 6px rgba(0,0,0,.3); display:flex; align-items:center; gap:6px; }
+    .timeline-segment:hover { filter:brightness(1.1); }
+    .timeline-segment.selected { outline:2px solid var(--accent); outline-offset:2px; }
+    .timeline-segment .seg-num { background:rgba(255,255,255,.25); border-radius:50%; width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; font-size:0.65rem; flex-shrink:0; }
+    .map-cities-card { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:18px 22px; }
+    .map-cities-card .timeline-title { margin-bottom:14px; }
+    .map-city-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:10px; list-style:none; }
+    .map-city { background:#0f1b2d; border:1px solid var(--card-border); border-radius:8px; padding:12px 14px; cursor:pointer; transition:border-color .15s,background .15s; }
+    .map-city:hover { background:#1a2d47; border-color:var(--blue-light); }
+    .map-city.selected { border-color:var(--accent); background:#1a2d47; }
+    .map-city-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+    .map-city-dot { width:24px; height:24px; border-radius:50%; color:var(--text); font-size:0.7rem; font-weight:700; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 1px 3px rgba(0,0,0,.4); }
+    .map-city-name { font-weight:600; font-size:0.95rem; flex:1; }
+    .map-city-flag { font-size:1rem; }
+    .map-city-dates { font-size:0.75rem; color:var(--text-muted); margin-bottom:6px; }
+    .map-city-nights { display:inline-block; background:rgba(30,95,168,.2); color:var(--blue-light); font-size:0.7rem; padding:2px 8px; border-radius:10px; font-weight:600; }
+    .map-empty-state { padding:30px; text-align:center; color:var(--text-muted); font-size:0.85rem; }
+    #version-badge { position:fixed; bottom:12px; right:14px; background:rgba(15,27,45,.85); border:1px solid var(--card-border); border-radius:8px; padding:5px 10px; font-size:0.68rem; color:var(--text-muted); font-family:ui-monospace,SFMono-Regular,monospace; z-index:9999; backdrop-filter:blur(4px); line-height:1.5; pointer-events:none; }
+    #version-badge .vb-hash { color:var(--accent); font-weight:700; }
+    /* City Picks tab */
+    .cpicks-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:10px; }
+    .cpicks-legend { display:flex; gap:14px; align-items:center; flex-shrink:0; }
+    .cpicks-legend-item { display:flex; align-items:center; gap:5px; font-size:0.75rem; color:var(--text-muted); }
+    .cpicks-legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+    #citiesMap { width:100%; height:420px; background:#0a1628; }
+    .cpicks-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:14px; margin-top:18px; }
+    .cpicks-card { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:18px; transition:border-color .15s; }
+    .cpicks-card:hover { border-color:var(--blue-light); }
+    .cpicks-card.planned { border-left:3px solid var(--blue-light); }
+    .cpicks-card.suggested { border-left:3px solid var(--accent); }
+    .cpicks-top { display:flex; align-items:flex-start; gap:12px; margin-bottom:10px; }
+    .cpicks-emoji { font-size:2rem; line-height:1; flex-shrink:0; }
+    .cpicks-meta { flex:1; min-width:0; }
+    .cpicks-name { font-size:1rem; font-weight:700; display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-bottom:2px; }
+    .cpicks-country { font-size:0.74rem; color:var(--text-muted); margin-bottom:5px; }
+    .cpicks-badge { display:inline-block; padding:2px 9px; border-radius:10px; font-size:0.67rem; font-weight:700; text-transform:uppercase; letter-spacing:.4px; }
+    .cpicks-badge.planned { background:rgba(45,125,210,.2); color:var(--blue-light); }
+    .cpicks-badge.suggested { background:rgba(245,166,35,.15); color:var(--accent); }
+    .cpicks-blurb { font-size:0.79rem; color:var(--text-muted); line-height:1.5; margin-bottom:10px; }
+    .cpicks-by { display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:0.74rem; color:var(--text-muted); }
+    .cpicks-avatar { width:20px; height:20px; border-radius:50%; background:linear-gradient(135deg,#1e5fa8,#2d7dd2); display:inline-flex; align-items:center; justify-content:center; font-size:0.58rem; font-weight:700; color:#fff; flex-shrink:0; }
+    .cpicks-no-suggestions { color:var(--text-muted); font-size:0.76rem; font-style:italic; }
+    /* Poll tab */
+    .poll-intro { background:rgba(30,95,168,.1); border:1px solid rgba(30,95,168,.3); border-radius:8px; padding:12px 16px; margin-bottom:22px; font-size:0.85rem; color:var(--blue-light); line-height:1.5; }
+    .poll-intro strong { color:var(--text); }
+    .poll-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:12px; margin-bottom:24px; }
+    .poll-card { background:var(--card); border:2px solid var(--card-border); border-radius:var(--radius); padding:16px; cursor:pointer; transition:border-color .15s,background .15s; user-select:none; position:relative; }
+    .poll-card:hover { background:#1a2d47; border-color:var(--blue-light); }
+    .poll-card.selected { border-color:var(--accent); background:rgba(245,166,35,.07); }
+    .poll-card-check { position:absolute; top:12px; right:12px; color:var(--accent); font-size:1.1rem; opacity:0; transition:opacity .15s; }
+    .poll-card.selected .poll-card-check { opacity:1; }
+    .poll-card-emoji { font-size:2rem; margin-bottom:8px; }
+    .poll-card-name { font-weight:700; font-size:0.97rem; margin-bottom:2px; display:flex; align-items:center; gap:6px; }
+    .poll-card-country { color:var(--text-muted); font-size:0.75rem; margin-bottom:6px; }
+    .poll-card-desc { color:var(--text-muted); font-size:0.76rem; line-height:1.45; }
+    .poll-footer { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:18px 22px; }
+    .poll-footer-label { font-size:0.8rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; font-weight:700; margin-bottom:10px; }
+    .poll-tags { display:flex; flex-wrap:wrap; gap:7px; min-height:32px; margin-bottom:14px; align-items:center; }
+    .poll-tag { background:rgba(245,166,35,.15); border:1px solid var(--accent); border-radius:20px; padding:4px 13px; font-size:0.78rem; color:var(--accent); font-weight:600; }
+    .poll-tags-empty { color:var(--text-muted); font-size:0.85rem; font-style:italic; }
+    .poll-footer-actions { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .poll-share-btn { background:var(--accent); color:#0f1b2d; border:none; border-radius:8px; padding:10px 20px; font-size:0.88rem; font-weight:700; cursor:pointer; transition:opacity .15s; font-family:inherit; }
+    .poll-share-btn:hover { opacity:.85; }
+    .poll-share-btn:disabled { opacity:.38; cursor:default; }
+    .poll-copy-ok { color:var(--green); font-size:0.82rem; font-weight:600; opacity:0; transition:opacity .3s; }
+    .poll-copy-ok.show { opacity:1; }
+    .poll-edit-trigger { margin-top:14px; text-align:center; }
+    .poll-edit-trigger button { background:transparent; border:none; color:var(--text-muted); font-size:0.75rem; cursor:pointer; font-family:inherit; padding:4px 8px; border-radius:4px; }
+    .poll-edit-trigger button:hover { color:var(--text); background:rgba(255,255,255,.05); }
+    .poll-admin { background:var(--card); border:1px solid rgba(245,166,35,.35); border-radius:var(--radius); padding:20px 22px; margin-top:10px; display:none; }
+    .poll-admin.open { display:block; }
+    .poll-admin-heading { font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--accent); margin-bottom:14px; }
+    .poll-admin-sub { font-size:0.78rem; color:var(--text-muted); margin-bottom:6px; }
+    .poll-admin-input { width:100%; background:#0a1628; border:1px solid var(--card-border); border-radius:6px; padding:8px 11px; color:var(--text); font-size:0.83rem; font-family:inherit; margin-bottom:10px; }
+    .poll-admin-input:focus { outline:none; border-color:var(--blue-light); }
+    .poll-admin-city-list { margin-bottom:14px; }
+    .poll-admin-row { display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px solid var(--card-border); font-size:0.83rem; }
+    .poll-admin-row:last-child { border-bottom:none; }
+    .poll-admin-row span { flex:1; }
+    .poll-admin-rm { background:rgba(231,76,60,.15); border:1px solid rgba(231,76,60,.3); border-radius:4px; color:#e74c3c; font-size:0.72rem; padding:2px 9px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+    .poll-admin-add-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
+    .poll-admin-add-grid input { background:#0a1628; border:1px solid var(--card-border); border-radius:6px; padding:7px 10px; color:var(--text); font-size:0.8rem; font-family:inherit; }
+    .poll-admin-add-grid input:focus { outline:none; border-color:var(--blue-light); }
+    .poll-admin-btn { border:none; border-radius:6px; padding:8px 16px; font-size:0.82rem; font-weight:600; cursor:pointer; font-family:inherit; }
+    .poll-admin-btn.green { background:var(--green); color:#fff; margin-bottom:14px; }
+    .poll-admin-btn.blue { background:var(--blue); color:var(--text); margin-right:8px; }
+    .poll-admin-btn.blue:hover { background:var(--blue-light); }
+    .poll-admin-status { font-size:0.8rem; margin-left:4px; }
+    @media (max-width:700px) {
+      header { padding:24px 16px 0; }
+      .trip-title { font-size:1.6rem; }
+      main { padding:0 16px; margin:24px auto; }
+      .main-row { flex-direction:column; }
+      .calendar-container { width:100%; }
+      nav.tabs button { padding:10px 14px; font-size:0.85rem; }
+      #map { height:360px; }
+    }
+  </style>
 </head>
-
 <body>
 
-    <header>
-        <div class="trip-title">Europe <span>2026</span></div>
-        <div class="trip-meta" id="headerMeta">September 5 - 12, 2026</div>
-        <nav class="tabs">
-            <button class="tab-btn active" data-tab="attendence">Attendence</button>
-            <button class="tab-btn" data-tab="map">Map &amp; Timeline</button>
-        </nav>
-    </header>
+<header>
+  <div class="trip-title">Europe <span>2026</span></div>
+  <div class="trip-meta" id="headerMeta">September 5 - 12, 2026</div>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="home">Home</button>
+    <button class="tab-btn" data-tab="map">Map &amp; Timeline</button>
+    <button class="tab-btn" data-tab="cities">🌍 City Picks</button>
+    <button class="tab-btn" data-tab="poll">🗳️ City Poll</button>
+  </nav>
+</header>
 
-    <main>
-        <div class="tab-panel active" id="tab-attendence">
-            <div class="main-row">
-                <div class="calendar-container">
-                    <div class="calendar-header">September 2026</div>
-                    <div class="weekdays">
-                        <div class="weekday">S</div>
-                        <div class="weekday">M</div>
-                        <div class="weekday">T</div>
-                        <div class="weekday">W</div>
-                        <div class="weekday">T</div>
-                        <div class="weekday">F</div>
-                        <div class="weekday">S</div>
-                    </div>
-                    <div class="days" id="calendar"></div>
-                </div>
-                <div class="attendees-container">
-                    <div class="attendees-header">Attendees</div>
-                    <div class="attendee-count"><strong id="attendeeStats">Loading...</strong></div>
-                    <div class="attendees-list" id="attendeesList"></div>
-                </div>
-            </div>
+<main>
+  <div class="tab-panel active" id="tab-home">
+    <div class="main-row">
+      <div class="calendar-container">
+        <div class="calendar-header">September 2026</div>
+        <div class="weekdays">
+          <div class="weekday">S</div><div class="weekday">M</div><div class="weekday">T</div><div class="weekday">W</div><div class="weekday">T</div><div class="weekday">F</div><div class="weekday">S</div>
         </div>
+        <div class="days" id="calendar"></div>
+      </div>
+      <div class="attendees-container">
+        <div class="attendees-header">Attendees</div>
+        <div class="attendee-count"><strong id="attendeeStats">Loading...</strong></div>
+        <div class="attendees-list" id="attendeesList"></div>
+      </div>
+    </div>
+  </div>
 
-        <div class="tab-panel" id="tab-map">
-            <div class="map-card">
-                <div id="map"></div>
-            </div>
-            <div class="timeline-card">
-                <div class="timeline-card-header">
-                    <div class="timeline-title">Itinerary Timeline</div>
-                    <div class="timeline-range" id="timelineRange"></div>
-                </div>
-                <div class="trip-timeline" id="tripTimeline">
-                    <div class="map-empty-state">Loading itinerary...</div>
-                </div>
-            </div>
-            <div class="map-cities-card">
-                <div class="timeline-title">Stops</div>
-                <ul class="map-city-list" id="mapCityList"></ul>
-            </div>
-        </div>
-    </main>
+  <div class="tab-panel" id="tab-map">
+    <div class="map-card"><div id="map"></div></div>
+    <div class="timeline-card">
+      <div class="timeline-card-header">
+        <div class="timeline-title">Itinerary Timeline</div>
+        <div class="timeline-range" id="timelineRange"></div>
+      </div>
+      <div class="trip-timeline" id="tripTimeline">
+        <div class="map-empty-state">Loading itinerary...</div>
+      </div>
+    </div>
+    <div class="map-cities-card">
+      <div class="timeline-title">Stops</div>
+      <ul class="map-city-list" id="mapCityList"></ul>
+    </div>
+  </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script>
-        function generateCalendar() {
-            var year = 2026, month = 8, tripStart = 5, tripEnd = 12;
-            var firstDay = new Date(year, month, 1).getDay();
-            var daysInMonth = new Date(year, month + 1, 0).getDate();
-            var daysInPrev = new Date(year, month, 0).getDate();
-            var cal = document.getElementById('calendar');
-            cal.innerHTML = '';
-            for (var i = firstDay - 1; i >= 0; i--) {
-                var d = document.createElement('div');
-                d.className = 'day other-month';
-                d.textContent = daysInPrev - i;
-                cal.appendChild(d);
-            }
-            for (var day = 1; day <= daysInMonth; day++) {
-                var dv = document.createElement('div');
-                dv.className = 'day';
-                dv.textContent = day;
-                if (day >= tripStart && day <= tripEnd) dv.classList.add('trip-day');
-                cal.appendChild(dv);
-            }
-        }
+  <div class="tab-panel" id="tab-cities">
+    <div class="cpicks-header">
+      <div>
+        <div class="timeline-title">City Picks</div>
+        <div style="color:var(--text-muted);font-size:0.8rem;margin-top:4px">Planned stops &amp; suggestions pulled from the group chat</div>
+      </div>
+      <div class="cpicks-legend">
+        <div class="cpicks-legend-item"><span class="cpicks-legend-dot" style="background:var(--blue-light)"></span>Planned</div>
+        <div class="cpicks-legend-item"><span class="cpicks-legend-dot" style="background:var(--accent)"></span>Suggested</div>
+      </div>
+    </div>
+    <div class="map-card"><div id="citiesMap"></div></div>
+    <div class="cpicks-grid" id="citiesGrid"></div>
+  </div>
 
-        function renderAttendees(attendees) {
-            var list = document.getElementById('attendeesList');
-            var stats = document.getElementById('attendeeStats');
-            var confirmed = attendees.filter(function (a) { return a.confirmed; });
-            var notGoing = attendees.filter(function (a) { return !a.confirmed && a.notGoing; });
-            var pending = attendees.filter(function (a) { return !a.confirmed && !a.notGoing; });
-            stats.textContent = confirmed.length + ' confirmed, ' + pending.length + ' pending, ' + notGoing.length + ' not going';
-            function row(a, cls, label) {
-                return '<div class="attendee"><div class="attendee-avatar' + (cls ? ' ' + cls : '') + '">' + a.name.charAt(0) + '</div><div class="attendee-info"><div class="attendee-name">' + a.name + '</div><div class="attendee-status' + (cls ? ' ' + cls : '') + '">' + label + '</div></div></div>';
-            }
-            list.innerHTML =
-                confirmed.map(function (a) { return row(a, '', 'Going'); }).join('') +
-                pending.map(function (a) { return row(a, 'pending', 'Pending'); }).join('') +
-                notGoing.map(function (a) { return row(a, 'not-going', 'Not going'); }).join('');
-        }
+  <div class="tab-panel" id="tab-poll">
+    <div class="poll-intro">
+      <strong>Vote for cities you want to visit!</strong> Select as many as you'd like, then hit <strong>Copy picks</strong> and paste your choices into the group chat. No sign-in needed — just pick and share.
+    </div>
+    <div class="poll-grid" id="pollGrid"></div>
+    <div class="poll-footer">
+      <div class="poll-footer-label">Your picks</div>
+      <div class="poll-tags" id="pollTags"><span class="poll-tags-empty">Nothing selected yet…</span></div>
+      <div class="poll-footer-actions">
+        <button class="poll-share-btn" id="pollShareBtn" disabled>📋 Copy picks</button>
+        <span class="poll-copy-ok" id="pollCopyOk">✓ Copied to clipboard!</span>
+      </div>
+    </div>
+    <div class="poll-edit-trigger">
+      <button id="pollEditToggle">⚙ Edit poll cities</button>
+    </div>
+    <div class="poll-admin" id="pollAdmin">
+      <div class="poll-admin-heading">Admin — Edit Poll Cities</div>
+      <div class="poll-admin-sub">GitHub token (needs <code>repo</code> write access):</div>
+      <input type="password" class="poll-admin-input" id="pollToken" placeholder="ghp_…">
+      <div class="poll-admin-heading" style="margin-top:6px">Current cities</div>
+      <div class="poll-admin-city-list" id="pollAdminList"></div>
+      <div class="poll-admin-heading" style="margin-top:14px">Add a city</div>
+      <div class="poll-admin-add-grid">
+        <input type="text" id="aName" placeholder="City (e.g. Athens)">
+        <input type="text" id="aCountry" placeholder="Country (e.g. Greece)">
+        <input type="text" id="aFlag" placeholder="Flag emoji 🇬🇷">
+        <input type="text" id="aEmoji" placeholder="City emoji 🏙️">
+        <input type="text" id="aDesc" placeholder="Short description" style="grid-column:1/-1">
+      </div>
+      <button class="poll-admin-btn green" id="pollAddBtn">+ Add city</button>
+      <br>
+      <button class="poll-admin-btn blue" id="pollSaveBtn">Save to GitHub</button>
+      <span class="poll-admin-status" id="pollAdminStatus"></span>
+    </div>
+  </div>
 
-        var CITY_COORDS = {
-            'London': [51.5074, -0.1278], 'Paris': [48.8566, 2.3522], 'Amsterdam': [52.3676, 4.9041],
-            'Rome': [41.9028, 12.4964], 'Barcelona': [41.3851, 2.1734], 'Lisbon': [38.7223, -9.1393],
-            'Madrid': [40.4168, -3.7038], 'Berlin': [52.52, 13.405], 'Vienna': [48.2082, 16.3738],
-            'Prague': [50.0755, 14.4378], 'Florence': [43.7696, 11.2558], 'Venice': [45.4408, 12.3155],
-            'Milan': [45.4642, 9.19], 'Munich': [48.1351, 11.582], 'Brussels': [50.8503, 4.3517],
-            'Edinburgh': [55.9533, -3.1883], 'Dublin': [53.3498, -6.2603], 'Copenhagen': [55.6761, 12.5683],
-            'Stockholm': [59.3293, 18.0686], 'Athens': [37.9838, 23.7275], 'Budapest': [47.4979, 19.0402],
-            'Zurich': [47.3769, 8.5417]
-        };
-        var STOP_COLORS = ['#1e5fa8', '#f5a623', '#27ae60', '#9b59b6', '#e74c3c', '#16a085', '#d35400', '#2980b9'];
+</main>
 
-        var map = null, mapMarkers = {}, mapRoute = null, selectedIdx = null, mapInit = false, stops = [];
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+function generateCalendar() {
+  var year = 2026, month = 8, tripStart = 5, tripEnd = 12;
+  var firstDay = new Date(year, month, 1).getDay();
+  var daysInMonth = new Date(year, month + 1, 0).getDate();
+  var daysInPrev = new Date(year, month, 0).getDate();
+  var cal = document.getElementById('calendar');
+  cal.innerHTML = '';
+  for (var i = firstDay - 1; i >= 0; i--) {
+    var d = document.createElement('div');
+    d.className = 'day other-month';
+    d.textContent = daysInPrev - i;
+    cal.appendChild(d);
+  }
+  for (var day = 1; day <= daysInMonth; day++) {
+    var dv = document.createElement('div');
+    dv.className = 'day';
+    dv.textContent = day;
+    if (day >= tripStart && day <= tripEnd) dv.classList.add('trip-day');
+    cal.appendChild(dv);
+  }
+}
 
-        function pd(s) { return s ? new Date(s + 'T00:00:00') : null; }
-        function fmtS(d) { return d ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''; }
-        function fmtL(d) { return d ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : ''; }
-        function addD(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
-        function dB(a, b) { return (a && b) ? Math.max(0, Math.round((b - a) / 86400000)) : 0; }
-        function colorAt(i) { return STOP_COLORS[i % STOP_COLORS.length]; }
+function renderAttendees(attendees) {
+  var list = document.getElementById('attendeesList');
+  var stats = document.getElementById('attendeeStats');
+  var confirmed = attendees.filter(function(a){return a.confirmed;});
+  var notGoing = attendees.filter(function(a){return !a.confirmed && a.notGoing;});
+  var pending = attendees.filter(function(a){return !a.confirmed && !a.notGoing;});
+  stats.textContent = confirmed.length + ' confirmed, ' + pending.length + ' pending, ' + notGoing.length + ' not going';
+  function row(a, cls, label) {
+    return '<div class="attendee"><div class="attendee-avatar'+(cls?' '+cls:'')+'">' + a.name.charAt(0) + '</div><div class="attendee-info"><div class="attendee-name">'+a.name+'</div><div class="attendee-status'+(cls?' '+cls:'')+'">'+label+'</div></div></div>';
+  }
+  list.innerHTML =
+    confirmed.map(function(a){return row(a,'','Going');}).join('') +
+    pending.map(function(a){return row(a,'pending','Pending');}).join('') +
+    notGoing.map(function(a){return row(a,'not-going','Not going');}).join('');
+}
 
-        function buildStops(itin) {
-            if (!Array.isArray(itin)) return [];
-            return itin.filter(function (s) { return s && s.city; }).map(function (s) {
-                var arrive = pd(s.date);
-                var nights = typeof s.nights === 'number' ? s.nights : 0;
-                return {
-                    city: s.city, country: s.country || '', flag: s.flag || '',
-                    arrive: arrive, depart: arrive ? addD(arrive, Math.max(nights, 0)) : null,
-                    nights: nights, notes: s.notes || '',
-                    coords: CITY_COORDS[s.city] || null
-                };
-            });
-        }
+var CITY_COORDS = {
+  'London':[51.5074,-0.1278],'Paris':[48.8566,2.3522],'Amsterdam':[52.3676,4.9041],
+  'Rome':[41.9028,12.4964],'Barcelona':[41.3851,2.1734],'Lisbon':[38.7223,-9.1393],
+  'Madrid':[40.4168,-3.7038],'Berlin':[52.52,13.405],'Vienna':[48.2082,16.3738],
+  'Prague':[50.0755,14.4378],'Florence':[43.7696,11.2558],'Venice':[45.4408,12.3155],
+  'Milan':[45.4642,9.19],'Munich':[48.1351,11.582],'Brussels':[50.8503,4.3517],
+  'Edinburgh':[55.9533,-3.1883],'Dublin':[53.3498,-6.2603],'Copenhagen':[55.6761,12.5683],
+  'Stockholm':[59.3293,18.0686],'Athens':[37.9838,23.7275],'Budapest':[47.4979,19.0402],
+  'Zurich':[47.3769,8.5417]
+};
+var STOP_COLORS = ['#1e5fa8','#f5a623','#27ae60','#9b59b6','#e74c3c','#16a085','#d35400','#2980b9'];
 
-        function pinIcon(num, color, sel) {
-            return L.divIcon({
-                className: 'city-marker' + (sel ? ' selected' : ''),
-                html: '<div class="city-marker-pin" style="background:' + color + '"><span>' + num + '</span></div>',
-                iconSize: [32, 32], iconAnchor: [16, 32]
-            });
-        }
+var map = null, mapMarkers = {}, mapRoute = null, selectedIdx = null, mapInit = false, stops = [];
 
-        function initMap() {
-            if (mapInit) return;
-            map = L.map('map', { zoomControl: true, scrollWheelZoom: true }).setView([48, 7], 4);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            }).addTo(map);
-            mapInit = true;
-        }
+function pd(s) { return s ? new Date(s + 'T00:00:00') : null; }
+function fmtS(d) { return d ? d.toLocaleDateString('en-US', {month:'short',day:'numeric'}) : ''; }
+function fmtL(d) { return d ? d.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : ''; }
+function addD(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+function dB(a, b) { return (a && b) ? Math.max(0, Math.round((b - a) / 86400000)) : 0; }
+function colorAt(i) { return STOP_COLORS[i % STOP_COLORS.length]; }
 
-        function renderMap() {
-            if (!map) return;
-            Object.keys(mapMarkers).forEach(function (k) { map.removeLayer(mapMarkers[k]); });
-            mapMarkers = {};
-            if (mapRoute) { map.removeLayer(mapRoute); mapRoute = null; }
-            var pts = [];
-            stops.forEach(function (s, i) {
-                if (!s.coords) return;
-                var color = colorAt(i);
-                var marker = L.marker(s.coords, { icon: pinIcon(i + 1, color, i === selectedIdx) }).addTo(map);
-                var nightTxt = s.nights + ' night' + (s.nights === 1 ? '' : 's');
-                var html = '<strong>' + (s.flag ? s.flag + ' ' : '') + s.city + '</strong>';
-                if (s.country) html += '<br><span style="color:#8fa3bc;font-size:0.78rem">' + s.country + '</span>';
-                html += '<br><span style="font-size:0.78rem">' + fmtS(s.arrive) + ' - ' + fmtS(s.depart) + ' &middot; ' + nightTxt + '</span>';
-                if (s.notes) html += '<br><span style="font-size:0.75rem;color:#f5a623">' + s.notes + '</span>';
-                marker.bindPopup(html);
-                marker.on('click', (function (idx) { return function () { selectStop(idx); }; })(i));
-                mapMarkers[i] = marker;
-                pts.push(s.coords);
-            });
-            if (pts.length >= 2) {
-                mapRoute = L.polyline(pts, { color: '#f5a623', weight: 3, opacity: .7, dashArray: '6, 8' }).addTo(map);
-                map.fitBounds(L.latLngBounds(pts), { padding: [40, 40] });
-            } else if (pts.length === 1) {
-                map.setView(pts[0], 6);
-            }
-        }
+function buildStops(itin) {
+  if (!Array.isArray(itin)) return [];
+  return itin.filter(function(s){return s && s.city;}).map(function(s){
+    var arrive = pd(s.date);
+    var nights = typeof s.nights === 'number' ? s.nights : 0;
+    return {
+      city: s.city, country: s.country || '', flag: s.flag || '',
+      arrive: arrive, depart: arrive ? addD(arrive, Math.max(nights,0)) : null,
+      nights: nights, notes: s.notes || '',
+      coords: CITY_COORDS[s.city] || null
+    };
+  });
+}
 
-        function renderTimeline() {
-            var el = document.getElementById('tripTimeline');
-            el.innerHTML = '';
-            if (!stops.length) {
-                el.innerHTML = '<div class="map-empty-state">No itinerary yet.</div>';
-                document.getElementById('timelineRange').textContent = '';
-                return;
-            }
-            var start = null, end = null;
-            stops.forEach(function (s) {
-                if (s.arrive && (!start || s.arrive < start)) start = s.arrive;
-                if (s.depart && (!end || s.depart > end)) end = s.depart;
-            });
-            if (!start || !end) {
-                el.innerHTML = '<div class="map-empty-state">Itinerary missing dates.</div>';
-                return;
-            }
-            var totalDays = Math.max(1, dB(start, end));
-            document.getElementById('timelineRange').textContent =
-                fmtL(start) + ' - ' + fmtL(end) + ' · ' + totalDays + ' day' + (totalDays === 1 ? '' : 's');
-            var grid = document.createElement('div');
-            grid.className = 'timeline-day-grid';
-            grid.style.gridTemplateColumns = 'repeat(' + totalDays + ', 1fr)';
-            for (var i = 0; i < totalDays; i++) {
-                var d = addD(start, i);
-                var cell = document.createElement('div');
-                cell.className = 'timeline-day';
-                var lbl = document.createElement('div');
-                lbl.className = 'timeline-day-label';
-                lbl.textContent = (i === 0 || d.getDate() === 1)
-                    ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-                    : d.getDate();
-                cell.appendChild(lbl);
-                grid.appendChild(cell);
-            }
-            el.appendChild(grid);
-            stops.forEach(function (s, i) {
-                if (!s.arrive || !s.depart) return;
-                var off = dB(start, s.arrive);
-                var span = Math.max(1, dB(s.arrive, s.depart));
-                var seg = document.createElement('div');
-                seg.className = 'timeline-segment' + (i === selectedIdx ? ' selected' : '');
-                seg.style.left = 'calc(' + ((off / totalDays) * 100) + '% + 2px)';
-                seg.style.width = 'calc(' + ((span / totalDays) * 100) + '% - 4px)';
-                seg.style.background = colorAt(i);
-                seg.innerHTML = '<span class="seg-num">' + (i + 1) + '</span><span>' + s.city + ' &middot; ' + s.nights + 'n</span>';
-                seg.title = s.city + ': ' + fmtS(s.arrive) + ' - ' + fmtS(s.depart) + ' (' + s.nights + ' nights)';
-                seg.addEventListener('click', (function (idx) { return function () { selectStop(idx); }; })(i));
-                el.appendChild(seg);
-            });
-        }
+function pinIcon(num, color, sel) {
+  return L.divIcon({
+    className: 'city-marker' + (sel ? ' selected' : ''),
+    html: '<div class="city-marker-pin" style="background:'+color+'"><span>'+num+'</span></div>',
+    iconSize: [32,32], iconAnchor: [16,32]
+  });
+}
 
-        function renderCityList() {
-            var list = document.getElementById('mapCityList');
-            if (!stops.length) {
-                list.innerHTML = '<li class="map-empty-state" style="grid-column:1/-1">No stops in itinerary.</li>';
-                return;
-            }
-            list.innerHTML = stops.map(function (s, i) {
-                var dates = (s.arrive && s.depart) ? (fmtS(s.arrive) + ' → ' + fmtS(s.depart)) : 'Dates TBD';
-                var noCoords = !s.coords ? ' · <span style="color:#8fa3bc">not on map</span>' : '';
-                return '<li class="map-city ' + (i === selectedIdx ? 'selected' : '') + '" data-idx="' + i + '">' +
-                    '<div class="map-city-row">' +
-                    '<span class="map-city-dot" style="background:' + colorAt(i) + '">' + (i + 1) + '</span>' +
-                    '<span class="map-city-flag">' + (s.flag || '') + '</span>' +
-                    '<span class="map-city-name">' + s.city + (s.country ? ', ' + s.country : '') + '</span>' +
-                    '</div>' +
-                    '<div class="map-city-dates">' + dates + noCoords + '</div>' +
-                    '<span class="map-city-nights">' + s.nights + ' night' + (s.nights === 1 ? '' : 's') + '</span>' +
-                    '</li>';
-            }).join('');
-            list.querySelectorAll('.map-city').forEach(function (el) {
-                el.addEventListener('click', function () { selectStop(parseInt(el.dataset.idx, 10)); });
-            });
-        }
+function initMap() {
+  if (mapInit) return;
+  map = L.map('map', {zoomControl:true, scrollWheelZoom:true}).setView([48,7], 4);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+  }).addTo(map);
+  mapInit = true;
+}
 
-        function selectStop(idx) {
-            selectedIdx = idx;
-            renderMap();
-            renderTimeline();
-            renderCityList();
-            var s = stops[idx];
-            if (map && s && s.coords) {
-                map.flyTo(s.coords, Math.max(map.getZoom(), 6), { duration: 0.8 });
-                var m = mapMarkers[idx];
-                if (m) setTimeout(function () { m.openPopup(); }, 400);
-            }
-        }
+function renderMap() {
+  if (!map) return;
+  Object.keys(mapMarkers).forEach(function(k){ map.removeLayer(mapMarkers[k]); });
+  mapMarkers = {};
+  if (mapRoute) { map.removeLayer(mapRoute); mapRoute = null; }
+  var pts = [];
+  stops.forEach(function(s, i) {
+    if (!s.coords) return;
+    var color = colorAt(i);
+    var marker = L.marker(s.coords, {icon: pinIcon(i+1, color, i === selectedIdx)}).addTo(map);
+    var nightTxt = s.nights + ' night' + (s.nights === 1 ? '' : 's');
+    var html = '<strong>' + (s.flag ? s.flag + ' ' : '') + s.city + '</strong>';
+    if (s.country) html += '<br><span style="color:#8fa3bc;font-size:0.78rem">' + s.country + '</span>';
+    html += '<br><span style="font-size:0.78rem">' + fmtS(s.arrive) + ' - ' + fmtS(s.depart) + ' &middot; ' + nightTxt + '</span>';
+    if (s.notes) html += '<br><span style="font-size:0.75rem;color:#f5a623">' + s.notes + '</span>';
+    marker.bindPopup(html);
+    marker.on('click', (function(idx){return function(){ selectStop(idx); };})(i));
+    mapMarkers[i] = marker;
+    pts.push(s.coords);
+  });
+  if (pts.length >= 2) {
+    mapRoute = L.polyline(pts, {color:'#f5a623', weight:3, opacity:.7, dashArray:'6, 8'}).addTo(map);
+    map.fitBounds(L.latLngBounds(pts), {padding: [40,40]});
+  } else if (pts.length === 1) {
+    map.setView(pts[0], 6);
+  }
+}
 
-        function buildMapTab(itin) {
-            stops = buildStops(itin);
-            renderTimeline();
-            renderCityList();
-        }
+function renderTimeline() {
+  var el = document.getElementById('tripTimeline');
+  el.innerHTML = '';
+  if (!stops.length) {
+    el.innerHTML = '<div class="map-empty-state">No itinerary yet.</div>';
+    document.getElementById('timelineRange').textContent = '';
+    return;
+  }
+  var start = null, end = null;
+  stops.forEach(function(s){
+    if (s.arrive && (!start || s.arrive < start)) start = s.arrive;
+    if (s.depart && (!end || s.depart > end)) end = s.depart;
+  });
+  if (!start || !end) {
+    el.innerHTML = '<div class="map-empty-state">Itinerary missing dates.</div>';
+    return;
+  }
+  var totalDays = Math.max(1, dB(start, end));
+  document.getElementById('timelineRange').textContent =
+    fmtL(start) + ' - ' + fmtL(end) + ' · ' + totalDays + ' day' + (totalDays === 1 ? '' : 's');
+  var grid = document.createElement('div');
+  grid.className = 'timeline-day-grid';
+  grid.style.gridTemplateColumns = 'repeat(' + totalDays + ', 1fr)';
+  for (var i = 0; i < totalDays; i++) {
+    var d = addD(start, i);
+    var cell = document.createElement('div');
+    cell.className = 'timeline-day';
+    var lbl = document.createElement('div');
+    lbl.className = 'timeline-day-label';
+    lbl.textContent = (i === 0 || d.getDate() === 1)
+      ? d.toLocaleDateString('en-US', {month:'short',day:'numeric'})
+      : d.getDate();
+    cell.appendChild(lbl);
+    grid.appendChild(cell);
+  }
+  el.appendChild(grid);
+  stops.forEach(function(s, i) {
+    if (!s.arrive || !s.depart) return;
+    var off = dB(start, s.arrive);
+    var span = Math.max(1, dB(s.arrive, s.depart));
+    var seg = document.createElement('div');
+    seg.className = 'timeline-segment' + (i === selectedIdx ? ' selected' : '');
+    seg.style.left = 'calc(' + ((off/totalDays)*100) + '% + 2px)';
+    seg.style.width = 'calc(' + ((span/totalDays)*100) + '% - 4px)';
+    seg.style.background = colorAt(i);
+    seg.innerHTML = '<span class="seg-num">' + (i+1) + '</span><span>' + s.city + ' &middot; ' + s.nights + 'n</span>';
+    seg.title = s.city + ': ' + fmtS(s.arrive) + ' - ' + fmtS(s.depart) + ' (' + s.nights + ' nights)';
+    seg.addEventListener('click', (function(idx){return function(){ selectStop(idx); };})(i));
+    el.appendChild(seg);
+  });
+}
 
-        function setupTabs() {
-            document.querySelectorAll('.tab-btn').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
-                    document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
-                    btn.classList.add('active');
-                    var panel = document.getElementById('tab-' + btn.dataset.tab);
-                    if (panel) panel.classList.add('active');
-                    if (btn.dataset.tab === 'map') {
-                        if (!mapInit) { initMap(); renderMap(); }
-                        else { setTimeout(function () { map.invalidateSize(); renderMap(); }, 50); }
-                    }
-                });
-            });
-        }
+function renderCityList() {
+  var list = document.getElementById('mapCityList');
+  if (!stops.length) {
+    list.innerHTML = '<li class="map-empty-state" style="grid-column:1/-1">No stops in itinerary.</li>';
+    return;
+  }
+  list.innerHTML = stops.map(function(s, i) {
+    var dates = (s.arrive && s.depart) ? (fmtS(s.arrive) + ' → ' + fmtS(s.depart)) : 'Dates TBD';
+    var noCoords = !s.coords ? ' · <span style="color:#8fa3bc">not on map</span>' : '';
+    return '<li class="map-city ' + (i === selectedIdx ? 'selected' : '') + '" data-idx="' + i + '">' +
+      '<div class="map-city-row">' +
+        '<span class="map-city-dot" style="background:' + colorAt(i) + '">' + (i+1) + '</span>' +
+        '<span class="map-city-flag">' + (s.flag || '') + '</span>' +
+        '<span class="map-city-name">' + s.city + (s.country ? ', ' + s.country : '') + '</span>' +
+      '</div>' +
+      '<div class="map-city-dates">' + dates + noCoords + '</div>' +
+      '<span class="map-city-nights">' + s.nights + ' night' + (s.nights === 1 ? '' : 's') + '</span>' +
+    '</li>';
+  }).join('');
+  list.querySelectorAll('.map-city').forEach(function(el) {
+    el.addEventListener('click', function(){ selectStop(parseInt(el.dataset.idx, 10)); });
+  });
+}
 
-        function loadData() {
-            fetch('data.json').then(function (r) { return r.json(); }).then(function (data) {
-                renderAttendees(data.attendees || []);
-                buildMapTab(data.itinerary || []);
-            }).catch(function () {
-                renderAttendees([
-                    { name: 'Jonathan Hsieh', confirmed: true }, { name: 'Sean Chen', confirmed: true },
-                    { name: 'Derek Wen', confirmed: true }, { name: 'Yongjae Lee', confirmed: true },
-                    { name: 'Tompson Hsu', confirmed: false, notGoing: true }, { name: 'Kyle Lu', confirmed: false, notGoing: true },
-                    { name: 'Aiden Zhang', confirmed: false }, { name: 'Andy Nilipour', confirmed: false },
-                    { name: 'Anthony Yao', confirmed: false }, { name: 'Brian Zhu', confirmed: false },
-                    { name: 'Demitrius Hong', confirmed: false }, { name: 'Michael Chen', confirmed: false },
-                    { name: 'Shreyank Kadadi', confirmed: false }, { name: 'Trevor Guo', confirmed: false }
-                ]);
-                buildMapTab([
-                    { date: '2026-09-05', city: 'London', country: 'England', flag: '', nights: 3 },
-                    { date: '2026-09-08', city: 'Paris', country: 'France', flag: '', nights: 2 },
-                    { date: '2026-09-10', city: 'Rome', country: 'Italy', flag: '', nights: 2 }
-                ]);
-            });
-        }
+function selectStop(idx) {
+  selectedIdx = idx;
+  renderMap();
+  renderTimeline();
+  renderCityList();
+  var s = stops[idx];
+  if (map && s && s.coords) {
+    map.flyTo(s.coords, Math.max(map.getZoom(), 6), {duration: 0.8});
+    var m = mapMarkers[idx];
+    if (m) setTimeout(function(){ m.openPopup(); }, 400);
+  }
+}
 
-        generateCalendar();
-        setupTabs();
-        loadData();
-    </script>
+function buildMapTab(itin) {
+  stops = buildStops(itin);
+  renderTimeline();
+  renderCityList();
+}
 
-    <div id="version-badge">loading…</div>
+// City Picks tab
+var citiesMap = null, citiesMapInit = false, citiesMarkers2 = {}, cityPicksData = [];
 
-    <script>
-        (function () {
-            fetch('https://api.github.com/repos/jonathanh8686/europe2026/commits/main')
-                .then(function (r) { return r.json(); })
-                .then(function (d) {
-                    var hash = d.sha ? d.sha.slice(0, 7) : '?';
-                    var date = d.commit && d.commit.author && d.commit.author.date
-                        ? new Date(d.commit.author.date) : null;
-                    var dateStr = date
-                        ? date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' ' +
-                        date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
-                        : '?';
-                    document.getElementById('version-badge').innerHTML =
-                        '<span class="vb-hash">' + hash + '</span> · ' + dateStr;
-                })
-                .catch(function () { document.getElementById('version-badge').textContent = 'version unknown'; });
-        })();
-    </script>
+function initCitiesMap() {
+  if (citiesMapInit) return;
+  citiesMap = L.map('citiesMap', {zoomControl:true, scrollWheelZoom:true}).setView([48,10], 4);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+  }).addTo(citiesMap);
+  citiesMapInit = true;
+}
+
+function renderCitiesMap(cities) {
+  if (!citiesMap) return;
+  Object.keys(citiesMarkers2).forEach(function(k){ citiesMap.removeLayer(citiesMarkers2[k]); });
+  citiesMarkers2 = {};
+  var pts = [];
+  cities.forEach(function(c, i) {
+    if (!c.coords) return;
+    var color = c.status === 'planned' ? '#2d7dd2' : '#f5a623';
+    var marker = L.marker(c.coords, {
+      icon: L.divIcon({
+        className: 'city-marker',
+        html: '<div class="city-marker-pin" style="background:'+color+'"><span style="font-size:0.6rem">'+(c.emoji||String(i+1))+'</span></div>',
+        iconSize:[32,32], iconAnchor:[16,32]
+      })
+    }).addTo(citiesMap);
+    var pop = '<strong>'+(c.flag?c.flag+' ':'')+c.name+'</strong>'+
+      (c.country?'<br><span style="color:#8fa3bc;font-size:0.77rem">'+c.country+'</span>':'')+
+      '<br><span style="color:'+color+';font-size:0.75rem">'+(c.status==='planned'?'✓ Planned':'💬 Suggested')+'</span>'+
+      (c.suggestedBy&&c.suggestedBy.length?'<br><span style="color:#8fa3bc;font-size:0.72rem">by '+c.suggestedBy.join(', ')+'</span>':'')+
+      (c.blurb?'<br><span style="color:#8fa3bc;font-size:0.72rem;font-style:italic">'+c.blurb.slice(0,90)+'…</span>':'');
+    marker.bindPopup(pop);
+    citiesMarkers2[i] = marker;
+    pts.push(c.coords);
+  });
+  if (pts.length >= 2) citiesMap.fitBounds(L.latLngBounds(pts), {padding:[50,50]});
+  else if (pts.length === 1) citiesMap.setView(pts[0], 6);
+}
+
+function renderCitiesGrid(cities) {
+  var grid = document.getElementById('citiesGrid');
+  if (!cities || !cities.length) { grid.innerHTML = '<div style="color:var(--text-muted);padding:16px 0;font-size:0.85rem">No cities yet.</div>'; return; }
+  grid.innerHTML = cities.map(function(c) {
+    var bySection = '';
+    if (c.suggestedBy && c.suggestedBy.length) {
+      bySection = '<span style="color:var(--text-muted)">Suggested by</span> '+
+        c.suggestedBy.map(function(n){ return '<span class="cpicks-avatar" title="'+n+'">'+n.charAt(0)+'</span>'; }).join('')+
+        ' <span>'+c.suggestedBy.join(', ')+'</span>';
+    } else {
+      bySection = '<span class="cpicks-no-suggestions">'+(c.status==='planned'?'✓ In planned itinerary':'No one yet — drop it in the chat!')+'</span>';
+    }
+    return '<div class="cpicks-card '+(c.status||'')+'">' +
+      '<div class="cpicks-top">' +
+        '<div class="cpicks-emoji">'+(c.emoji||'')+'</div>'+
+        '<div class="cpicks-meta">'+
+          '<div class="cpicks-name"><span>'+c.name+'</span><span>'+(c.flag||'')+'</span>'+
+            '<span class="cpicks-badge '+(c.status||'')+'">'+( c.status||'')+'</span></div>'+
+          '<div class="cpicks-country">'+(c.country||'')+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="cpicks-blurb">'+(c.blurb||'')+'</div>'+
+      '<div class="cpicks-by">'+bySection+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+function buildCitiesTab(cities) {
+  cityPicksData = cities || [];
+  renderCitiesGrid(cityPicksData);
+}
+
+function setupTabs() {
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      var panel = document.getElementById('tab-' + btn.dataset.tab);
+      if (panel) panel.classList.add('active');
+      if (btn.dataset.tab === 'map') {
+        if (!mapInit) { initMap(); renderMap(); }
+        else { setTimeout(function(){ map.invalidateSize(); renderMap(); }, 50); }
+      }
+      if (btn.dataset.tab === 'cities') {
+        if (!citiesMapInit) { initCitiesMap(); renderCitiesMap(cityPicksData); }
+        else { setTimeout(function(){ citiesMap.invalidateSize(); }, 50); }
+      }
+    });
+  });
+}
+
+function loadData() {
+  fetch('data.json').then(function(r){ return r.json(); }).then(function(data) {
+    renderAttendees(data.attendees || []);
+    buildMapTab(data.itinerary || []);
+    buildCitiesTab(data.citySuggestions || []);
+  }).catch(function() {
+    renderAttendees([
+      {name:'Jonathan Hsieh',confirmed:true},{name:'Sean Chen',confirmed:true},
+      {name:'Derek Wen',confirmed:true},{name:'Yongjae Lee',confirmed:true},
+      {name:'Tompson Hsu',confirmed:false,notGoing:true},{name:'Kyle Lu',confirmed:false,notGoing:true},
+      {name:'Aiden Zhang',confirmed:false},{name:'Andy Nilipour',confirmed:false},
+      {name:'Anthony Yao',confirmed:false},{name:'Brian Zhu',confirmed:false},
+      {name:'Demitrius Hong',confirmed:false},{name:'Michael Chen',confirmed:false},
+      {name:'Shreyank Kadadi',confirmed:false},{name:'Trevor Guo',confirmed:false}
+    ]);
+    buildMapTab([
+      {date:'2026-09-05',city:'London',country:'England',flag:'',nights:3},
+      {date:'2026-09-08',city:'Paris',country:'France',flag:'',nights:2},
+      {date:'2026-09-10',city:'Rome',country:'Italy',flag:'',nights:2}
+    ]);
+  });
+}
+
+generateCalendar();
+setupTabs();
+loadData();
+</script>
+
+<div id="version-badge">loading…</div>
+
+<script>
+(function() {
+  fetch('https://api.github.com/repos/jonathanh8686/europe2026/commits/main')
+    .then(function(r){ return r.json(); })
+    .then(function(d) {
+      var hash = d.sha ? d.sha.slice(0,7) : '?';
+      var date = d.commit && d.commit.author && d.commit.author.date
+        ? new Date(d.commit.author.date) : null;
+      var dateStr = date
+        ? date.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' +
+          date.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false})
+        : '?';
+      document.getElementById('version-badge').innerHTML =
+        '<span class="vb-hash">' + hash + '</span> · ' + dateStr;
+    })
+    .catch(function(){ document.getElementById('version-badge').textContent = 'version unknown'; });
+})();
+</script>
 
 </body>
-
 </html>
