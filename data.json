@@ -54,13 +54,28 @@
     },
     {
       "date": "2026-09-08",
+      "city": "Ljubljana",
+      "country": "Slovenia",
+      "flag": "🇸🇮",
+      "emoji": "🏰",
+      "nights": 1,
+      "activities": [
+        "Train from Bologna to Ljubljana (~4.5 hrs via Venice)",
+        "Ljubljana Castle & panoramic city views",
+        "Stroll the Ljubljanica River promenade & Old Town",
+        "Visit the Triple Bridge & vibrant Central Market"
+      ],
+      "notes": "Slovenia's charming, walkable capital — a hidden gem between Italy and Switzerland. Compact enough to see the highlights in one day."
+    },
+    {
+      "date": "2026-09-09",
       "city": "Interlaken",
       "country": "Switzerland",
       "flag": "🇨🇭",
       "emoji": "⛰️",
       "nights": 2,
       "activities": [
-        "Train from Bologna to Interlaken",
+        "Train from Ljubljana to Interlaken (~5 hrs via Zurich)",
         "Jungfraujoch (Top of Europe) day trip",
         "Hiking in the Bernese Oberland",
         "Paragliding or adventure activities"
@@ -68,7 +83,7 @@
       "notes": "Gateway to the Swiss Alps. Book Jungfraujoch tickets in advance."
     },
     {
-      "date": "2026-09-10",
+      "date": "2026-09-11",
       "city": "Home",
       "country": "",
       "flag": "🇺🇸",
@@ -101,10 +116,10 @@
     {
       "id": "f2",
       "type": "flight",
-      "date": "2026-09-08",
-      "from": "FCO",
+      "date": "2026-09-09",
+      "from": "LJU",
       "to": "ZRH",
-      "fromCity": "Rome",
+      "fromCity": "Ljubljana",
       "toCity": "Zurich",
       "airline": "TBD",
       "flightNum": "TBD",
@@ -112,12 +127,12 @@
       "arrival": "TBD",
       "confirmation": "TBD",
       "status": "planned",
-      "notes": "Or train from Italy to Interlaken (scenic alternative)"
+      "notes": "Or train from Ljubljana to Interlaken via Zurich (scenic alternative, ~5 hrs)"
     },
     {
       "id": "f3",
       "type": "flight",
-      "date": "2026-09-10",
+      "date": "2026-09-11",
       "from": "ZRH",
       "to": "LAX",
       "fromCity": "Zurich",
@@ -162,10 +177,24 @@
     },
     {
       "id": "h3",
+      "city": "Ljubljana",
+      "name": "TBD - Ljubljana Hotel",
+      "checkIn": "2026-09-08",
+      "checkOut": "2026-09-09",
+      "nights": 1,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 120,
+      "booked": false,
+      "notes": "Old Town or city center location near the Ljubljanica River"
+    },
+    {
+      "id": "h4",
       "city": "Interlaken",
       "name": "TBD - Interlaken Hotel",
-      "checkIn": "2026-09-08",
-      "checkOut": "2026-09-10",
+      "checkIn": "2026-09-09",
+      "checkOut": "2026-09-11",
       "nights": 2,
       "confirmation": "TBD",
       "address": "",
@@ -252,6 +281,17 @@
       "status": "planned",
       "suggestedBy": ["Sean Chen"],
       "blurb": "The culinary heart of Italy — famous for fresh tagliatelle, tortellini, and mortadella. Medieval towers, vibrant piazzas, and some of the best food you'll ever eat."
+    },
+    {
+      "id": "ljubljana",
+      "name": "Ljubljana",
+      "country": "Slovenia",
+      "flag": "🇸🇮",
+      "emoji": "🏰",
+      "coords": [46.0569, 14.5058],
+      "status": "planned",
+      "suggestedBy": [],
+      "blurb": "Slovenia's underrated gem — a compact, car-free Old Town draped along the Ljubljanica River, crowned by a medieval castle. Perfectly positioned between Italy and Switzerland for a one-night stop."
     }
   ],
   "budget": {
