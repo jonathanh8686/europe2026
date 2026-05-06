@@ -110,52 +110,6 @@
     .cpicks-by { display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:0.74rem; color:var(--text-muted); }
     .cpicks-avatar { width:20px; height:20px; border-radius:50%; background:linear-gradient(135deg,#1e5fa8,#2d7dd2); display:inline-flex; align-items:center; justify-content:center; font-size:0.58rem; font-weight:700; color:#fff; flex-shrink:0; }
     .cpicks-no-suggestions { color:var(--text-muted); font-size:0.76rem; font-style:italic; }
-    /* Poll tab */
-    .poll-intro { background:rgba(30,95,168,.1); border:1px solid rgba(30,95,168,.3); border-radius:8px; padding:12px 16px; margin-bottom:22px; font-size:0.85rem; color:var(--blue-light); line-height:1.5; }
-    .poll-intro strong { color:var(--text); }
-    .poll-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:12px; margin-bottom:24px; }
-    .poll-card { background:var(--card); border:2px solid var(--card-border); border-radius:var(--radius); padding:16px; cursor:pointer; transition:border-color .15s,background .15s; user-select:none; position:relative; }
-    .poll-card:hover { background:#1a2d47; border-color:var(--blue-light); }
-    .poll-card.selected { border-color:var(--accent); background:rgba(245,166,35,.07); }
-    .poll-card-check { position:absolute; top:12px; right:12px; color:var(--accent); font-size:1.1rem; opacity:0; transition:opacity .15s; }
-    .poll-card.selected .poll-card-check { opacity:1; }
-    .poll-card-emoji { font-size:2rem; margin-bottom:8px; }
-    .poll-card-name { font-weight:700; font-size:0.97rem; margin-bottom:2px; display:flex; align-items:center; gap:6px; }
-    .poll-card-country { color:var(--text-muted); font-size:0.75rem; margin-bottom:6px; }
-    .poll-card-desc { color:var(--text-muted); font-size:0.76rem; line-height:1.45; }
-    .poll-footer { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:18px 22px; }
-    .poll-footer-label { font-size:0.8rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; font-weight:700; margin-bottom:10px; }
-    .poll-tags { display:flex; flex-wrap:wrap; gap:7px; min-height:32px; margin-bottom:14px; align-items:center; }
-    .poll-tag { background:rgba(245,166,35,.15); border:1px solid var(--accent); border-radius:20px; padding:4px 13px; font-size:0.78rem; color:var(--accent); font-weight:600; }
-    .poll-tags-empty { color:var(--text-muted); font-size:0.85rem; font-style:italic; }
-    .poll-footer-actions { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-    .poll-share-btn { background:var(--accent); color:#0f1b2d; border:none; border-radius:8px; padding:10px 20px; font-size:0.88rem; font-weight:700; cursor:pointer; transition:opacity .15s; font-family:inherit; }
-    .poll-share-btn:hover { opacity:.85; }
-    .poll-share-btn:disabled { opacity:.38; cursor:default; }
-    .poll-copy-ok { color:var(--green); font-size:0.82rem; font-weight:600; opacity:0; transition:opacity .3s; }
-    .poll-copy-ok.show { opacity:1; }
-    .poll-edit-trigger { margin-top:14px; text-align:center; }
-    .poll-edit-trigger button { background:transparent; border:none; color:var(--text-muted); font-size:0.75rem; cursor:pointer; font-family:inherit; padding:4px 8px; border-radius:4px; }
-    .poll-edit-trigger button:hover { color:var(--text); background:rgba(255,255,255,.05); }
-    .poll-admin { background:var(--card); border:1px solid rgba(245,166,35,.35); border-radius:var(--radius); padding:20px 22px; margin-top:10px; display:none; }
-    .poll-admin.open { display:block; }
-    .poll-admin-heading { font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--accent); margin-bottom:14px; }
-    .poll-admin-sub { font-size:0.78rem; color:var(--text-muted); margin-bottom:6px; }
-    .poll-admin-input { width:100%; background:#0a1628; border:1px solid var(--card-border); border-radius:6px; padding:8px 11px; color:var(--text); font-size:0.83rem; font-family:inherit; margin-bottom:10px; }
-    .poll-admin-input:focus { outline:none; border-color:var(--blue-light); }
-    .poll-admin-city-list { margin-bottom:14px; }
-    .poll-admin-row { display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px solid var(--card-border); font-size:0.83rem; }
-    .poll-admin-row:last-child { border-bottom:none; }
-    .poll-admin-row span { flex:1; }
-    .poll-admin-rm { background:rgba(231,76,60,.15); border:1px solid rgba(231,76,60,.3); border-radius:4px; color:#e74c3c; font-size:0.72rem; padding:2px 9px; cursor:pointer; font-family:inherit; white-space:nowrap; }
-    .poll-admin-add-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
-    .poll-admin-add-grid input { background:#0a1628; border:1px solid var(--card-border); border-radius:6px; padding:7px 10px; color:var(--text); font-size:0.8rem; font-family:inherit; }
-    .poll-admin-add-grid input:focus { outline:none; border-color:var(--blue-light); }
-    .poll-admin-btn { border:none; border-radius:6px; padding:8px 16px; font-size:0.82rem; font-weight:600; cursor:pointer; font-family:inherit; }
-    .poll-admin-btn.green { background:var(--green); color:#fff; margin-bottom:14px; }
-    .poll-admin-btn.blue { background:var(--blue); color:var(--text); margin-right:8px; }
-    .poll-admin-btn.blue:hover { background:var(--blue-light); }
-    .poll-admin-status { font-size:0.8rem; margin-left:4px; }
     @media (max-width:700px) {
       header { padding:24px 16px 0; }
       .trip-title { font-size:1.6rem; }
@@ -176,7 +130,6 @@
     <button class="tab-btn active" data-tab="home">Home</button>
     <button class="tab-btn" data-tab="map">Map &amp; Timeline</button>
     <button class="tab-btn" data-tab="cities">🌍 City Picks</button>
-    <button class="tab-btn" data-tab="poll">🗳️ City Poll</button>
   </nav>
 </header>
 
@@ -228,43 +181,6 @@
     </div>
     <div class="map-card"><div id="citiesMap"></div></div>
     <div class="cpicks-grid" id="citiesGrid"></div>
-  </div>
-
-  <div class="tab-panel" id="tab-poll">
-    <div class="poll-intro">
-      <strong>Vote for cities you want to visit!</strong> Select as many as you'd like, then hit <strong>Copy picks</strong> and paste your choices into the group chat. No sign-in needed — just pick and share.
-    </div>
-    <div class="poll-grid" id="pollGrid"></div>
-    <div class="poll-footer">
-      <div class="poll-footer-label">Your picks</div>
-      <div class="poll-tags" id="pollTags"><span class="poll-tags-empty">Nothing selected yet…</span></div>
-      <div class="poll-footer-actions">
-        <button class="poll-share-btn" id="pollShareBtn" disabled>📋 Copy picks</button>
-        <span class="poll-copy-ok" id="pollCopyOk">✓ Copied to clipboard!</span>
-      </div>
-    </div>
-    <div class="poll-edit-trigger">
-      <button id="pollEditToggle">⚙ Edit poll cities</button>
-    </div>
-    <div class="poll-admin" id="pollAdmin">
-      <div class="poll-admin-heading">Admin — Edit Poll Cities</div>
-      <div class="poll-admin-sub">GitHub token (needs <code>repo</code> write access):</div>
-      <input type="password" class="poll-admin-input" id="pollToken" placeholder="ghp_…">
-      <div class="poll-admin-heading" style="margin-top:6px">Current cities</div>
-      <div class="poll-admin-city-list" id="pollAdminList"></div>
-      <div class="poll-admin-heading" style="margin-top:14px">Add a city</div>
-      <div class="poll-admin-add-grid">
-        <input type="text" id="aName" placeholder="City (e.g. Athens)">
-        <input type="text" id="aCountry" placeholder="Country (e.g. Greece)">
-        <input type="text" id="aFlag" placeholder="Flag emoji 🇬🇷">
-        <input type="text" id="aEmoji" placeholder="City emoji 🏙️">
-        <input type="text" id="aDesc" placeholder="Short description" style="grid-column:1/-1">
-      </div>
-      <button class="poll-admin-btn green" id="pollAddBtn">+ Add city</button>
-      <br>
-      <button class="poll-admin-btn blue" id="pollSaveBtn">Save to GitHub</button>
-      <span class="poll-admin-status" id="pollAdminStatus"></span>
-    </div>
   </div>
 
 </main>
@@ -586,16 +502,17 @@ function loadData() {
     renderAttendees([
       {name:'Jonathan Hsieh',confirmed:true},{name:'Sean Chen',confirmed:true},
       {name:'Derek Wen',confirmed:true},{name:'Yongjae Lee',confirmed:true},
+      {name:'Aiden Zhang',confirmed:true},{name:'Brian Zhu',confirmed:true},
+      {name:'Trevor Guo',confirmed:true},
       {name:'Tompson Hsu',confirmed:false,notGoing:true},{name:'Kyle Lu',confirmed:false,notGoing:true},
-      {name:'Aiden Zhang',confirmed:false},{name:'Andy Nilipour',confirmed:false},
-      {name:'Anthony Yao',confirmed:false},{name:'Brian Zhu',confirmed:false},
+      {name:'Andy Nilipour',confirmed:false},{name:'Anthony Yao',confirmed:false},
       {name:'Demitrius Hong',confirmed:false},{name:'Michael Chen',confirmed:false},
-      {name:'Shreyank Kadadi',confirmed:false},{name:'Trevor Guo',confirmed:false}
+      {name:'Shreyank Kadadi',confirmed:false}
     ]);
     buildMapTab([
-      {date:'2026-09-05',city:'London',country:'England',flag:'',nights:3},
-      {date:'2026-09-08',city:'Paris',country:'France',flag:'',nights:2},
-      {date:'2026-09-10',city:'Rome',country:'Italy',flag:'',nights:2}
+      {date:'2026-09-05',city:'London',country:'England',flag:'🇬🇧',nights:3},
+      {date:'2026-09-08',city:'Paris',country:'France',flag:'🇫🇷',nights:2},
+      {date:'2026-09-10',city:'Rome',country:'Italy',flag:'🇮🇹',nights:2}
     ]);
   });
 }

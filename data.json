@@ -11,16 +11,16 @@
     { "name": "Sean Chen", "confirmed": true, "joinedDate": "2026-05-04" },
     { "name": "Derek Wen", "confirmed": true, "joinedDate": "2026-05-04" },
     { "name": "Yongjae Lee", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Aiden Zhang", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Brian Zhu", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Trevor Guo", "confirmed": true, "joinedDate": "2026-05-04" },
     { "name": "Tompson Hsu", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
     { "name": "Kyle Lu", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
-    { "name": "Aiden Zhang", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Andy Nilipour", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Anthony Yao", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
-    { "name": "Brian Zhu", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Demitrius Hong", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Michael Chen", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
-    { "name": "Shreyank Kadadi", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
-    { "name": "Trevor Guo", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" }
+    { "name": "Shreyank Kadadi", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" }
   ],
   "itinerary": [
     {
@@ -224,22 +224,6 @@
       "blurb": "2,000 years of history in one city — Colosseum, Vatican, Trastevere, and incredible pasta. Vatican tickets must be pre-booked months ahead."
     }
   ],
-  "cityPoll": {
-    "cities": [
-      {"id": "amsterdam", "name": "Amsterdam", "country": "Netherlands", "flag": "🇳🇱", "emoji": "🌷", "description": "Canals, Rijksmuseum, vibrant nightlife"},
-      {"id": "barcelona", "name": "Barcelona", "country": "Spain", "flag": "🇪🇸", "emoji": "⛪", "description": "Gaudí architecture, beaches, amazing tapas"},
-      {"id": "berlin", "name": "Berlin", "country": "Germany", "flag": "🇩🇪", "emoji": "🐻", "description": "History, cutting-edge nightlife, street art"},
-      {"id": "budapest", "name": "Budapest", "country": "Hungary", "flag": "🇭🇺", "emoji": "🛁", "description": "Thermal baths, ruin bars, stunning Danube views"},
-      {"id": "copenhagen", "name": "Copenhagen", "country": "Denmark", "flag": "🇩🇰", "emoji": "🧜", "description": "World-class food scene, design, hygge vibes"},
-      {"id": "lisbon", "name": "Lisbon", "country": "Portugal", "flag": "🇵🇹", "emoji": "🚃", "description": "Pastéis de nata, fado music, Alfama district"},
-      {"id": "london", "name": "London", "country": "England", "flag": "🇬🇧", "emoji": "🎡", "description": "World-class museums, Borough Market, theatre"},
-      {"id": "madrid", "name": "Madrid", "country": "Spain", "flag": "🇪🇸", "emoji": "🎧", "description": "Prado Museum, incredible tapas, lively plazas"},
-      {"id": "paris", "name": "Paris", "country": "France", "flag": "🇫🇷", "emoji": "🗼", "description": "Eiffel Tower, Louvre, café culture"},
-      {"id": "prague", "name": "Prague", "country": "Czech Republic", "flag": "🇨🇿", "emoji": "🏰", "description": "Medieval old town, great beer, fairy-tale streets"},
-      {"id": "rome", "name": "Rome", "country": "Italy", "flag": "🇮🇹", "emoji": "🏙️", "description": "Colosseum, Vatican, incredible pasta"},
-      {"id": "vienna", "name": "Vienna", "country": "Austria", "flag": "🇦🇹", "emoji": "🎵", "description": "Mozart, Sachertorte, grand imperial palaces"}
-    ]
-  },
   "budget": {
     "total": 8000,
     "currency": "USD",
