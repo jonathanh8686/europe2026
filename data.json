@@ -254,30 +254,14 @@
       "blurb": "The culinary heart of Italy — famous for fresh tagliatelle, tortellini, and mortadella. Medieval towers, vibrant piazzas, and some of the best food you'll ever eat."
     }
   ],
-  "cityPoll": {
-    "cities": [
-      {"id": "amsterdam", "name": "Amsterdam", "country": "Netherlands", "flag": "🇳🇱", "emoji": "🌷", "description": "Canals, Rijksmuseum, vibrant nightlife"},
-      {"id": "barcelona", "name": "Barcelona", "country": "Spain", "flag": "🇪🇸", "emoji": "⛪", "description": "Gaudí architecture, beaches, amazing tapas"},
-      {"id": "berlin", "name": "Berlin", "country": "Germany", "flag": "🇩🇪", "emoji": "🐻", "description": "History, cutting-edge nightlife, street art"},
-      {"id": "budapest", "name": "Budapest", "country": "Hungary", "flag": "🇭🇺", "emoji": "🛁", "description": "Thermal baths, ruin bars, stunning Danube views"},
-      {"id": "copenhagen", "name": "Copenhagen", "country": "Denmark", "flag": "🇩🇰", "emoji": "🧜", "description": "World-class food scene, design, hygge vibes"},
-      {"id": "lisbon", "name": "Lisbon", "country": "Portugal", "flag": "🇵🇹", "emoji": "🚃", "description": "Pastéis de nata, fado music, Alfama district"},
-      {"id": "london", "name": "London", "country": "England", "flag": "🇬🇧", "emoji": "🎡", "description": "World-class museums, Borough Market, theatre"},
-      {"id": "madrid", "name": "Madrid", "country": "Spain", "flag": "🇪🇸", "emoji": "🎭", "description": "Prado Museum, incredible tapas, lively plazas"},
-      {"id": "paris", "name": "Paris", "country": "France", "flag": "🇫🇷", "emoji": "🗼", "description": "Eiffel Tower, Louvre, café culture"},
-      {"id": "prague", "name": "Prague", "country": "Czech Republic", "flag": "🇨🇿", "emoji": "🏰", "description": "Medieval old town, great beer, fairy-tale streets"},
-      {"id": "rome", "name": "Rome", "country": "Italy", "flag": "🇮🇹", "emoji": "🏛️", "description": "Colosseum, Vatican, incredible pasta"},
-      {"id": "vienna", "name": "Vienna", "country": "Austria", "flag": "🇦🇹", "emoji": "🎵", "description": "Mozart, Sachertorte, grand imperial palaces"}
-    ]
-  },
   "budget": {
     "total": 8000,
     "currency": "USD",
     "categories": [
       { "name": "Flights", "emoji": "✈️", "budgeted": 2500, "spent": 0 },
-      { "name": "Hotels", "emoji": "🏨", "budgeted": 1400, "spent": 0 },
+      { "name": "Hotels", "emoji": "🏈", "budgeted": 1400, "spent": 0 },
       { "name": "Food & Drink", "emoji": "🍽️", "budgeted": 1000, "spent": 0 },
-      { "name": "Activities", "emoji": "🎟️", "budgeted": 600, "spent": 0 },
+      { "name": "Activities", "emoji": "🏟️", "budgeted": 600, "spent": 0 },
       { "name": "Transport", "emoji": "🚆", "budgeted": 400, "spent": 0 },
       { "name": "Shopping", "emoji": "🛍️", "budgeted": 500, "spent": 0 },
       { "name": "Misc", "emoji": "💡", "budgeted": 300, "spent": 0 }
