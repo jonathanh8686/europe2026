@@ -11,16 +11,16 @@
     { "name": "Sean Chen", "confirmed": true, "joinedDate": "2026-05-04" },
     { "name": "Derek Wen", "confirmed": true, "joinedDate": "2026-05-04" },
     { "name": "Yongjae Lee", "confirmed": true, "joinedDate": "2026-05-04" },
-    { "name": "Aiden Zhang", "confirmed": true, "joinedDate": "2026-05-04" },
-    { "name": "Brian Zhu", "confirmed": true, "joinedDate": "2026-05-04" },
-    { "name": "Trevor Guo", "confirmed": true, "joinedDate": "2026-05-04" },
     { "name": "Tompson Hsu", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
     { "name": "Kyle Lu", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
+    { "name": "Aiden Zhang", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Andy Nilipour", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Anthony Yao", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
+    { "name": "Brian Zhu", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Demitrius Hong", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
     { "name": "Michael Chen", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
-    { "name": "Shreyank Kadadi", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" }
+    { "name": "Shreyank Kadadi", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
+    { "name": "Trevor Guo", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" }
   ],
   "itinerary": [
     {
@@ -56,7 +56,7 @@
       "city": "Rome",
       "country": "Italy",
       "flag": "🇮🇹",
-      "emoji": "🏙️",
+      "emoji": "🏛️",
       "nights": 2,
       "activities": [
         "Flight from Paris to Rome",
@@ -197,9 +197,9 @@
       "flag": "🇬🇧",
       "emoji": "🎡",
       "coords": [51.5074, -0.1278],
-      "status": "suggested",
+      "status": "planned",
       "suggestedBy": [],
-      "blurb": "A world-class city with free museums, iconic landmarks, Borough Market, and a legendary pub scene. Good jet-lag day one — but the group leans less on London than the other stops."
+      "blurb": "A world-class city with free museums, iconic landmarks, Borough Market, and a legendary pub scene. Great jet-lag day one — everything is walkable from central."
     },
     {
       "id": "paris",
@@ -208,44 +208,49 @@
       "flag": "🇫🇷",
       "emoji": "🗼",
       "coords": [48.8566, 2.3522],
-      "status": "suggested",
+      "status": "planned",
       "suggestedBy": [],
       "blurb": "The Eiffel Tower, the Louvre, the best bread of your life, and a 2.5-hour Eurostar hop from London. Book Louvre tickets way in advance."
+    },
+    {
+      "id": "bologna",
+      "name": "Bologna",
+      "country": "Italy",
+      "flag": "🇮🇹",
+      "emoji": "🍝",
+      "coords": [44.4939, 11.3426],
+      "status": "planned",
+      "suggestedBy": ["Sean Chen"],
+      "blurb": "The culinary heart of Italy — famous for fresh tagliatelle, tortellini, and mortadella. Medieval towers, vibrant piazzas, and some of the best food you'll ever eat."
     },
     {
       "id": "rome",
       "name": "Rome",
       "country": "Italy",
       "flag": "🇮🇹",
-      "emoji": "🏙️",
+      "emoji": "🏛️",
       "coords": [41.9028, 12.4964],
-      "status": "suggested",
+      "status": "planned",
       "suggestedBy": [],
       "blurb": "2,000 years of history in one city — Colosseum, Vatican, Trastevere, and incredible pasta. Vatican tickets must be pre-booked months ahead."
-    },
-    {
-      "id": "amsterdam",
-      "name": "Amsterdam",
-      "country": "Netherlands",
-      "flag": "🇳🇱",
-      "emoji": "🌷",
-      "coords": [52.3676, 4.9041],
-      "status": "suggested",
-      "suggestedBy": ["Jonathan", "Sean"],
-      "blurb": "Canals, Rijksmuseum, vibrant food scene, and a great hub for getting around northwest Europe. Jonathan called it out and Sean was immediately on board."
-    },
-    {
-      "id": "munich",
-      "name": "Munich",
-      "country": "Germany",
-      "flag": "🇩🇪",
-      "emoji": "🎺",
-      "coords": [48.1351, 11.582],
-      "status": "suggested",
-      "suggestedBy": ["Jonathan"],
-      "blurb": "Jonathan’s top pick — great beer halls, BMW Museum, day trips to the Alps, and a vibe that’s more chill than Berlin. Sean echoed Germany as a solid choice."
     }
   ],
+  "cityPoll": {
+    "cities": [
+      {"id": "amsterdam", "name": "Amsterdam", "country": "Netherlands", "flag": "🇳🇱", "emoji": "🌷", "description": "Canals, Rijksmuseum, vibrant nightlife"},
+      {"id": "barcelona", "name": "Barcelona", "country": "Spain", "flag": "🇪🇸", "emoji": "⛪", "description": "Gaudí architecture, beaches, amazing tapas"},
+      {"id": "berlin", "name": "Berlin", "country": "Germany", "flag": "🇩🇪", "emoji": "🐻", "description": "History, cutting-edge nightlife, street art"},
+      {"id": "budapest", "name": "Budapest", "country": "Hungary", "flag": "🇭🇺", "emoji": "🛁", "description": "Thermal baths, ruin bars, stunning Danube views"},
+      {"id": "copenhagen", "name": "Copenhagen", "country": "Denmark", "flag": "🇩🇰", "emoji": "🧜", "description": "World-class food scene, design, hygge vibes"},
+      {"id": "lisbon", "name": "Lisbon", "country": "Portugal", "flag": "🇵🇹", "emoji": "🚃", "description": "Pastéis de nata, fado music, Alfama district"},
+      {"id": "london", "name": "London", "country": "England", "flag": "🇬🇧", "emoji": "🎡", "description": "World-class museums, Borough Market, theatre"},
+      {"id": "madrid", "name": "Madrid", "country": "Spain", "flag": "🇪🇸", "emoji": "🎭", "description": "Prado Museum, incredible tapas, lively plazas"},
+      {"id": "paris", "name": "Paris", "country": "France", "flag": "🇫🇷", "emoji": "🗼", "description": "Eiffel Tower, Louvre, café culture"},
+      {"id": "prague", "name": "Prague", "country": "Czech Republic", "flag": "🇨🇿", "emoji": "🏰", "description": "Medieval old town, great beer, fairy-tale streets"},
+      {"id": "rome", "name": "Rome", "country": "Italy", "flag": "🇮🇹", "emoji": "🏛️", "description": "Colosseum, Vatican, incredible pasta"},
+      {"id": "vienna", "name": "Vienna", "country": "Austria", "flag": "🇦🇹", "emoji": "🎵", "description": "Mozart, Sachertorte, grand imperial palaces"}
+    ]
+  },
   "budget": {
     "total": 8000,
     "currency": "USD",
@@ -253,7 +258,7 @@
       { "name": "Flights", "emoji": "✈️", "budgeted": 2500, "spent": 0 },
       { "name": "Hotels", "emoji": "🏨", "budgeted": 1400, "spent": 0 },
       { "name": "Food & Drink", "emoji": "🍽️", "budgeted": 1000, "spent": 0 },
-      { "name": "Activities", "emoji": "🏟️", "budgeted": 600, "spent": 0 },
+      { "name": "Activities", "emoji": "🎟️", "budgeted": 600, "spent": 0 },
       { "name": "Transport", "emoji": "🚆", "budgeted": 400, "spent": 0 },
       { "name": "Shopping", "emoji": "🛍️", "budgeted": 500, "spent": 0 },
       { "name": "Misc", "emoji": "💡", "budgeted": 300, "spent": 0 }
