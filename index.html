@@ -289,6 +289,7 @@ function renderScheduleCol(itin, stops, suggestions) {
   // checkout date (inclusive), so a checkout date that's also the next stop's
   // arrival date picks up both cities' colors — rendered below as a two-tone
   // gradient "travel day" (e.g. an early train out of one city and into the next).
+  var EMPTY_COLOR = 'rgba(255,255,255,0.03)';
   var dayMap = {};
   stops.forEach(function(stop, i) {
     for (var n = 0; n <= (stop.nights || 0); n++) {
@@ -298,8 +299,28 @@ function renderScheduleCol(itin, stops, suggestions) {
       dayMap[key].cities.push(stop.city);
     }
   });
+
+  // The very first day of the trip is a travel day too (flying in from home) —
+  // gradient in from an empty cell into the first city.
+  if (stops.length) {
+    var firstKey = stops[0].date;
+    if (dayMap[firstKey] && dayMap[firstKey].colors.length === 1) {
+      dayMap[firstKey].colors.unshift(EMPTY_COLOR);
+      dayMap[firstKey].cities.unshift('Home');
+    }
+  }
+
+  // The last day (flying home) mirrors that — mostly the last city's color,
+  // gradient fading to an empty cell on the right as the day winds down.
   var home = itin.find(function(s) { return s.city === 'Home'; });
-  if (home) dayMap[home.date] = { home: true };
+  if (home && stops.length) {
+    var lastStop = stops[stops.length - 1];
+    dayMap[home.date] = {
+      colors: [STOP_COLORS[stops.length - 1], EMPTY_COLOR],
+      cities: [lastStop.city, 'Home'],
+      reverse: true
+    };
+  }
 
   // September 2026: Sep 1 = Tuesday (firstDay = 2)
   var firstDay    = new Date(2026, 8, 1).getDay(); // 2
@@ -315,14 +336,16 @@ function renderScheduleCol(itin, stops, suggestions) {
   for (var d = 1; d <= daysInMonth; d++) {
     var key  = '2026-09-' + (d < 10 ? '0' : '') + d;
     var info = dayMap[key];
-    if (info && info.home) {
-      cal += '<div class="cal-cell fly-home" title="Fly home">' + d + '<div class="cal-fly-icon">✈️</div></div>';
-    } else if (info && info.colors.length > 1) {
+    if (info && info.colors.length > 1) {
       var fromCity = info.cities[0], toCity = info.cities[info.cities.length - 1];
-      var grad = 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 12%, ' +
-                 info.colors[info.colors.length - 1] + ' 28%, ' + info.colors[info.colors.length - 1] + ' 100%)';
+      var grad = info.reverse
+        ? 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 72%, ' +
+          info.colors[info.colors.length - 1] + ' 88%, ' + info.colors[info.colors.length - 1] + ' 100%)'
+        : 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 12%, ' +
+          info.colors[info.colors.length - 1] + ' 28%, ' + info.colors[info.colors.length - 1] + ' 100%)';
+      var linkCity = info.reverse ? fromCity : toCity;
       cal += '<div class="cal-cell trip-day travel-day" style="background:' + grad + ';border-radius:8px" ' +
-             'title="' + fromCity + ' → ' + toCity + ' (travel day)" onclick="location.href=\'' + (CITY_PAGES[toCity] || '#') + '\'">' +
+             'title="' + fromCity + ' → ' + toCity + ' (travel day)" onclick="location.href=\'' + (CITY_PAGES[linkCity] || '#') + '\'">' +
              d + '</div>';
     } else if (info) {
       cal += '<div class="cal-cell trip-day" style="background:' + info.colors[0] + ';border-radius:8px" ' +
