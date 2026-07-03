@@ -1,8 +1,8 @@
 {
   "trip": {
     "name": "Europe 2026",
-    "startDate": "2026-09-05",
-    "endDate": "2026-09-12",
+    "startDate": "2026-09-12",
+    "endDate": "2026-09-20",
     "travelers": 1,
     "homeAirport": "LAX"
   },
@@ -24,7 +24,7 @@
   ],
   "itinerary": [
     {
-      "date": "2026-09-05",
+      "date": "2026-09-12",
       "city": "Bologna",
       "country": "Italy",
       "flag": "🇮🇹",
@@ -39,7 +39,7 @@
       "notes": "Culinary heart of Italy. Book food tours in advance."
     },
     {
-      "date": "2026-09-07",
+      "date": "2026-09-14",
       "city": "Milan",
       "country": "Italy",
       "flag": "🇮🇹",
@@ -54,12 +54,12 @@
       "notes": "Fashion capital with world-class art. The Last Supper requires reservations months ahead."
     },
     {
-      "date": "2026-09-08",
+      "date": "2026-09-15",
       "city": "Interlaken",
       "country": "Switzerland",
       "flag": "🇨🇭",
       "emoji": "⛰️",
-      "nights": 2,
+      "nights": 3,
       "activities": [
         "Train from Milan to Interlaken (~3.5 hrs)",
         "Jungfraujoch (Top of Europe) day trip",
@@ -69,12 +69,12 @@
       "notes": "Gateway to the Swiss Alps. Book Jungfraujoch tickets in advance."
     },
     {
-      "date": "2026-09-10",
+      "date": "2026-09-18",
       "city": "Zurich",
       "country": "Switzerland",
       "flag": "🇨🇭",
       "emoji": "🏦",
-      "nights": 1,
+      "nights": 2,
       "activities": [
         "Train from Interlaken to Zurich (~2 hrs)",
         "Explore Altstadt (Old Town) & Lindenhügel",
@@ -84,7 +84,7 @@
       "notes": "Sleek, walkable, and on the lake. Great last stop before flying home from ZRH."
     },
     {
-      "date": "2026-09-11",
+      "date": "2026-09-20",
       "city": "Home",
       "country": "",
       "flag": "🇺🇸",
@@ -101,7 +101,7 @@
     {
       "id": "f1",
       "type": "flight",
-      "date": "2026-09-05",
+      "date": "2026-09-12",
       "from": "LAX",
       "to": "BLQ",
       "fromCity": "Los Angeles",
@@ -117,7 +117,7 @@
     {
       "id": "f2",
       "type": "flight",
-      "date": "2026-09-11",
+      "date": "2026-09-20",
       "from": "ZRH",
       "to": "LAX",
       "fromCity": "Zurich",
@@ -128,7 +128,7 @@
       "arrival": "TBD",
       "confirmation": "TBD",
       "status": "planned",
-      "notes": ""
+      "notes": "Morning departure"
     }
   ],
   "hotels": [
@@ -136,8 +136,8 @@
       "id": "h1",
       "city": "Bologna",
       "name": "TBD - Bologna Hotel",
-      "checkIn": "2026-09-05",
-      "checkOut": "2026-09-07",
+      "checkIn": "2026-09-12",
+      "checkOut": "2026-09-14",
       "nights": 2,
       "confirmation": "TBD",
       "address": "",
@@ -150,8 +150,8 @@
       "id": "h2",
       "city": "Milan",
       "name": "TBD - Milan Hotel",
-      "checkIn": "2026-09-07",
-      "checkOut": "2026-09-08",
+      "checkIn": "2026-09-14",
+      "checkOut": "2026-09-15",
       "nights": 1,
       "confirmation": "TBD",
       "address": "",
@@ -164,9 +164,9 @@
       "id": "h3",
       "city": "Interlaken",
       "name": "TBD - Interlaken Hotel",
-      "checkIn": "2026-09-08",
-      "checkOut": "2026-09-10",
-      "nights": 2,
+      "checkIn": "2026-09-15",
+      "checkOut": "2026-09-18",
+      "nights": 3,
       "confirmation": "TBD",
       "address": "",
       "rating": 0,
@@ -178,15 +178,15 @@
       "id": "h4",
       "city": "Zurich",
       "name": "TBD - Zurich Hotel",
-      "checkIn": "2026-09-10",
-      "checkOut": "2026-09-11",
-      "nights": 1,
+      "checkIn": "2026-09-18",
+      "checkOut": "2026-09-20",
+      "nights": 2,
       "confirmation": "TBD",
       "address": "",
       "rating": 0,
       "pricePerNight": 200,
       "booked": false,
-      "notes": "Near Altstadt or Zurich HB (main station) for easy ZRH airport access"
+      "notes": "Near Altstadt or Zurich HB for easy ZRH airport access"
     }
   ],
   "citySuggestions": [
