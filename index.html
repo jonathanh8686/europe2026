@@ -342,7 +342,7 @@ function renderScheduleCol(itin, stops, suggestions) {
         ? 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 88%, ' +
           info.colors[info.colors.length - 1] + ' 95%, ' + info.colors[info.colors.length - 1] + ' 100%)'
         : 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 5%, ' +
-          info.colors[info.colors.length - 1] + ' 12%, ' + info.colors[info.colors.length - 1] + ' 100%)';
+          info.colors[info.colors.length - 1] + ' 18%, ' + info.colors[info.colors.length - 1] + ' 100%)';
       var linkCity = info.reverse ? fromCity : toCity;
       cal += '<div class="cal-cell trip-day travel-day" style="background:' + grad + ';border-radius:8px" ' +
              'title="' + fromCity + ' → ' + toCity + ' (travel day)" onclick="location.href=\'' + (CITY_PAGES[linkCity] || '#') + '\'">' +
@@ -363,7 +363,6 @@ function renderScheduleCol(itin, stops, suggestions) {
     legend += '<div class="cal-leg-chip"><div class="cal-leg-dot" style="background:' + STOP_COLORS[i] + '"></div>' +
               stop.flag + ' ' + stop.city + '</div>';
   });
-  legend += '<div class="cal-leg-chip"><div class="cal-leg-dot" style="background:rgba(143,163,188,0.15);border:1px dashed rgba(143,163,188,0.3)"></div>✈️ Fly home</div>';
   legend += '</div>';
 
   // Stop cards
