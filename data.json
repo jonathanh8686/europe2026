@@ -36,7 +36,7 @@
         "Food tour: tagliatelle, tortellini, mortadella",
         "Visit Piazza Maggiore & San Petronio Basilica"
       ],
-      "notes": "Culinary heart of Italy. Book food tours in advance."
+      "notes": "Culinary heart of Italy. Book food tours in advance. Depart for Milan via evening/night train on the 14th."
     },
     {
       "date": "2026-09-14",
@@ -44,24 +44,24 @@
       "country": "Italy",
       "flag": "🇮🇹",
       "emoji": "🏙️",
-      "nights": 1,
+      "nights": 2,
       "activities": [
-        "Train from Bologna to Milan (~1 hr)",
-        "Duomo di Milano & rooftop walk",
+        "Evening train from Bologna to Milan (~1 hr)",
+        "Full day: Duomo di Milano & rooftop walk",
         "Navigli canal district for dinner",
         "Book The Last Supper (da Vinci) in advance"
       ],
-      "notes": "Fashion capital with world-class art. The Last Supper requires reservations months ahead."
+      "notes": "Fashion capital with world-class art. The Last Supper requires reservations months ahead. Leave for Interlaken the morning of the 16th."
     },
     {
-      "date": "2026-09-15",
+      "date": "2026-09-16",
       "city": "Interlaken",
       "country": "Switzerland",
       "flag": "🇨🇭",
       "emoji": "⛰️",
-      "nights": 3,
+      "nights": 2,
       "activities": [
-        "Train from Milan to Interlaken (~3.5 hrs)",
+        "Morning train from Milan to Interlaken (~4-6 hrs, change in Spiez)",
         "Jungfraujoch (Top of Europe) day trip",
         "Hiking in the Bernese Oberland",
         "Paragliding or adventure activities"
@@ -151,8 +151,8 @@
       "city": "Milan",
       "name": "TBD - Milan Hotel",
       "checkIn": "2026-09-14",
-      "checkOut": "2026-09-15",
-      "nights": 1,
+      "checkOut": "2026-09-16",
+      "nights": 2,
       "confirmation": "TBD",
       "address": "",
       "rating": 0,
@@ -164,9 +164,9 @@
       "id": "h3",
       "city": "Interlaken",
       "name": "TBD - Interlaken Hotel",
-      "checkIn": "2026-09-15",
+      "checkIn": "2026-09-16",
       "checkOut": "2026-09-18",
-      "nights": 3,
+      "nights": 2,
       "confirmation": "TBD",
       "address": "",
       "rating": 0,
