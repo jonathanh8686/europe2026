@@ -301,24 +301,28 @@ function renderScheduleCol(itin, stops, suggestions) {
   });
 
   // The very first day of the trip is a travel day too (flying in from home) —
-  // gradient in from an empty cell into the first city.
+  // gradient in from an empty cell into the first city. Most of that day is
+  // still spent traveling, so the transition sits in the middle, not the edge.
   if (stops.length) {
     var firstKey = stops[0].date;
     if (dayMap[firstKey] && dayMap[firstKey].colors.length === 1) {
       dayMap[firstKey].colors.unshift(EMPTY_COLOR);
       dayMap[firstKey].cities.unshift('Home');
+      dayMap[firstKey].partial = true;
     }
   }
 
   // The last day (flying home) mirrors that — mostly the last city's color,
-  // gradient fading to an empty cell on the right as the day winds down.
+  // gradient fading to an empty cell in the middle since a good chunk of that
+  // day is spent traveling home, not in the city.
   var home = itin.find(function(s) { return s.city === 'Home'; });
   if (home && stops.length) {
     var lastStop = stops[stops.length - 1];
     dayMap[home.date] = {
       colors: [STOP_COLORS[stops.length - 1], EMPTY_COLOR],
       cities: [lastStop.city, 'Home'],
-      reverse: true
+      reverse: true,
+      partial: true
     };
   }
 
@@ -338,7 +342,10 @@ function renderScheduleCol(itin, stops, suggestions) {
     var info = dayMap[key];
     if (info && info.colors.length > 1) {
       var fromCity = info.cities[0], toCity = info.cities[info.cities.length - 1];
-      var grad = info.reverse
+      var grad = info.partial
+        ? 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 40%, ' +
+          info.colors[info.colors.length - 1] + ' 60%, ' + info.colors[info.colors.length - 1] + ' 100%)'
+        : info.reverse
         ? 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 88%, ' +
           info.colors[info.colors.length - 1] + ' 95%, ' + info.colors[info.colors.length - 1] + ' 100%)'
         : 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 5%, ' +
