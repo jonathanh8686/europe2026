@@ -241,7 +241,7 @@ document.getElementById('sidebarToggle').addEventListener('click', function() {
   document.getElementById('sidebarPanel').classList.toggle('hidden');
 });
 
-// ── Boot ───────────────────────────────────────────────────────────────────
+// ── Boot ────────────────────────────────────────────────────────────────────
 fetch('data.json')
   .then(function(r) { return r.json(); })
   .then(function(data) {
@@ -319,7 +319,7 @@ function renderScheduleCol(itin, stops, suggestions) {
       cal += '<div class="cal-cell fly-home" title="Fly home">' + d + '<div class="cal-fly-icon">✈️</div></div>';
     } else if (info && info.colors.length > 1) {
       var fromCity = info.cities[0], toCity = info.cities[info.cities.length - 1];
-      var grad = 'linear-gradient(135deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 45%, ' +
+      var grad = 'linear-gradient(180deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 45%, ' +
                  info.colors[info.colors.length - 1] + ' 55%, ' + info.colors[info.colors.length - 1] + ' 100%)';
       cal += '<div class="cal-cell trip-day travel-day" style="background:' + grad + ';border-radius:8px" ' +
              'title="' + fromCity + ' → ' + toCity + ' (travel day)" onclick="location.href=\'' + (CITY_PAGES[toCity] || '#') + '\'">' +
@@ -340,7 +340,7 @@ function renderScheduleCol(itin, stops, suggestions) {
     legend += '<div class="cal-leg-chip"><div class="cal-leg-dot" style="background:' + STOP_COLORS[i] + '"></div>' +
               stop.flag + ' ' + stop.city + '</div>';
   });
-  legend += '<div class="cal-leg-chip"><div class="cal-leg-dot" style="background:linear-gradient(135deg,#1e5fa8 50%,#f5a623 50%)"></div>🚆 Travel day</div>';
+  legend += '<div class="cal-leg-chip"><div class="cal-leg-dot" style="background:linear-gradient(180deg,#1e5fa8 50%,#f5a623 50%)"></div>🚆 Travel day</div>';
   legend += '<div class="cal-leg-chip"><div class="cal-leg-dot" style="background:rgba(143,163,188,0.15);border:1px dashed rgba(143,163,188,0.3)"></div>✈️ Fly home</div>';
   legend += '</div>';
 
