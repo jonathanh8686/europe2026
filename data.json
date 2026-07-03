@@ -14,44 +14,44 @@
     { "name": "Aiden Zhang", "confirmed": true, "joinedDate": "2026-05-04" },
     { "name": "Brian Zhu", "confirmed": true, "joinedDate": "2026-05-04" },
     { "name": "Trevor Guo", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Michael Chen", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Shreyank Kadadi", "confirmed": true, "joinedDate": "2026-05-04" },
     { "name": "Tompson Hsu", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
     { "name": "Kyle Lu", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
-    { "name": "Andy Nilipour", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
-    { "name": "Anthony Yao", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
-    { "name": "Demitrius Hong", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
-    { "name": "Michael Chen", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" },
-    { "name": "Shreyank Kadadi", "confirmed": false, "pending": true, "joinedDate": "2026-05-04" }
+    { "name": "Andy Nilipour", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
+    { "name": "Anthony Yao", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
+    { "name": "Demitrius Hong", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" }
   ],
   "itinerary": [
     {
       "date": "2026-09-05",
-      "city": "Milan",
-      "country": "Italy",
-      "flag": "🇮🇹",
-      "emoji": "🏙️",
-      "nights": 1,
-      "activities": [
-        "Arrive at MXP airport, check in",
-        "Duomo di Milano & rooftop walk",
-        "Navigli canal district for dinner",
-        "Book The Last Supper (da Vinci) in advance"
-      ],
-      "notes": "Fashion capital with world-class art. The Last Supper requires reservations months ahead."
-    },
-    {
-      "date": "2026-09-06",
       "city": "Bologna",
       "country": "Italy",
       "flag": "🇮🇹",
       "emoji": "🍝",
       "nights": 2,
       "activities": [
-        "Train from Milan to Bologna (~1 hr)",
+        "Arrive at BLQ airport, check in",
         "Explore historic center & medieval towers",
         "Food tour: tagliatelle, tortellini, mortadella",
         "Visit Piazza Maggiore & San Petronio Basilica"
       ],
       "notes": "Culinary heart of Italy. Book food tours in advance."
+    },
+    {
+      "date": "2026-09-07",
+      "city": "Milan",
+      "country": "Italy",
+      "flag": "🇮🇹",
+      "emoji": "🏙️",
+      "nights": 1,
+      "activities": [
+        "Train from Bologna to Milan (~1 hr)",
+        "Duomo di Milano & rooftop walk",
+        "Navigli canal district for dinner",
+        "Book The Last Supper (da Vinci) in advance"
+      ],
+      "notes": "Fashion capital with world-class art. The Last Supper requires reservations months ahead."
     },
     {
       "date": "2026-09-08",
@@ -61,7 +61,7 @@
       "emoji": "⛰️",
       "nights": 2,
       "activities": [
-        "Train from Bologna to Interlaken (~4.5 hrs via Milan)",
+        "Train from Milan to Interlaken (~3.5 hrs)",
         "Jungfraujoch (Top of Europe) day trip",
         "Hiking in the Bernese Oberland",
         "Paragliding or adventure activities"
@@ -103,16 +103,16 @@
       "type": "flight",
       "date": "2026-09-05",
       "from": "LAX",
-      "to": "MXP",
+      "to": "BLQ",
       "fromCity": "Los Angeles",
-      "toCity": "Milan",
+      "toCity": "Bologna",
       "airline": "TBD",
       "flightNum": "TBD",
       "departure": "TBD",
       "arrival": "TBD",
       "confirmation": "TBD",
       "status": "planned",
-      "notes": ""
+      "notes": "Likely connection through a major hub (e.g. LHR, CDG, FCO)"
     },
     {
       "id": "f2",
@@ -134,24 +134,10 @@
   "hotels": [
     {
       "id": "h1",
-      "city": "Milan",
-      "name": "TBD - Milan Hotel",
-      "checkIn": "2026-09-05",
-      "checkOut": "2026-09-06",
-      "nights": 1,
-      "confirmation": "TBD",
-      "address": "",
-      "rating": 0,
-      "pricePerNight": 160,
-      "booked": false,
-      "notes": "Central location near Duomo or Navigli district"
-    },
-    {
-      "id": "h2",
       "city": "Bologna",
       "name": "TBD - Bologna Hotel",
-      "checkIn": "2026-09-06",
-      "checkOut": "2026-09-08",
+      "checkIn": "2026-09-05",
+      "checkOut": "2026-09-07",
       "nights": 2,
       "confirmation": "TBD",
       "address": "",
@@ -159,6 +145,20 @@
       "pricePerNight": 140,
       "booked": false,
       "notes": "Historic center near Piazza Maggiore and food scene"
+    },
+    {
+      "id": "h2",
+      "city": "Milan",
+      "name": "TBD - Milan Hotel",
+      "checkIn": "2026-09-07",
+      "checkOut": "2026-09-08",
+      "nights": 1,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 160,
+      "booked": false,
+      "notes": "Central location near Duomo or Navigli district"
     },
     {
       "id": "h3",
@@ -254,7 +254,7 @@
       "coords": [45.4642, 9.1900],
       "status": "planned",
       "suggestedBy": [],
-      "blurb": "Italy's fashion and design capital — the Duomo, the Navigli canals, world-class shopping, and da Vinci's The Last Supper. A buzzing gateway into northern Italy."
+      "blurb": "Italy's fashion and design capital — the Duomo, the Navigli canals, world-class shopping, and da Vinci's The Last Supper. A buzzing gateway into the Alps."
     },
     {
       "id": "interlaken",
