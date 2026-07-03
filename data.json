@@ -25,17 +25,18 @@
   "itinerary": [
     {
       "date": "2026-09-05",
-      "city": "Rome",
+      "city": "Milan",
       "country": "Italy",
       "flag": "🇮🇹",
-      "emoji": "🏛️",
+      "emoji": "🏙️",
       "nights": 1,
       "activities": [
-        "Arrive at FCO airport, check in",
-        "Explore Rome: Colosseum & Roman Forum",
-        "Evening in Trastevere"
+        "Arrive at MXP airport, check in",
+        "Duomo di Milano & rooftop walk",
+        "Navigli canal district for dinner",
+        "Book The Last Supper (da Vinci) in advance"
       ],
-      "notes": "Quick intro to Rome before heading to Bologna."
+      "notes": "Fashion capital with world-class art. The Last Supper requires reservations months ahead."
     },
     {
       "date": "2026-09-06",
@@ -45,7 +46,7 @@
       "emoji": "🍝",
       "nights": 2,
       "activities": [
-        "Train from Rome to Bologna",
+        "Train from Milan to Bologna (~1 hr)",
         "Explore historic center & medieval towers",
         "Food tour: tagliatelle, tortellini, mortadella",
         "Visit Piazza Maggiore & San Petronio Basilica"
@@ -54,33 +55,33 @@
     },
     {
       "date": "2026-09-08",
-      "city": "Ljubljana",
-      "country": "Slovenia",
-      "flag": "🇸🇮",
-      "emoji": "🏰",
-      "nights": 1,
-      "activities": [
-        "Train from Bologna to Ljubljana (~4.5 hrs via Venice)",
-        "Ljubljana Castle & panoramic city views",
-        "Stroll the Ljubljanica River promenade & Old Town",
-        "Visit the Triple Bridge & vibrant Central Market"
-      ],
-      "notes": "Slovenia's charming, walkable capital — a hidden gem between Italy and Switzerland. Compact enough to see the highlights in one day."
-    },
-    {
-      "date": "2026-09-09",
       "city": "Interlaken",
       "country": "Switzerland",
       "flag": "🇨🇭",
       "emoji": "⛰️",
       "nights": 2,
       "activities": [
-        "Train from Ljubljana to Interlaken (~5 hrs via Zurich)",
+        "Train from Bologna to Interlaken (~4.5 hrs via Milan)",
         "Jungfraujoch (Top of Europe) day trip",
         "Hiking in the Bernese Oberland",
         "Paragliding or adventure activities"
       ],
       "notes": "Gateway to the Swiss Alps. Book Jungfraujoch tickets in advance."
+    },
+    {
+      "date": "2026-09-10",
+      "city": "Zurich",
+      "country": "Switzerland",
+      "flag": "🇨🇭",
+      "emoji": "🏦",
+      "nights": 1,
+      "activities": [
+        "Train from Interlaken to Zurich (~2 hrs)",
+        "Explore Altstadt (Old Town) & Lindenhügel",
+        "Boat trip on Lake Zurich",
+        "Swiss National Museum & Bahnhofstrasse"
+      ],
+      "notes": "Sleek, walkable, and on the lake. Great last stop before flying home from ZRH."
     },
     {
       "date": "2026-09-11",
@@ -90,8 +91,8 @@
       "emoji": "✈️",
       "nights": 0,
       "activities": [
-        "Travel to airport",
-        "Flight from Switzerland back to LAX"
+        "Travel to ZRH airport",
+        "Flight from Zurich back to LAX"
       ],
       "notes": "End of trip. Safe travels home!"
     }
@@ -102,9 +103,9 @@
       "type": "flight",
       "date": "2026-09-05",
       "from": "LAX",
-      "to": "FCO",
+      "to": "MXP",
       "fromCity": "Los Angeles",
-      "toCity": "Rome",
+      "toCity": "Milan",
       "airline": "TBD",
       "flightNum": "TBD",
       "departure": "TBD",
@@ -115,22 +116,6 @@
     },
     {
       "id": "f2",
-      "type": "flight",
-      "date": "2026-09-09",
-      "from": "LJU",
-      "to": "ZRH",
-      "fromCity": "Ljubljana",
-      "toCity": "Zurich",
-      "airline": "TBD",
-      "flightNum": "TBD",
-      "departure": "TBD",
-      "arrival": "TBD",
-      "confirmation": "TBD",
-      "status": "planned",
-      "notes": "Or train from Ljubljana to Interlaken via Zurich (scenic alternative, ~5 hrs)"
-    },
-    {
-      "id": "f3",
       "type": "flight",
       "date": "2026-09-11",
       "from": "ZRH",
@@ -149,17 +134,17 @@
   "hotels": [
     {
       "id": "h1",
-      "city": "Rome",
-      "name": "TBD - Rome Hotel",
+      "city": "Milan",
+      "name": "TBD - Milan Hotel",
       "checkIn": "2026-09-05",
       "checkOut": "2026-09-06",
       "nights": 1,
       "confirmation": "TBD",
       "address": "",
       "rating": 0,
-      "pricePerNight": 150,
+      "pricePerNight": 160,
       "booked": false,
-      "notes": "Central Rome location for Colosseum and Vatican"
+      "notes": "Central location near Duomo or Navigli district"
     },
     {
       "id": "h2",
@@ -177,24 +162,10 @@
     },
     {
       "id": "h3",
-      "city": "Ljubljana",
-      "name": "TBD - Ljubljana Hotel",
-      "checkIn": "2026-09-08",
-      "checkOut": "2026-09-09",
-      "nights": 1,
-      "confirmation": "TBD",
-      "address": "",
-      "rating": 0,
-      "pricePerNight": 120,
-      "booked": false,
-      "notes": "Old Town or city center location near the Ljubljanica River"
-    },
-    {
-      "id": "h4",
       "city": "Interlaken",
       "name": "TBD - Interlaken Hotel",
-      "checkIn": "2026-09-09",
-      "checkOut": "2026-09-11",
+      "checkIn": "2026-09-08",
+      "checkOut": "2026-09-10",
       "nights": 2,
       "confirmation": "TBD",
       "address": "",
@@ -202,6 +173,20 @@
       "pricePerNight": 180,
       "booked": false,
       "notes": "Gateway to Jungfraujoch and Bernese Oberland hikes"
+    },
+    {
+      "id": "h4",
+      "city": "Zurich",
+      "name": "TBD - Zurich Hotel",
+      "checkIn": "2026-09-10",
+      "checkOut": "2026-09-11",
+      "nights": 1,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 200,
+      "booked": false,
+      "notes": "Near Altstadt or Zurich HB (main station) for easy ZRH airport access"
     }
   ],
   "citySuggestions": [
@@ -234,7 +219,7 @@
       "flag": "🇮🇹",
       "emoji": "🏛️",
       "coords": [41.9028, 12.4964],
-      "status": "planned",
+      "status": "suggested",
       "suggestedBy": [],
       "blurb": "2,000 years of history in one city — Colosseum, Vatican, Trastevere, and incredible pasta. Vatican tickets must be pre-booked months ahead."
     },
@@ -261,6 +246,17 @@
       "blurb": "Jonathan's top pick — great beer halls, BMW Museum, day trips to the Alps, and a vibe that's more chill than Berlin. Sean echoed Germany as a solid choice."
     },
     {
+      "id": "milan",
+      "name": "Milan",
+      "country": "Italy",
+      "flag": "🇮🇹",
+      "emoji": "🏙️",
+      "coords": [45.4642, 9.1900],
+      "status": "planned",
+      "suggestedBy": [],
+      "blurb": "Italy's fashion and design capital — the Duomo, the Navigli canals, world-class shopping, and da Vinci's The Last Supper. A buzzing gateway into northern Italy."
+    },
+    {
       "id": "interlaken",
       "name": "Interlaken",
       "country": "Switzerland",
@@ -283,13 +279,24 @@
       "blurb": "The culinary heart of Italy — famous for fresh tagliatelle, tortellini, and mortadella. Medieval towers, vibrant piazzas, and some of the best food you'll ever eat."
     },
     {
+      "id": "zurich",
+      "name": "Zurich",
+      "country": "Switzerland",
+      "flag": "🇨🇭",
+      "emoji": "🏦",
+      "coords": [47.3769, 8.5417],
+      "status": "planned",
+      "suggestedBy": [],
+      "blurb": "Switzerland's largest city — a clean, walkable mix of medieval Altstadt, lakeside promenades, world-class museums, and easy access to ZRH for the flight home."
+    },
+    {
       "id": "ljubljana",
       "name": "Ljubljana",
       "country": "Slovenia",
       "flag": "🇸🇮",
       "emoji": "🏰",
       "coords": [46.0569, 14.5058],
-      "status": "planned",
+      "status": "suggested",
       "suggestedBy": [],
       "blurb": "Slovenia's underrated gem — a compact, car-free Old Town draped along the Ljubljanica River, crowned by a medieval castle. Perfectly positioned between Italy and Switzerland for a one-night stop."
     }
