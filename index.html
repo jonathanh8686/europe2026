@@ -1,494 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Europe 2026</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  <style>
-    :root { --navy:#0f1b2d; --blue:#1e5fa8; --blue-light:#2d7dd2; --accent:#f5a623; --green:#27ae60; --text:#e8edf5; --text-muted:#8fa3bc; --card:#162338; --card-border:#1f3454; --radius:12px; }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--navy); color:var(--text); min-height:100vh; }
-    header { background:linear-gradient(135deg,#0a1628 0%,#1a2d47 60%,#1e4080 100%); border-bottom:1px solid var(--card-border); padding:36px 32px 0; text-align:center; }
-    .trip-title { font-size:2.5rem; font-weight:700; margin-bottom:8px; }
-    .trip-title span { color:var(--navy); }
-    .trip-meta { font-size:1rem; color:var(--text-muted); margin-bottom:22px; }
-    nav.tabs { display:flex; justify-content:center; gap:4px; max-width:1100px; margin:0 auto; flex-wrap:wrap; }
-    nav.tabs button { background:transparent; border:none; color:var(--text-muted); font-size:0.95rem; font-weight:500; padding:12px 20px; cursor:pointer; border-bottom:2px solid transparent; transition:color .15s,border-color .15s; font-family:inherit; margin-bottom:-1px; }
-    nav.tabs button:hover { color:var(--text); }
-    nav.tabs button.active { color:var(--accent); border-bottom-color:var(--accent); }
-    main { max-width:1100px; margin:40px auto; padding:0 32px; }
-    .tab-panel { display:none; }
-    .tab-panel.active { display:block; }
-    .main-row { display:flex; gap:20px; align-items:flex-start; }
-    .calendar-container { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:16px; flex-shrink:0; width:220px; }
-    .calendar-header { font-size:0.85rem; font-weight:700; margin-bottom:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; }
-    .weekdays { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; margin-bottom:4px; }
-    .weekday { text-align:center; font-weight:600; color:var(--text-muted); padding:2px 0; font-size:0.6rem; text-transform:uppercase; }
-    .days { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
-    .day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:4px; font-weight:500; cursor:default; border:1px solid transparent; background:#0f1b2d; color:var(--text-muted); font-size:0.65rem; }
-    .day.other-month { color:#2d4563; background:transparent; }
-    .day.trip-day { background:linear-gradient(135deg,#1e5fa8 0%,#2d7dd2 100%); color:var(--text); border-color:var(--accent); }
-    .attendees-container { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:24px; flex:1; min-width:0; }
-    .attendees-header { font-size:1.2rem; font-weight:700; margin-bottom:14px; }
-    .attendee-count { background:rgba(30,95,168,.1); border:1px solid rgba(30,95,168,.3); border-radius:8px; padding:10px 14px; margin-bottom:16px; color:var(--blue-light); font-size:0.85rem; }
-    .attendee-count strong { color:var(--text); }
-    .attendees-list { display:flex; flex-direction:column; gap:6px; }
-    .attendee { background:#0f1b2d; border:1px solid var(--card-border); border-radius:8px; padding:10px 14px; display:flex; align-items:center; gap:10px; transition:all .2s; }
-    .attendee:hover { background:#1a2d47; border-color:var(--blue-light); }
-    .attendee-avatar { width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#1e5fa8 0%,#2d7dd2 100%); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem; color:var(--text); flex-shrink:0; }
-    .attendee-avatar.pending { background:linear-gradient(135deg,#44475a 0%,#6272a4 100%); }
-    .attendee-info { flex:1; display:flex; align-items:center; justify-content:space-between; gap:8px; }
-    .attendee-name { font-weight:600; color:var(--text); font-size:0.9rem; }
-    .attendee-status { font-size:0.72rem; color:var(--green); white-space:nowrap; }
-    .attendee-status.pending { color:#8fa3bc; }
-    .attendee-status.not-going { color:#e74c3c; }
-    .attendee-avatar.not-going { background:linear-gradient(135deg,#5a2020 0%,#8b3a3a 100%); }
-    .map-card { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:0; overflow:hidden; margin-bottom:18px; }
-    #map { width:100%; height:460px; background:#0a1628; }
-    .leaflet-container { background:#0a1628; font-family:inherit; }
-    .leaflet-popup-content-wrapper, .leaflet-popup-tip { background:var(--card); color:var(--text); border:1px solid var(--card-border); box-shadow:0 6px 20px rgba(0,0,0,.4); }
-    .leaflet-popup-content { margin:12px 14px; font-size:0.85rem; line-height:1.4; }
-    .leaflet-popup-content strong { color:var(--accent); }
-    .leaflet-popup-close-button { color:var(--text-muted) !important; }
-    .leaflet-control-attribution { background:rgba(15,27,45,.85) !important; color:var(--text-muted) !important; font-size:10px !important; }
-    .leaflet-control-attribution a { color:var(--blue-light) !important; }
-    .leaflet-control-zoom a { background:var(--card) !important; color:var(--text) !important; border-color:var(--card-border) !important; }
-    .leaflet-control-zoom a:hover { background:#1a2d47 !important; }
-    .city-marker { background:transparent !important; border:none !important; }
-    .city-marker-pin { width:32px; height:32px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); box-shadow:0 2px 8px rgba(0,0,0,.5); border:2px solid var(--text); display:flex; align-items:center; justify-content:center; transition:transform .18s; }
-    .city-marker-pin span { transform:rotate(45deg); color:var(--text); font-weight:700; font-size:0.8rem; }
-    .city-marker.selected .city-marker-pin { transform:rotate(-45deg) scale(1.25); border-color:var(--accent); }
-    .timeline-card { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:18px 22px; margin-bottom:18px; }
-    .timeline-card-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; flex-wrap:wrap; gap:8px; }
-    .timeline-title { font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.6px; }
-    .timeline-range { font-size:0.78rem; color:var(--text-muted); }
-    .trip-timeline { position:relative; height:70px; background:#0a1628; border:1px solid var(--card-border); border-radius:8px; overflow:hidden; }
-    .timeline-day-grid { position:absolute; inset:0; display:grid; pointer-events:none; }
-    .timeline-day { border-right:1px dashed rgba(143,163,188,.12); position:relative; }
-    .timeline-day:last-child { border-right:none; }
-    .timeline-day-label { position:absolute; bottom:4px; left:6px; font-size:9px; color:var(--text-muted); font-variant-numeric:tabular-nums; }
-    .timeline-segment { position:absolute; top:8px; bottom:22px; border-radius:6px; padding:6px 10px; color:#fff; font-size:0.75rem; font-weight:600; cursor:pointer; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; transition:filter .15s,transform .15s; box-shadow:0 2px 6px rgba(0,0,0,.3); display:flex; align-items:center; gap:6px; }
-    .timeline-segment:hover { filter:brightness(1.1); }
-    .timeline-segment.selected { outline:2px solid var(--accent); outline-offset:2px; }
-    .timeline-segment .seg-num { background:rgba(255,255,255,.25); border-radius:50%; width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; font-size:0.65rem; flex-shrink:0; }
-    .map-cities-card { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:18px 22px; }
-    .map-cities-card .timeline-title { margin-bottom:14px; }
-    .map-city-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:10px; list-style:none; }
-    .map-city { background:#0f1b2d; border:1px solid var(--card-border); border-radius:8px; padding:12px 14px; cursor:pointer; transition:border-color .15s,background .15s; }
-    .map-city:hover { background:#1a2d47; border-color:var(--blue-light); }
-    .map-city.selected { border-color:var(--accent); background:#1a2d47; }
-    .map-city-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
-    .map-city-dot { width:24px; height:24px; border-radius:50%; color:var(--text); font-size:0.7rem; font-weight:700; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 1px 3px rgba(0,0,0,.4); }
-    .map-city-name { font-weight:600; font-size:0.95rem; flex:1; }
-    .map-city-flag { font-size:1rem; }
-    .map-city-dates { font-size:0.75rem; color:var(--text-muted); margin-bottom:6px; }
-    .map-city-nights { display:inline-block; background:rgba(30,95,168,.2); color:var(--blue-light); font-size:0.7rem; padding:2px 8px; border-radius:10px; font-weight:600; }
-    .map-empty-state { padding:30px; text-align:center; color:var(--text-muted); font-size:0.85rem; }
-    #version-badge { position:fixed; bottom:12px; right:14px; background:rgba(15,27,45,.85); border:1px solid var(--card-border); border-radius:8px; padding:5px 10px; font-size:0.68rem; color:var(--text-muted); font-family:ui-monospace,SFMono-Regular,monospace; z-index:9999; backdrop-filter:blur(4px); line-height:1.5; pointer-events:none; }
-    #version-badge .vb-hash { color:var(--accent); font-weight:700; }
-    /* City Picks tab */
-    .cpicks-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:10px; }
-    .cpicks-legend { display:flex; gap:14px; align-items:center; flex-shrink:0; }
-    .cpicks-legend-item { display:flex; align-items:center; gap:5px; font-size:0.75rem; color:var(--text-muted); }
-    .cpicks-legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-    #citiesMap { width:100%; height:420px; background:#0a1628; }
-    .cpicks-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:14px; margin-top:18px; }
-    .cpicks-card { background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:18px; transition:border-color .15s; }
-    .cpicks-card:hover { border-color:var(--blue-light); }
-    .cpicks-card.planned { border-left:3px solid var(--blue-light); }
-    .cpicks-card.suggested { border-left:3px solid var(--accent); }
-    .cpicks-top { display:flex; align-items:flex-start; gap:12px; margin-bottom:10px; }
-    .cpicks-emoji { font-size:2rem; line-height:1; flex-shrink:0; }
-    .cpicks-meta { flex:1; min-width:0; }
-    .cpicks-name { font-size:1rem; font-weight:700; display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-bottom:2px; }
-    .cpicks-country { font-size:0.74rem; color:var(--text-muted); margin-bottom:5px; }
-    .cpicks-badge { display:inline-block; padding:2px 9px; border-radius:10px; font-size:0.67rem; font-weight:700; text-transform:uppercase; letter-spacing:.4px; }
-    .cpicks-badge.planned { background:rgba(45,125,210,.2); color:var(--blue-light); }
-    .cpicks-badge.suggested { background:rgba(245,166,35,.15); color:var(--accent); }
-    .cpicks-blurb { font-size:0.79rem; color:var(--text-muted); line-height:1.5; margin-bottom:10px; }
-    .cpicks-by { display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:0.74rem; color:var(--text-muted); }
-    .cpicks-avatar { width:20px; height:20px; border-radius:50%; background:linear-gradient(135deg,#1e5fa8,#2d7dd2); display:inline-flex; align-items:center; justify-content:center; font-size:0.58rem; font-weight:700; color:#fff; flex-shrink:0; }
-    @media (max-width:700px) {
-      header { padding:24px 16px 0; }
-      .trip-title { font-size:1.6rem; }
-      main { padding:0 16px; margin:24px auto; }
-      .main-row { flex-direction:column; }
-      .calendar-container { width:100%; }
-      nav.tabs button { padding:10px 14px; font-size:0.85rem; }
-      #map { height:360px; }
-      #citiesMap { height:320px; }
-    }
-  </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <div class="trip-title">Europe <span>2026</span></div>
-  <div class="trip-meta" id="headerMeta">September 5 – 12, 2026</div>
-  <nav class="tabs">
-    <button class="tab-btn active" data-tab="home">Home</button>
-    <button class="tab-btn" data-tab="map">Map &amp; Timeline</button>
-    <button class="tab-btn" data-tab="cities">🌍 City Picks</button>
-  </nav>
+<header class="site-header">
+  <div class="site-title">Europe <em>2026</em></div>
+  <div class="site-meta" id="headerMeta">Sep 5 – 11, 2026</div>
+  <div class="hspacer"></div>
+  <button class="btn-ghost" id="sidebarToggle">👥 <span id="goingCount">9</span> going</button>
 </header>
 
-<main>
-  <div class="tab-panel active" id="tab-home">
-    <div class="main-row">
-      <div class="calendar-container">
-        <div class="calendar-header">September 2026</div>
-        <div class="weekdays">
-          <div class="weekday">S</div><div class="weekday">M</div><div class="weekday">T</div><div class="weekday">W</div><div class="weekday">T</div><div class="weekday">F</div><div class="weekday">S</div>
-        </div>
-        <div class="days" id="calendar"></div>
-      </div>
-      <div class="attendees-container">
-        <div class="attendees-header">Attendees</div>
-        <div class="attendee-count"><strong id="attendeeStats">Loading...</strong></div>
-        <div class="attendees-list" id="attendeesList"></div>
-      </div>
-    </div>
-  </div>
+<div class="map-wrap">
+  <div id="map"></div>
 
-  <div class="tab-panel" id="tab-map">
-    <div class="map-card"><div id="map"></div></div>
-    <div class="timeline-card">
-      <div class="timeline-card-header">
-        <div class="timeline-title">Itinerary Timeline</div>
-        <div class="timeline-range" id="timelineRange"></div>
-      </div>
-      <div class="trip-timeline" id="tripTimeline">
-        <div class="map-empty-state">Loading itinerary...</div>
-      </div>
-    </div>
-    <div class="map-cities-card">
-      <div class="timeline-title">Stops</div>
-      <ul class="map-city-list" id="mapCityList"></ul>
-    </div>
+  <!-- Attendee sidebar — floats over the map, hidden by default -->
+  <div class="sidebar-panel hidden" id="sidebarPanel">
+    <div id="attendeeChips"></div>
   </div>
+</div>
 
-  <div class="tab-panel" id="tab-cities">
-    <div class="cpicks-header">
-      <div>
-        <div class="timeline-title">City Picks</div>
-        <div style="color:var(--text-muted);font-size:0.8rem;margin-top:4px">Planned stops &amp; suggestions pulled from the group chat</div>
-      </div>
-      <div class="cpicks-legend">
-        <div class="cpicks-legend-item"><span class="cpicks-legend-dot" style="background:var(--blue-light)"></span>Planned</div>
-        <div class="cpicks-legend-item"><span class="cpicks-legend-dot" style="background:var(--accent)"></span>Suggested</div>
-      </div>
-    </div>
-    <div class="map-card"><div id="citiesMap"></div></div>
-    <div class="cpicks-grid" id="citiesGrid"></div>
-  </div>
-</main>
+<!-- City stop strip -->
+<div class="city-strip" id="cityStrip"></div>
+
+<!-- Suggested cities (collapsed by default) -->
+<div class="picks-section">
+  <button class="picks-toggle-btn" id="picksToggle">🌍 Show suggested cities ▾</button>
+  <div class="cpicks-grid" id="picksGrid" style="display:none"></div>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
-// ── Utility functions ──────────────────────────────────────────────────────
-function generateCalendar() {
-  var year = 2026, month = 8, tripStart = 5, tripEnd = 12;
-  var firstDay = new Date(year, month, 1).getDay();
-  var daysInMonth = new Date(year, month + 1, 0).getDate();
-  var daysInPrev = new Date(year, month, 0).getDate();
-  var cal = document.getElementById('calendar');
-  cal.innerHTML = '';
-  for (var i = firstDay - 1; i >= 0; i--) {
-    var d = document.createElement('div');
-    d.className = 'day other-month';
-    d.textContent = daysInPrev - i;
-    cal.appendChild(d);
-  }
-  for (var day = 1; day <= daysInMonth; day++) {
-    var dv = document.createElement('div');
-    dv.className = 'day';
-    dv.textContent = day;
-    if (day >= tripStart && day <= tripEnd) dv.classList.add('trip-day');
-    cal.appendChild(dv);
-  }
-}
+var CITY_PAGES  = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
+var STOP_COLORS = ['#1e5fa8', '#f5a623', '#27ae60', '#9b59b6'];
 
-function renderAttendees(attendees) {
-  var list = document.getElementById('attendeesList');
-  var stats = document.getElementById('attendeeStats');
-  var confirmed = attendees.filter(function(a) { return a.confirmed; });
-  var notGoing  = attendees.filter(function(a) { return !a.confirmed && a.notGoing; });
-  var pending   = attendees.filter(function(a) { return !a.confirmed && !a.notGoing; });
-  stats.textContent = confirmed.length + ' confirmed, ' + pending.length + ' pending, ' + notGoing.length + ' not going';
-  function row(a, cls, label) {
-    return '<div class="attendee"><div class="attendee-avatar' + (cls ? ' ' + cls : '') + '">' +
-      a.name.charAt(0) + '</div><div class="attendee-info"><div class="attendee-name">' +
-      a.name + '</div><div class="attendee-status' + (cls ? ' ' + cls : '') + '">' + label + '</div></div></div>';
-  }
-  list.innerHTML =
-    confirmed.map(function(a) { return row(a, '', 'Going'); }).join('') +
-    pending.map(function(a)   { return row(a, 'pending', 'Pending'); }).join('') +
-    notGoing.map(function(a)  { return row(a, 'not-going', 'Not going'); }).join('');
-}
-
-var CITY_COORDS = {
-  'London':[51.5074,-0.1278],'Paris':[48.8566,2.3522],'Amsterdam':[52.3676,4.9041],
-  'Rome':[41.9028,12.4964],'Barcelona':[41.3851,2.1734],'Lisbon':[38.7223,-9.1393],
-  'Madrid':[40.4168,-3.7038],'Berlin':[52.52,13.405],'Vienna':[48.2082,16.3738],
-  'Prague':[50.0755,14.4378],'Florence':[43.7696,11.2558],'Venice':[45.4408,12.3155],
-  'Milan':[45.4642,9.19],'Munich':[48.1351,11.582],'Brussels':[50.8503,4.3517],
-  'Edinburgh':[55.9533,-3.1883],'Dublin':[53.3498,-6.2603],'Copenhagen':[55.6761,12.5683],
-  'Stockholm':[59.3293,18.0686],'Athens':[37.9838,23.7275],'Budapest':[47.4979,19.0402],
-  'Zurich':[47.3769,8.5417],'Bologna':[44.4939,11.3426],'Interlaken':[46.6863,8.1638]
+// Fallback coords for any city referenced without coords in the JSON
+var FALLBACK_COORDS = {
+  Bologna: [44.4939, 11.3426], Milan: [45.4642, 9.19],
+  Interlaken: [46.6863, 8.1638], Zurich: [47.3769, 8.5417],
+  Rome: [41.9028, 12.4964], London: [51.5074, -0.1278],
+  Paris: [48.8566, 2.3522], Amsterdam: [52.3676, 4.9041],
+  Munich: [48.1351, 11.582], Ljubljana: [46.0569, 14.5058]
 };
-var STOP_COLORS = ['#1e5fa8','#f5a623','#27ae60','#9b59b6','#e74c3c','#16a085','#d35400','#2980b9'];
 
-var map = null, mapMarkers = {}, mapRoute = null, mapInit = false, stops = [];
-var citiesMapObj = null, citiesMapInit = false, cityData = null;
-
-function pd(s)       { return s ? new Date(s + 'T00:00:00') : null; }
-function fmtS(d)     { return d ? d.toLocaleDateString('en-US', {month:'short', day:'numeric'}) : ''; }
-function fmtL(d)     { return d ? d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) : ''; }
-function addD(d, n)  { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
-function dB(a, b)    { return (a && b) ? Math.max(0, Math.round((b - a) / 86400000)) : 0; }
-function colorAt(i)  { return STOP_COLORS[i % STOP_COLORS.length]; }
-
-function buildStops(itin) {
-  if (!Array.isArray(itin)) return [];
-  return itin.filter(function(s) { return s && s.city; }).map(function(s) {
-    var arrive = pd(s.date);
-    var nights = typeof s.nights === 'number' ? s.nights : 0;
-    return {
-      city: s.city, country: s.country || '', flag: s.flag || '',
-      arrive: arrive,
-      depart: arrive ? addD(arrive, Math.max(nights, 0)) : null,
-      nights: nights, notes: s.notes || '',
-      coords: CITY_COORDS[s.city] || null
-    };
-  });
+function coords(city, obj) {
+  return (obj && obj.coords && obj.coords.length) ? obj.coords : (FALLBACK_COORDS[city] || null);
 }
 
-// ── Tab switching ──────────────────────────────────────────────────────────
-(function() {
-  var tabBtns   = document.querySelectorAll('.tab-btn');
-  var tabPanels = document.querySelectorAll('.tab-panel');
-  tabBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      tabBtns.forEach(function(b)   { b.classList.remove('active'); });
-      tabPanels.forEach(function(p) { p.classList.remove('active'); });
-      btn.classList.add('active');
-      var panel = document.getElementById('tab-' + btn.dataset.tab);
-      if (panel) panel.classList.add('active');
-      if (btn.dataset.tab === 'map' && !mapInit && stops.length) {
-        mapInit = true;
-        initMap();
-      }
-      if (btn.dataset.tab === 'cities' && !citiesMapInit && cityData) {
-        citiesMapInit = true;
-        initCitiesMap(cityData.citySuggestions);
-      }
-    });
-  });
-})();
+function fmtShort(s) {
+  return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+}
+function addDays(s, n) {
+  var d = new Date(s + 'T00:00:00');
+  d.setDate(d.getDate() + n);
+  return d.toISOString().slice(0, 10);
+}
 
-// ── Boot ──────────────────────────────────────────────────────────────────
-generateCalendar();
+// ── Sidebar toggle ──────────────────────────────────────────────────────────
+document.getElementById('sidebarToggle').addEventListener('click', function() {
+  document.getElementById('sidebarPanel').classList.toggle('hidden');
+});
 
+// ── City picks toggle ───────────────────────────────────────────────────────
+var picksOpen = false;
+document.getElementById('picksToggle').addEventListener('click', function() {
+  picksOpen = !picksOpen;
+  document.getElementById('picksGrid').style.display = picksOpen ? 'grid' : 'none';
+  this.textContent = picksOpen ? '🌍 Hide suggested cities ▴' : '🌍 Show suggested cities ▾';
+});
+
+// ── Load data ───────────────────────────────────────────────────────────────
 fetch('data.json')
   .then(function(r) { return r.json(); })
   .then(function(data) {
-    cityData = data;
-    if (data.attendees) renderAttendees(data.attendees);
-    if (data.itinerary) {
-      // exclude the 'Home' placeholder from map/timeline stops
-      var itin = data.itinerary.filter(function(s) { return s.city !== 'Home'; });
-      stops = buildStops(itin);
-      renderTimeline(stops);
-      renderCityList(stops);
-    }
-    if (data.citySuggestions) renderCitiesGrid(data.citySuggestions);
-  })
-  .catch(function(err) {
-    console.error('Failed to load data.json:', err);
-    var stats = document.getElementById('attendeeStats');
-    if (stats) stats.textContent = 'Could not load data';
-    var list = document.getElementById('attendeesList');
-    if (list) list.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;padding:12px">Failed to load attendee data.</div>';
+    var attendees = data.attendees || [];
+    var confirmed = attendees.filter(function(a) { return a.confirmed; });
+    document.getElementById('goingCount').textContent = confirmed.length;
+
+    renderSidebar(attendees);
+
+    var itin = (data.itinerary || []).filter(function(s) { return s.city !== 'Home'; });
+    renderCityStrip(itin);
+    initMap(itin, data.citySuggestions || []);
+    renderPicks(data.citySuggestions || []);
   });
 
-// ── Map & Timeline tab ─────────────────────────────────────────────────────
-function initMap() {
-  var validStops = stops.filter(function(s) { return s.coords; });
-  if (!validStops.length) return;
+// ── Sidebar: attendee list ──────────────────────────────────────────────────
+function renderSidebar(attendees) {
+  var confirmed = attendees.filter(function(a) { return a.confirmed; });
+  var notGoing  = attendees.filter(function(a) { return !a.confirmed && a.notGoing; });
 
-  map = L.map('map', { zoomControl: true });
+  function chip(a, cls, tag) {
+    return '<div class="att-chip">' +
+      '<div class="chip-av ' + cls + '">' + a.name.charAt(0) + '</div>' +
+      '<span class="chip-name">' + a.name.split(' ')[0] + '</span>' +
+      '<span class="chip-tag ' + cls + '">' + tag + '</span>' +
+      '</div>';
+  }
+
+  var html = '<div class="sb-title">✅ Going (' + confirmed.length + ')</div>';
+  html += confirmed.map(function(a) { return chip(a, 'yes', 'Going'); }).join('');
+  if (notGoing.length) {
+    html += '<hr class="sdiv"><div class="sb-title">❌ Not going</div>';
+    html += notGoing.map(function(a) { return chip(a, 'no', 'No'); }).join('');
+  }
+  document.getElementById('attendeeChips').innerHTML = html;
+}
+
+// ── City strip ──────────────────────────────────────────────────────────────
+function renderCityStrip(itin) {
+  var strip = document.getElementById('cityStrip');
+  strip.innerHTML = itin.map(function(stop, i) {
+    var page = CITY_PAGES[stop.city] || '#';
+    var out  = stop.nights > 0 ? fmtShort(addDays(stop.date, stop.nights)) : '';
+    return '<a class="city-stop-link" href="' + page + '">' +
+      '<div class="csl-num">Stop ' + (i + 1) + ' ' + (stop.flag || '') + '</div>' +
+      '<div class="csl-name">' + (stop.emoji || '') + ' ' + stop.city + '</div>' +
+      '<div class="csl-dates">' + fmtShort(stop.date) + (out ? ' – ' + out : '') + '</div>' +
+      (stop.nights > 0 ? '<span class="csl-badge">' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : '') + '</span>' : '') +
+      '</a>';
+  }).join('');
+}
+
+// ── Map ─────────────────────────────────────────────────────────────────────
+function initMap(itin, suggestions) {
+  var map = L.map('map', { zoomControl: true });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom: 18
   }).addTo(map);
 
-  var routeCoords = validStops.map(function(s) { return s.coords; });
-  mapRoute = L.polyline(routeCoords, {
-    color: '#2d7dd2', weight: 2.5, opacity: 0.7, dashArray: '6 4'
-  }).addTo(map);
+  var allCoords = [];
 
-  validStops.forEach(function(stop, i) {
-    var color = colorAt(i);
+  // Suggested cities — subtle, smaller markers
+  suggestions
+    .filter(function(s) { return s.status === 'suggested'; })
+    .forEach(function(s) {
+      var c = coords(s.name, s);
+      if (!c) return;
+      allCoords.push(c);
+      var icon = L.divIcon({
+        className: 'c-marker',
+        html: '<div class="c-pin" style="width:22px;height:22px;background:#1e2e45;border-color:rgba(143,163,188,0.25)">' +
+              '<span style="font-size:0.7rem">' + (s.emoji || '●') + '</span></div>',
+        iconSize: [22, 22], iconAnchor: [11, 22], popupAnchor: [0, -26]
+      });
+      L.marker(c, { icon: icon }).addTo(map)
+        .bindPopup('<strong>' + (s.flag || '') + ' ' + s.name + '</strong>' +
+                   '<br><span style="font-size:0.75rem;color:var(--muted)">' + s.country + ' · Suggested</span>');
+    });
+
+  // Planned route line
+  var routeCoords = itin.map(function(s) { return coords(s.city, s); }).filter(Boolean);
+  if (routeCoords.length > 1) {
+    L.polyline(routeCoords, { color: '#2d7dd2', weight: 2.5, opacity: 0.65, dashArray: '6 4' }).addTo(map);
+  }
+
+  // Planned stop markers — prominent, numbered, link to city page
+  itin.forEach(function(stop, i) {
+    var c = coords(stop.city, stop);
+    if (!c) return;
+    allCoords.push(c);
+    var color = STOP_COLORS[i % STOP_COLORS.length];
+    var page  = CITY_PAGES[stop.city] || '#';
+    var out   = stop.nights > 0 ? fmtShort(addDays(stop.date, stop.nights)) : '';
+
     var icon = L.divIcon({
-      className: 'city-marker',
-      html: '<div class="city-marker-pin" style="background:' + color + '"><span>' + (i + 1) + '</span></div>',
+      className: 'c-marker',
+      html: '<div class="c-pin" style="width:32px;height:32px;background:' + color + '">' +
+            '<span style="font-size:0.8rem">' + (i + 1) + '</span></div>',
       iconSize: [32, 32], iconAnchor: [16, 32], popupAnchor: [0, -36]
     });
-    var m = L.marker(stop.coords, { icon: icon }).addTo(map);
-    m.bindPopup(
-      '<strong>' + stop.flag + ' ' + stop.city + '</strong>' +
-      (stop.country ? '<br>' + stop.country : '') +
-      (stop.arrive  ? '<br>' + fmtS(stop.arrive) + (stop.depart && stop.nights > 0 ? ' – ' + fmtS(stop.depart) : '') : '') +
-      (stop.nights > 0 ? '<br>' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : '') : '') +
-      (stop.notes ? '<br><em style="font-size:0.78rem;color:#8fa3bc">' + stop.notes + '</em>' : '')
+
+    L.marker(c, { icon: icon }).addTo(map).bindPopup(
+      '<strong>' + (stop.flag || '') + ' ' + stop.city + '</strong>, ' + stop.country +
+      '<br>' + fmtShort(stop.date) + (out ? ' – ' + out : '') +
+      (stop.nights > 0 ? ' · ' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : '') : '') +
+      (stop.notes ? '<br><em style="font-size:0.74rem;color:var(--muted)">' + stop.notes + '</em>' : '') +
+      '<br><a class="popup-cta" href="' + page + '">View city →</a>'
     );
-    mapMarkers[stop.city] = m;
   });
 
-  map.fitBounds(mapRoute.getBounds(), { padding: [50, 50] });
+  if (allCoords.length) map.fitBounds(allCoords, { padding: [44, 44] });
 }
 
-function renderTimeline(stps) {
-  var container = document.getElementById('tripTimeline');
-  if (!container) return;
-  var timed = stps.filter(function(s) { return s.arrive && s.nights > 0 && s.depart; });
-  if (!timed.length) {
-    container.innerHTML = '<div class="map-empty-state">No itinerary data</div>';
-    return;
-  }
-  var minD = timed[0].arrive;
-  var maxD = timed[timed.length - 1].depart;
-  var totalDays = dB(minD, maxD) || 1;
-
-  var gridCols = [];
-  var dayLabels = '';
-  for (var d = 0; d < totalDays; d++) {
-    gridCols.push('1fr');
-    var dayDate = addD(minD, d);
-    dayLabels += '<div class="timeline-day"><div class="timeline-day-label">' +
-      dayDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) +
-      '</div></div>';
-  }
-
-  var segs = timed.map(function(s, i) {
-    var left  = (dB(minD, s.arrive)  / totalDays * 100).toFixed(2);
-    var width = (dB(s.arrive, s.depart) / totalDays * 100).toFixed(2);
-    return '<div class="timeline-segment" style="left:' + left + '%;width:' + width + '%;background:' + colorAt(i) + '" ' +
-      'data-city="' + s.city + '" onclick="selectCity(\'' + s.city + '\')">' +
-      '<span class="seg-num">' + (i + 1) + '</span>' + s.flag + ' ' + s.city +
-      '</div>';
-  }).join('');
-
-  container.innerHTML =
-    '<div class="timeline-day-grid" style="grid-template-columns:' + gridCols.join(' ') + '">' + dayLabels + '</div>' +
-    segs;
-
-  var rangeEl = document.getElementById('timelineRange');
-  if (rangeEl) rangeEl.textContent = fmtS(minD) + ' – ' + fmtS(maxD) + ', 2026';
-}
-
-function renderCityList(stps) {
-  var list = document.getElementById('mapCityList');
-  if (!list) return;
-  if (!stps.length) { list.innerHTML = '<li class="map-empty-state">No stops</li>'; return; }
-  list.innerHTML = stps.map(function(s, i) {
-    return '<li class="map-city" data-city="' + s.city + '" onclick="selectCity(\'' + s.city + '\')">' +
-      '<div class="map-city-row">' +
-        '<div class="map-city-dot" style="background:' + colorAt(i) + '">' + (i + 1) + '</div>' +
-        '<div class="map-city-name">' + s.city + '</div>' +
-        '<div class="map-city-flag">' + s.flag + '</div>' +
-      '</div>' +
-      '<div class="map-city-dates">' +
-        (s.arrive ? fmtL(s.arrive) : '') +
-        (s.depart && s.nights > 0 ? ' – ' + fmtL(s.depart) : '') +
-      '</div>' +
-      (s.nights > 0 ? '<span class="map-city-nights">' + s.nights + ' night' + (s.nights !== 1 ? 's' : '') + '</span>' : '') +
-      '</li>';
-  }).join('');
-}
-
-function selectCity(city) {
-  document.querySelectorAll('.map-city').forEach(function(el)        { el.classList.remove('selected'); });
-  document.querySelectorAll('.timeline-segment').forEach(function(el) { el.classList.remove('selected'); });
-  var cityEl = document.querySelector('.map-city[data-city="' + city + '"]');
-  if (cityEl) { cityEl.classList.add('selected'); cityEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
-  var segEl = document.querySelector('.timeline-segment[data-city="' + city + '"]');
-  if (segEl) segEl.classList.add('selected');
-  if (map && mapMarkers[city]) {
-    map.flyTo(mapMarkers[city].getLatLng(), 10, { duration: 0.8 });
-    setTimeout(function() { if (mapMarkers[city]) mapMarkers[city].openPopup(); }, 900);
-  }
-}
-
-// ── City Picks tab ─────────────────────────────────────────────────────────
-function renderCitiesGrid(suggestions) {
-  var grid = document.getElementById('citiesGrid');
-  if (!grid) return;
-  if (!suggestions || !suggestions.length) {
-    grid.innerHTML = '<div class="map-empty-state">No city suggestions</div>';
-    return;
-  }
-  grid.innerHTML = suggestions.map(function(c) {
-    var isPlanned = c.status === 'planned';
-    var byHtml = (c.suggestedBy && c.suggestedBy.length)
-      ? '<div class="cpicks-by">Suggested by: ' +
-          c.suggestedBy.map(function(n) {
-            return '<span class="cpicks-avatar">' + n.charAt(0) + '</span> ' + n;
-          }).join(', ') + '</div>'
-      : '';
-    return '<div class="cpicks-card ' + c.status + '">' +
-      '<div class="cpicks-top">' +
-        '<div class="cpicks-emoji">' + c.emoji + '</div>' +
-        '<div class="cpicks-meta">' +
-          '<div class="cpicks-name">' + c.flag + ' ' + c.name +
-            ' <span class="cpicks-badge ' + c.status + '">' + (isPlanned ? 'Planned' : 'Suggested') + '</span>' +
+// ── City picks grid ─────────────────────────────────────────────────────────
+function renderPicks(suggestions) {
+  document.getElementById('picksGrid').innerHTML = suggestions.map(function(c) {
+    return '<div class="cpick ' + c.status + '">' +
+      '<div class="cpick-top">' +
+        '<div class="cpick-emo">' + (c.emoji || '') + '</div>' +
+        '<div>' +
+          '<div class="cpick-nm">' + (c.flag || '') + ' ' + c.name +
+            ' <span class="cpick-badge ' + c.status + '">' +
+              (c.status === 'planned' ? 'Planned' : 'Suggested') +
+            '</span>' +
           '</div>' +
-          '<div class="cpicks-country">' + c.country + '</div>' +
+          '<div class="cpick-co">' + c.country + '</div>' +
         '</div>' +
       '</div>' +
-      (c.blurb ? '<div class="cpicks-blurb">' + c.blurb + '</div>' : '') +
-      byHtml +
+      (c.blurb ? '<div class="cpick-blurb">' + c.blurb + '</div>' : '') +
       '</div>';
   }).join('');
 }
-
-function initCitiesMap(suggestions) {
-  if (!suggestions || !suggestions.length) return;
-  citiesMapObj = L.map('citiesMap', { zoomControl: true });
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom: 18
-  }).addTo(citiesMapObj);
-
-  var bounds = [];
-  suggestions.forEach(function(c) {
-    if (!c.coords || !c.coords.length) return;
-    bounds.push(c.coords);
-    var color = c.status === 'planned' ? '#2d7dd2' : '#f5a623';
-    var icon = L.divIcon({
-      className: 'city-marker',
-      html: '<div class="city-marker-pin" style="background:' + color + '"><span style="font-size:0.85rem;line-height:1">' + c.emoji + '</span></div>',
-      iconSize: [32, 32], iconAnchor: [16, 32], popupAnchor: [0, -36]
-    });
-    L.marker(c.coords, { icon: icon }).addTo(citiesMapObj)
-      .bindPopup(
-        '<strong>' + c.flag + ' ' + c.name + '</strong><br>' + c.country +
-        '<br><span style="color:' + color + ';font-size:0.76rem">' +
-        (c.status === 'planned' ? '✓ Planned' : '○ Suggested') + '</span>'
-      );
-  });
-
-  if (bounds.length) citiesMapObj.fitBounds(bounds, { padding: [40, 40] });
-}
-
-// ── Version badge ──────────────────────────────────────────────────────────
-(function() {
-  var badge = document.createElement('div');
-  badge.id = 'version-badge';
-  badge.innerHTML = 'europe2026 &middot; <span class="vb-hash">c7b60a8</span>';
-  document.body.appendChild(badge);
-})();
 </script>
+
 </body>
 </html>
