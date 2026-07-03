@@ -69,6 +69,7 @@
       transition: filter .15s, transform .12s;
     }
     .cal-cell.trip-day:hover { filter: brightness(1.18); transform: scale(1.08); }
+    .cal-cell.travel-day { text-shadow: 0 1px 3px rgba(0,0,0,.55); }
     .cal-cell.fly-home {
       color: var(--muted);
       background: rgba(255,255,255,0.04);
@@ -284,12 +285,17 @@ function renderSidebar(attendees) {
 // ── Right panel: calendar + stop cards ────────────────────────────────────
 function renderScheduleCol(itin, stops, suggestions) {
 
-  // Build date → city info map
+  // Build date → city info map. Each stop occupies its arrival date through its
+  // checkout date (inclusive), so a checkout date that's also the next stop's
+  // arrival date picks up both cities' colors — rendered below as a two-tone
+  // gradient "travel day" (e.g. an early train out of one city and into the next).
   var dayMap = {};
   stops.forEach(function(stop, i) {
-    for (var n = 0; n < (stop.nights || 0); n++) {
+    for (var n = 0; n <= (stop.nights || 0); n++) {
       var key = addDays(stop.date, n);
-      dayMap[key] = { city: stop.city, color: STOP_COLORS[i], flag: stop.flag, num: i + 1 };
+      if (!dayMap[key]) dayMap[key] = { colors: [], cities: [] };
+      dayMap[key].colors.push(STOP_COLORS[i]);
+      dayMap[key].cities.push(stop.city);
     }
   });
   var home = itin.find(function(s) { return s.city === 'Home'; });
@@ -311,9 +317,16 @@ function renderScheduleCol(itin, stops, suggestions) {
     var info = dayMap[key];
     if (info && info.home) {
       cal += '<div class="cal-cell fly-home" title="Fly home">' + d + '<div class="cal-fly-icon">✈️</div></div>';
+    } else if (info && info.colors.length > 1) {
+      var fromCity = info.cities[0], toCity = info.cities[info.cities.length - 1];
+      var grad = 'linear-gradient(135deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 45%, ' +
+                 info.colors[info.colors.length - 1] + ' 55%, ' + info.colors[info.colors.length - 1] + ' 100%)';
+      cal += '<div class="cal-cell trip-day travel-day" style="background:' + grad + ';border-radius:8px" ' +
+             'title="' + fromCity + ' → ' + toCity + ' (travel day)" onclick="location.href=\'' + (CITY_PAGES[toCity] || '#') + '\'">' +
+             d + '</div>';
     } else if (info) {
-      cal += '<div class="cal-cell trip-day" style="background:' + info.color + ';border-radius:8px" ' +
-             'title="' + info.city + '" onclick="location.href=\'' + (CITY_PAGES[info.city] || '#') + '\'">' +
+      cal += '<div class="cal-cell trip-day" style="background:' + info.colors[0] + ';border-radius:8px" ' +
+             'title="' + info.cities[0] + '" onclick="location.href=\'' + (CITY_PAGES[info.cities[0]] || '#') + '\'">' +
              d + '</div>';
     } else {
       cal += '<div class="cal-cell in-month">' + d + '</div>';
@@ -327,6 +340,7 @@ function renderScheduleCol(itin, stops, suggestions) {
     legend += '<div class="cal-leg-chip"><div class="cal-leg-dot" style="background:' + STOP_COLORS[i] + '"></div>' +
               stop.flag + ' ' + stop.city + '</div>';
   });
+  legend += '<div class="cal-leg-chip"><div class="cal-leg-dot" style="background:linear-gradient(135deg,#1e5fa8 50%,#f5a623 50%)"></div>🚆 Travel day</div>';
   legend += '<div class="cal-leg-chip"><div class="cal-leg-dot" style="background:rgba(143,163,188,0.15);border:1px dashed rgba(143,163,188,0.3)"></div>✈️ Fly home</div>';
   legend += '</div>';
 

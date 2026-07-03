@@ -34,9 +34,10 @@
         "Arrive at BLQ airport, check in",
         "Explore historic center & medieval towers",
         "Food tour: tagliatelle, tortellini, mortadella",
-        "Visit Piazza Maggiore & San Petronio Basilica"
+        "Visit Piazza Maggiore & San Petronio Basilica",
+        "Depart for Milan ~9:00am on the 15th (Frecciarossa/Italo, ~1 hr)"
       ],
-      "notes": "Culinary heart of Italy. Book food tours in advance. Spend most of the 15th here, then take a late night train to Milan."
+      "notes": "Culinary heart of Italy. Book food tours in advance. Leave for Milan on a morning train (~9am) on the 15th instead of overnight — opens up a full day in Milan."
     },
     {
       "date": "2026-09-15",
@@ -46,11 +47,12 @@
       "emoji": "🏙️",
       "nights": 1,
       "activities": [
-        "Late night train from Bologna to Milan (~1 hr)",
-        "Quick look at Duomo di Milano if time allows",
-        "Navigli canal district for a late dinner/drink"
+        "Morning train from Bologna (~9:00am departure, arrive ~10am)",
+        "Duomo di Milano & Galleria Vittorio Emanuele II",
+        "Navigli canal district for lunch/dinner",
+        "Early night — early train to Interlaken tomorrow"
       ],
-      "notes": "Brief overnight stopover — leave for Interlaken the next morning."
+      "notes": "Arriving mid-morning instead of overnight gives a full day in Milan. Leave early (~7:00-7:30am) the next morning for Interlaken."
     },
     {
       "date": "2026-09-16",
@@ -60,12 +62,12 @@
       "emoji": "⛰️",
       "nights": 2,
       "activities": [
-        "Morning train from Milan to Interlaken (~4-6 hrs, change in Spiez)",
+        "Early morning train from Milan (~7:00-7:30am, Trenitalia EuroCity to Spiez, then SBB to Interlaken Ost, ~3h15m total)",
         "Jungfraujoch (Top of Europe) day trip",
         "Hiking in the Bernese Oberland",
         "Paragliding or adventure activities"
       ],
-      "notes": "Gateway to the Swiss Alps. Book Jungfraujoch tickets in advance."
+      "notes": "Gateway to the Swiss Alps. Book Jungfraujoch tickets in advance. Early departure from Milan maximizes the first afternoon in the Alps."
     },
     {
       "date": "2026-09-18",
