@@ -6,40 +6,215 @@
   <title>Europe 2026</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Homepage-only layout ── */
+    .home-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: calc(100vh - 52px);
+      overflow: hidden;
+    }
+    .map-col { position: relative; overflow: hidden; }
+    #map { width: 100%; height: 100%; }
+
+    .schedule-col {
+      overflow-y: auto;
+      border-left: 1px solid var(--border);
+      background: #0d1828;
+      padding: 20px 22px 48px;
+    }
+
+    /* ── Calendar ── */
+    .cal-month-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+      margin-bottom: 12px;
+    }
+    .cal-wd {
+      text-align: center;
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: rgba(143,163,188,0.45);
+      padding: 4px 0;
+      text-transform: uppercase;
+    }
+    .cal-cell {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: rgba(143,163,188,0.2);
+    }
+    .cal-cell.in-month {
+      color: rgba(143,163,188,0.4);
+      background: rgba(255,255,255,0.02);
+    }
+    .cal-cell.trip-day {
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: filter .15s, transform .12s;
+    }
+    .cal-cell.trip-day:hover { filter: brightness(1.18); transform: scale(1.08); }
+    .cal-cell.fly-home {
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px dashed rgba(143,163,188,0.2);
+      font-size: 0.68rem;
+    }
+    .cal-fly-icon { font-size: 0.5rem; line-height: 1.2; }
+
+    /* ── Calendar legend ── */
+    .cal-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 18px;
+    }
+    .cal-leg-chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 9px 3px 5px;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .cal-leg-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── Stop cards ── */
+    .sec-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: var(--muted);
+      margin-bottom: 9px;
+    }
+    .stop-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-left: 3px solid transparent;
+      border-radius: var(--r);
+      padding: 11px 13px;
+      margin-bottom: 7px;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .stop-card:hover { background: rgba(255,255,255,0.07); }
+    .stop-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+    .stop-body { flex: 1; min-width: 0; }
+    .stop-name  { font-size: 0.9rem; font-weight: 700; }
+    .stop-dates { font-size: 0.7rem; color: var(--muted); margin-top: 1px; }
+    .stop-nights {
+      display: inline-block;
+      background: rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-size: 0.62rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+    .stop-arrow { color: rgba(143,163,188,0.35); font-size: 0.85rem; }
+
+    /* ── Divider & suggested ── */
+    .sec-div { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+    .sugg-toggle {
+      width: 100%; text-align: left;
+      background: none; border: 1px solid var(--border);
+      color: var(--muted); border-radius: 8px;
+      padding: 7px 12px; cursor: pointer;
+      font-size: 0.74rem; font-family: inherit;
+      transition: all .15s; margin-bottom: 10px;
+    }
+    .sugg-toggle:hover { color: var(--text); border-color: var(--bl); }
+    .sugg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+    .sugg-chip {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      transition: border-color .15s;
+    }
+    .sugg-chip:hover { border-color: var(--accent); }
+    .sugg-chip-name { font-size: 0.78rem; font-weight: 600; margin-bottom: 3px; }
+    .sugg-chip-blurb {
+      font-size: 0.67rem; color: var(--muted); line-height: 1.4;
+      display: -webkit-box; -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    @media (max-width: 800px) {
+      .home-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: 50vh auto;
+        height: auto;
+        overflow: visible;
+      }
+      .schedule-col { border-left: none; border-top: 1px solid var(--border); }
+      .sugg-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
 <header class="site-header">
   <div class="site-title">Europe <em>2026</em></div>
-  <div class="site-meta" id="headerMeta">Sep 5 – 11, 2026</div>
+  <div class="site-meta" id="headerMeta"></div>
   <div class="hspacer"></div>
   <button class="btn-ghost" id="sidebarToggle">👥 <span id="goingCount">9</span> going</button>
 </header>
 
-<div class="map-wrap">
-  <div id="map"></div>
+<div class="home-layout">
 
-  <!-- Attendee sidebar — floats over the map, hidden by default -->
-  <div class="sidebar-panel hidden" id="sidebarPanel">
-    <div id="attendeeChips"></div>
+  <!-- Left half: Map -->
+  <div class="map-col">
+    <div id="map"></div>
+    <!-- Attendee panel — overlays the map -->
+    <div class="sidebar-panel hidden" id="sidebarPanel">
+      <div id="attendeeChips"></div>
+    </div>
   </div>
-</div>
 
-<!-- City stop strip -->
-<div class="city-strip" id="cityStrip"></div>
+  <!-- Right half: Calendar + stops -->
+  <div class="schedule-col" id="scheduleCol">
+    <p style="color:var(--muted);font-size:0.82rem">Loading…</p>
+  </div>
 
-<!-- Suggested cities (collapsed by default) -->
-<div class="picks-section">
-  <button class="picks-toggle-btn" id="picksToggle">🌍 Show suggested cities ▾</button>
-  <div class="cpicks-grid" id="picksGrid" style="display:none"></div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 var CITY_PAGES  = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
 var STOP_COLORS = ['#1e5fa8', '#f5a623', '#27ae60', '#9b59b6'];
-
-// Fallback coords for any city referenced without coords in the JSON
 var FALLBACK_COORDS = {
   Bologna: [44.4939, 11.3426], Milan: [45.4642, 9.19],
   Interlaken: [46.6863, 8.1638], Zurich: [47.3769, 8.5417],
@@ -48,10 +223,9 @@ var FALLBACK_COORDS = {
   Munich: [48.1351, 11.582], Ljubljana: [46.0569, 14.5058]
 };
 
-function coords(city, obj) {
+function getCoords(city, obj) {
   return (obj && obj.coords && obj.coords.length) ? obj.coords : (FALLBACK_COORDS[city] || null);
 }
-
 function fmtShort(s) {
   return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
 }
@@ -61,20 +235,12 @@ function addDays(s, n) {
   return d.toISOString().slice(0, 10);
 }
 
-// ── Sidebar toggle ──────────────────────────────────────────────────────────
+// Attendee sidebar toggle
 document.getElementById('sidebarToggle').addEventListener('click', function() {
   document.getElementById('sidebarPanel').classList.toggle('hidden');
 });
 
-// ── City picks toggle ───────────────────────────────────────────────────────
-var picksOpen = false;
-document.getElementById('picksToggle').addEventListener('click', function() {
-  picksOpen = !picksOpen;
-  document.getElementById('picksGrid').style.display = picksOpen ? 'grid' : 'none';
-  this.textContent = picksOpen ? '🌍 Hide suggested cities ▴' : '🌍 Show suggested cities ▾';
-});
-
-// ── Load data ───────────────────────────────────────────────────────────────
+// ── Boot ───────────────────────────────────────────────────────────────────
 fetch('data.json')
   .then(function(r) { return r.json(); })
   .then(function(data) {
@@ -82,27 +248,30 @@ fetch('data.json')
     var confirmed = attendees.filter(function(a) { return a.confirmed; });
     document.getElementById('goingCount').textContent = confirmed.length;
 
+    if (data.trip && data.trip.startDate && data.trip.endDate) {
+      document.getElementById('headerMeta').textContent =
+        fmtShort(data.trip.startDate) + ' – ' + fmtShort(data.trip.endDate) + ', 2026';
+    }
+
     renderSidebar(attendees);
 
-    var itin = (data.itinerary || []).filter(function(s) { return s.city !== 'Home'; });
-    renderCityStrip(itin);
-    initMap(itin, data.citySuggestions || []);
-    renderPicks(data.citySuggestions || []);
+    var itin  = data.itinerary || [];
+    var stops = itin.filter(function(s) { return s.city !== 'Home'; });
+
+    renderScheduleCol(itin, stops, data.citySuggestions || []);
+    initMap(stops, data.citySuggestions || []);
   });
 
-// ── Sidebar: attendee list ──────────────────────────────────────────────────
+// ── Sidebar ────────────────────────────────────────────────────────────────
 function renderSidebar(attendees) {
   var confirmed = attendees.filter(function(a) { return a.confirmed; });
   var notGoing  = attendees.filter(function(a) { return !a.confirmed && a.notGoing; });
-
   function chip(a, cls, tag) {
     return '<div class="att-chip">' +
       '<div class="chip-av ' + cls + '">' + a.name.charAt(0) + '</div>' +
       '<span class="chip-name">' + a.name.split(' ')[0] + '</span>' +
-      '<span class="chip-tag ' + cls + '">' + tag + '</span>' +
-      '</div>';
+      '<span class="chip-tag ' + cls + '">' + tag + '</span></div>';
   }
-
   var html = '<div class="sb-title">✅ Going (' + confirmed.length + ')</div>';
   html += confirmed.map(function(a) { return chip(a, 'yes', 'Going'); }).join('');
   if (notGoing.length) {
@@ -112,23 +281,104 @@ function renderSidebar(attendees) {
   document.getElementById('attendeeChips').innerHTML = html;
 }
 
-// ── City strip ──────────────────────────────────────────────────────────────
-function renderCityStrip(itin) {
-  var strip = document.getElementById('cityStrip');
-  strip.innerHTML = itin.map(function(stop, i) {
-    var page = CITY_PAGES[stop.city] || '#';
-    var out  = stop.nights > 0 ? fmtShort(addDays(stop.date, stop.nights)) : '';
-    return '<a class="city-stop-link" href="' + page + '">' +
-      '<div class="csl-num">Stop ' + (i + 1) + ' ' + (stop.flag || '') + '</div>' +
-      '<div class="csl-name">' + (stop.emoji || '') + ' ' + stop.city + '</div>' +
-      '<div class="csl-dates">' + fmtShort(stop.date) + (out ? ' – ' + out : '') + '</div>' +
-      (stop.nights > 0 ? '<span class="csl-badge">' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : '') + '</span>' : '') +
+// ── Right panel: calendar + stop cards ────────────────────────────────────
+function renderScheduleCol(itin, stops, suggestions) {
+
+  // Build date → city info map
+  var dayMap = {};
+  stops.forEach(function(stop, i) {
+    for (var n = 0; n < (stop.nights || 0); n++) {
+      var key = addDays(stop.date, n);
+      dayMap[key] = { city: stop.city, color: STOP_COLORS[i], flag: stop.flag, num: i + 1 };
+    }
+  });
+  var home = itin.find(function(s) { return s.city === 'Home'; });
+  if (home) dayMap[home.date] = { home: true };
+
+  // September 2026: Sep 1 = Tuesday (firstDay = 2)
+  var firstDay    = new Date(2026, 8, 1).getDay(); // 2
+  var daysInMonth = 30;
+
+  var cal = '<div class="cal-month-label">September 2026</div><div class="cal-grid">';
+  ['S','M','T','W','T','F','S'].forEach(function(d) {
+    cal += '<div class="cal-wd">' + d + '</div>';
+  });
+  for (var b = 0; b < firstDay; b++) {
+    cal += '<div class="cal-cell"></div>';
+  }
+  for (var d = 1; d <= daysInMonth; d++) {
+    var key  = '2026-09-' + (d < 10 ? '0' : '') + d;
+    var info = dayMap[key];
+    if (info && info.home) {
+      cal += '<div class="cal-cell fly-home" title="Fly home">' + d + '<div class="cal-fly-icon">✈️</div></div>';
+    } else if (info) {
+      cal += '<div class="cal-cell trip-day" style="background:' + info.color + ';border-radius:8px" ' +
+             'title="' + info.city + '" onclick="location.href=\'' + (CITY_PAGES[info.city] || '#') + '\'">' +
+             d + '</div>';
+    } else {
+      cal += '<div class="cal-cell in-month">' + d + '</div>';
+    }
+  }
+  cal += '</div>';
+
+  // Legend
+  var legend = '<div class="cal-legend">';
+  stops.forEach(function(stop, i) {
+    legend += '<div class="cal-leg-chip"><div class="cal-leg-dot" style="background:' + STOP_COLORS[i] + '"></div>' +
+              stop.flag + ' ' + stop.city + '</div>';
+  });
+  legend += '<div class="cal-leg-chip"><div class="cal-leg-dot" style="background:rgba(143,163,188,0.15);border:1px dashed rgba(143,163,188,0.3)"></div>✈️ Fly home</div>';
+  legend += '</div>';
+
+  // Stop cards
+  var cards = '<div class="sec-title">Stops</div>';
+  stops.forEach(function(stop, i) {
+    var color = STOP_COLORS[i];
+    var page  = CITY_PAGES[stop.city] || '#';
+    var out   = fmtShort(addDays(stop.date, stop.nights || 0));
+    cards += '<a class="stop-card" href="' + page + '" style="border-left-color:' + color + '">' +
+      '<div class="stop-num" style="background:' + color + '">' + (i + 1) + '</div>' +
+      '<div class="stop-body">' +
+        '<div class="stop-name">' + (stop.flag || '') + ' ' + stop.city + '</div>' +
+        '<div class="stop-dates">' + fmtShort(stop.date) + ' – ' + out + '</div>' +
+        '<span class="stop-nights">' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : '') + '</span>' +
+      '</div>' +
+      '<div class="stop-arrow">→</div>' +
       '</a>';
-  }).join('');
+  });
+
+  // Suggested cities
+  var suggested = suggestions.filter(function(s) { return s.status === 'suggested'; });
+  var sugg = '';
+  if (suggested.length) {
+    sugg = '<hr class="sec-div">' +
+      '<button class="sugg-toggle" id="suggToggle">🌍 Suggested cities ▾</button>' +
+      '<div class="sugg-grid" id="suggGrid" style="display:none">' +
+      suggested.map(function(c) {
+        return '<div class="sugg-chip">' +
+          '<div class="sugg-chip-name">' + (c.emoji || '') + ' ' + (c.flag || '') + ' ' + c.name + '</div>' +
+          '<div class="sugg-chip-blurb">' + (c.blurb || c.country || '') + '</div>' +
+          '</div>';
+      }).join('') +
+      '</div>';
+  }
+
+  document.getElementById('scheduleCol').innerHTML =
+    cal + legend + '<hr class="sec-div">' + cards + sugg;
+
+  var btn = document.getElementById('suggToggle');
+  if (btn) {
+    var open = false;
+    btn.addEventListener('click', function() {
+      open = !open;
+      document.getElementById('suggGrid').style.display = open ? 'grid' : 'none';
+      btn.textContent = open ? '🌍 Suggested cities ▴' : '🌍 Suggested cities ▾';
+    });
+  }
 }
 
-// ── Map ─────────────────────────────────────────────────────────────────────
-function initMap(itin, suggestions) {
+// ── Map ────────────────────────────────────────────────────────────────────
+function initMap(stops, suggestions) {
   var map = L.map('map', { zoomControl: true });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -137,76 +387,52 @@ function initMap(itin, suggestions) {
 
   var allCoords = [];
 
-  // Suggested cities — subtle, smaller markers
-  suggestions
-    .filter(function(s) { return s.status === 'suggested'; })
-    .forEach(function(s) {
-      var c = coords(s.name, s);
-      if (!c) return;
-      allCoords.push(c);
-      var icon = L.divIcon({
-        className: 'c-marker',
-        html: '<div class="c-pin" style="width:22px;height:22px;background:#1e2e45;border-color:rgba(143,163,188,0.25)">' +
-              '<span style="font-size:0.7rem">' + (s.emoji || '●') + '</span></div>',
-        iconSize: [22, 22], iconAnchor: [11, 22], popupAnchor: [0, -26]
-      });
-      L.marker(c, { icon: icon }).addTo(map)
-        .bindPopup('<strong>' + (s.flag || '') + ' ' + s.name + '</strong>' +
-                   '<br><span style="font-size:0.75rem;color:var(--muted)">' + s.country + ' · Suggested</span>');
-    });
-
-  // Planned route line
-  var routeCoords = itin.map(function(s) { return coords(s.city, s); }).filter(Boolean);
-  if (routeCoords.length > 1) {
-    L.polyline(routeCoords, { color: '#2d7dd2', weight: 2.5, opacity: 0.65, dashArray: '6 4' }).addTo(map);
-  }
-
-  // Planned stop markers — prominent, numbered, link to city page
-  itin.forEach(function(stop, i) {
-    var c = coords(stop.city, stop);
+  // Suggested markers (subtle)
+  suggestions.filter(function(s) { return s.status === 'suggested'; }).forEach(function(s) {
+    var c = getCoords(s.name, s);
     if (!c) return;
     allCoords.push(c);
-    var color = STOP_COLORS[i % STOP_COLORS.length];
-    var page  = CITY_PAGES[stop.city] || '#';
-    var out   = stop.nights > 0 ? fmtShort(addDays(stop.date, stop.nights)) : '';
-
     var icon = L.divIcon({
       className: 'c-marker',
+      html: '<div class="c-pin" style="width:20px;height:20px;background:#18273d;border-color:rgba(143,163,188,0.18)">' +
+            '<span style="font-size:0.58rem">' + (s.emoji || '●') + '</span></div>',
+      iconSize: [20, 20], iconAnchor: [10, 20], popupAnchor: [0, -24]
+    });
+    L.marker(c, { icon: icon }).addTo(map)
+      .bindPopup('<strong>' + (s.flag || '') + ' ' + s.name + '</strong><br>' +
+                 '<span style="font-size:0.74rem;color:var(--muted)">' + s.country + ' · Suggested</span>');
+  });
+
+  // Route line
+  var routeCoords = stops.map(function(s) { return getCoords(s.city, s); }).filter(Boolean);
+  if (routeCoords.length > 1) {
+    L.polyline(routeCoords, { color: '#2d7dd2', weight: 2.5, opacity: 0.6, dashArray: '6 4' }).addTo(map);
+  }
+
+  // Planned stop markers
+  stops.forEach(function(stop, i) {
+    var c = getCoords(stop.city, stop);
+    if (!c) return;
+    allCoords.push(c);
+    var color = STOP_COLORS[i];
+    var page  = CITY_PAGES[stop.city] || '#';
+    var out   = fmtShort(addDays(stop.date, stop.nights || 0));
+    var icon  = L.divIcon({
+      className: 'c-marker',
       html: '<div class="c-pin" style="width:32px;height:32px;background:' + color + '">' +
-            '<span style="font-size:0.8rem">' + (i + 1) + '</span></div>',
+            '<span style="font-size:0.78rem">' + (i + 1) + '</span></div>',
       iconSize: [32, 32], iconAnchor: [16, 32], popupAnchor: [0, -36]
     });
-
     L.marker(c, { icon: icon }).addTo(map).bindPopup(
       '<strong>' + (stop.flag || '') + ' ' + stop.city + '</strong>, ' + stop.country +
-      '<br>' + fmtShort(stop.date) + (out ? ' – ' + out : '') +
-      (stop.nights > 0 ? ' · ' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : '') : '') +
+      '<br>' + fmtShort(stop.date) + ' – ' + out +
+      ' · ' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : '') +
       (stop.notes ? '<br><em style="font-size:0.74rem;color:var(--muted)">' + stop.notes + '</em>' : '') +
       '<br><a class="popup-cta" href="' + page + '">View city →</a>'
     );
   });
 
   if (allCoords.length) map.fitBounds(allCoords, { padding: [44, 44] });
-}
-
-// ── City picks grid ─────────────────────────────────────────────────────────
-function renderPicks(suggestions) {
-  document.getElementById('picksGrid').innerHTML = suggestions.map(function(c) {
-    return '<div class="cpick ' + c.status + '">' +
-      '<div class="cpick-top">' +
-        '<div class="cpick-emo">' + (c.emoji || '') + '</div>' +
-        '<div>' +
-          '<div class="cpick-nm">' + (c.flag || '') + ' ' + c.name +
-            ' <span class="cpick-badge ' + c.status + '">' +
-              (c.status === 'planned' ? 'Planned' : 'Suggested') +
-            '</span>' +
-          '</div>' +
-          '<div class="cpick-co">' + c.country + '</div>' +
-        '</div>' +
-      '</div>' +
-      (c.blurb ? '<div class="cpick-blurb">' + c.blurb + '</div>' : '') +
-      '</div>';
-  }).join('');
 }
 </script>
 
