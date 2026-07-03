@@ -339,10 +339,10 @@ function renderScheduleCol(itin, stops, suggestions) {
     if (info && info.colors.length > 1) {
       var fromCity = info.cities[0], toCity = info.cities[info.cities.length - 1];
       var grad = info.reverse
-        ? 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 72%, ' +
-          info.colors[info.colors.length - 1] + ' 88%, ' + info.colors[info.colors.length - 1] + ' 100%)'
-        : 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 12%, ' +
-          info.colors[info.colors.length - 1] + ' 28%, ' + info.colors[info.colors.length - 1] + ' 100%)';
+        ? 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 88%, ' +
+          info.colors[info.colors.length - 1] + ' 95%, ' + info.colors[info.colors.length - 1] + ' 100%)'
+        : 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 5%, ' +
+          info.colors[info.colors.length - 1] + ' 12%, ' + info.colors[info.colors.length - 1] + ' 100%)';
       var linkCity = info.reverse ? fromCity : toCity;
       cal += '<div class="cal-cell trip-day travel-day" style="background:' + grad + ';border-radius:8px" ' +
              'title="' + fromCity + ' → ' + toCity + ' (travel day)" onclick="location.href=\'' + (CITY_PAGES[linkCity] || '#') + '\'">' +
