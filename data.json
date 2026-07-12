@@ -1,1 +1,318 @@
-ewogICJ0cmlwIjogewogICAgIm5hbWUiOiAiRXVyb3BlIDIwMjYiLAogICAgInN0YXJ0RGF0ZSI6ICIyMDI2LTA5LTEyIiwKICAgICJlbmREYXRlIjogIjIwMjYtMDktMjAiLAogICAgInRyYXZlbGVycyI6IDEsCiAgICAiaG9tZUFpcnBvcnQiOiAiTEFYIgogIH0sCiAgImF0dGVuZGVlcyI6IFsKICAgIHsgIm5hbWUiOiAiSm9uYXRoYW4gSHNpZWgiLCAiY29uZmlybWVkIjogdHJ1ZSwgImpvaW5lZERhdGUiOiAiMjAyNi0wNS0wNCIgfSwKICAgIHsgIm5hbWUiOiAiU2VhbiBDaGVuIiwgImNvbmZpcm1lZCI6IHRydWUsICJqb2luZWREYXRlIjogIjIwMjYtMDUtMDQiIH0sCiAgICB7ICJuYW1lIjogIkRlcmVrIFdlbiIsICJjb25maXJtZWQiOiB0cnVlLCAiam9pbmVkRGF0ZSI6ICIyMDI2LTA1LTA0IiB9LAogICAgeyAibmFtZSI6ICJZb25namFlIExlZSIsICJjb25maXJtZWQiOiB0cnVlLCAiam9pbmVkRGF0ZSI6ICIyMDI2LTA1LTA0IiB9LAogICAgeyAibmFtZSI6ICJBaWRlbiBaaGFuZyIsICJjb25maXJtZWQiOiB0cnVlLCAiam9pbmVkRGF0ZSI6ICIyMDI2LTA1LTA0IiB9LAogICAgeyAibmFtZSI6ICJCcmlhbiBaaHUiLCAiY29uZmlybWVkIjogdHJ1ZSwgImpvaW5lZERhdGUiOiAiMjAyNi0wNS0wNCIgfSwKICAgIHsgIm5hbWUiOiAiVHJldm9yIEd1byIsICJjb25maXJtZWQiOiB0cnVlLCAiam9pbmVkRGF0ZSI6ICIyMDI2LTA1LTA0IiB9LAogICAgeyAibmFtZSI6ICJNaWNoYWVsIENoZW4iLCAiY29uZmlybWVkIjogdHJ1ZSwgImpvaW5lZERhdGUiOiAiMjAyNi0wNS0wNCIgfSwKICAgIHsgIm5hbWUiOiAiU2hyZXlhbmsgS2FkYWRpIiwgImNvbmZpcm1lZCI6IHRydWUsICJqb2luZWREYXRlIjogIjIwMjYtMDUtMDQiIH0sCiAgICB7ICJuYW1lIjogIlRvbXBzb24gSHN1IiwgImNvbmZpcm1lZCI6IGZhbHNlLCAibm90R29pbmciOiB0cnVlLCAiam9pbmVkRGF0ZSI6ICIyMDI2LTA1LTA0IiB9LAogICAgeyAibmFtZSI6ICJLeWxlIEx1IiwgImNvbmZpcm1lZCI6IGZhbHNlLCAibm90R29pbmciOiB0cnVlLCAiam9pbmVkRGF0ZSI6ICIyMDI2LTA1LTA0IiB9LAogICAgeyAibmFtZSI6ICJBbmR5IE5pbGlwb3VyIiwgImNvbmZpcm1lZCI6IGZhbHNlLCAibm90R29pbmciOiB0cnVlLCAiam9pbmVkRGF0ZSI6ICIyMDI2LTA1LTA0IiB9LAogICAgeyAibmFtZSI6ICJBbnRob255IFlhbyIsICJjb25maXJtZWQiOiBmYWxzZSwgIm5vdEdvaW5nIjogdHJ1ZSwgImpvaW5lZERhdGUiOiAiMjAyNi0wNS0wNCIgfSwKICAgIHsgIm5hbWUiOiAiRGVtaXRyaXVzIEhvbmciLCAiY29uZmlybWVkIjogZmFsc2UsICJub3RHb2luZyI6IHRydWUsICJqb2luZWREYXRlIjogIjIwMjYtMDUtMDQiIH0KICBdLAogICJpdGluZXJhcnkiOiBbCiAgICB7CiAgICAgICJkYXRlIjogIjIwMjYtMDktMTIiLAogICAgICAiY2l0eSI6ICJCb2xvZ25hIiwKICAgICAgImNvdW50cnkiOiAiSXRhbHkiLAogICAgICAiZmxhZyI6ICLwn4eu8J+HuSIsCiAgICAgICJlbW9qaSI6ICLwn42dIiwKICAgICAgIm5pZ2h0cyI6IDMsCiAgICAgICJhY3Rpdml0aWVzIjogWwogICAgICAgICJBcnJpdmUgYXQgQkxRIGFpcnBvcnQsIGNoZWNrIGluIiwKICAgICAgICAiRXhwbG9yZSBoaXN0b3JpYyBjZW50ZXIgJiBtZWRpZXZhbCB0b3dlcnMiLAogICAgICAgICJGb29kIHRvdXI6IHRhZ2xpYXRlbGxlLCB0b3J0ZWxsaW5pLCBtb3J0YWRlbGxhIiwKICAgICAgICAiVmlzaXQgUGlhenphIE1hZ2dpb3JlICYgU2FuIFBldHJvbmlvIEJhc2lsaWNhIiwKICAgICAgICAiRGVwYXJ0IGZvciBNaWxhbiB+OTowMGFtIG9uIHRoZSAxNXRoIChGcmVjY2lhcm9zc2EvSXRhbG8sIH4xIGhyKSIKICAgICAgXSwKICAgICAgIm5vdGVzIjogIkN1bGluYXJ5IGhlYXJ0IG9mIEl0YWx5LiBCb29rIGZvb2QgdG91cnMgaW4gYWR2YW5jZS4gTGVhdmUgZm9yIE1pbGFuIG9uIGEgbW9ybmluZyB0cmFpbiAofjlhbSkgb24gdGhlIDE1dGggaW5zdGVhZCBvZiBvdmVybmlnaHQg4oCUIG9wZW5zIHVwIGEgZnVsbCBkYXkgaW4gTWlsYW4uIgogICAgfSwKICAgIHsKICAgICAgImRhdGUiOiAiMjAyNi0wOS0xNSIsCiAgICAgICJjaXR5IjogIk1pbGFuIiwKICAgICAgImNvdW50cnkiOiAiSXRhbHkiLAogICAgICAiZmxhZyI6ICLwn4eu8J+HuSIsCiAgICAgICJlbW9qaSI6ICLwn4+z77iPIiwKICAgICAgIm5pZ2h0cyI6IDEsCiAgICAgICJhY3Rpdml0aWVzIjogWwogICAgICAgICJNb3JuaW5nIHRyYWluIGZyb20gQm9sb2duYSAofjk6MDBhbSBkZXBhcnR1cmUsIGFycml2ZSB+MTBhbSkiLAogICAgICAgICJEdW9tbyBkaSBNaWxhbm8gJiBHYWxsZXJpYSBWaXR0b3JpbyBFbWFudWVsZSBJSSIsCiAgICAgICAgIk5hdmlnbGkgY2FuYWwgZGlzdHJpY3QgZm9yIGx1bmNoL2Rpbm5lciIsCiAgICAgICAgIkVhcmx5IG5pZ2h0IOKAlCBlYXJseSB0cmFpbiB0byBJbnRlcmxha2VuIHRvbW9ycm93IgogICAgICBdLAogICAgICAibm90ZXMiOiAiQXJyaXZpbmcgbWlkLW1vcm5pbmcgaW5zdGVhZCBvZiBvdmVybmlnaHQgZ2l2ZXMgYSBmdWxsIGRheSBpbiBNaWxhbi4gTGVhdmUgZWFybHkgKH43OjAwLTc6MzBhbSkgdGhlIG5leHQgbW9ybmluZyBmb3IgSW50ZXJsYWtlbi4iCiAgICB9LAogICAgewogICAgICAiZGF0ZSI6ICIyMDI2LTA5LTE2IiwKICAgICAgImNpdHkiOiAiSW50ZXJsYWtlbiIsCiAgICAgICJjb3VudHJ5IjogIlN3aXR6ZXJsYW5kIiwKICAgICAgImZsYWciOiAi8J+HqPCfh60iLAogICAgICAiZW1vamkiOiAi4pu06O+4jyIsCiAgICAgICJuaWdodHMiOiAyLAogICAgICAiYWN0aXZpdGllcyI6IFsKICAgICAgICAiRWFybHkgbW9ybmluZyB0cmFpbiBmcm9tIE1pbGFuICh+NzowMC03OjMwYW0sIFRyZW5pdGFsaWEgRXVyb0NpdHkgdG8gU3BpZXosIHRoZW4gU0JCIHRvIEludGVybGFrZW4gT3N0LCB+M2gxNW0gdG90YWwpIiwKICAgICAgICAiSnVuZ2ZyYXVqb2NoIChUb3Agb2YgRXVyb3BlKSBkYXkgdHJpcCIsCiAgICAgICAgIkhpa2luZyBpbiB0aGUgQmVybmVzZSBPYmVybGFuZCIsCiAgICAgICAgIlBhcmFnbGlkaW5nIG9yIGFkdmVudHVyZSBhY3Rpdml0aWVzIgogICAgICBdLAogICAgICAibm90ZXMiOiAiR2F0ZXdheSB0byB0aGUgU3dpc3MgQWxwcy4gQm9vayBKdW5nZnJhdWpvY2ggdGlja2V0cyBpbiBhZHZhbmNlLiBFYXJseSBkZXBhcnR1cmUgZnJvbSBNaWxhbiBtYXhpbWl6ZXMgdGhlIGZpcnN0IGFmdGVybm9vbiBpbiB0aGUgQWxwcy4iCiAgICB9LAogICAgewogICAgICAiZGF0ZSI6ICIyMDI2LTA5LTE4IiwKICAgICAgImNpdHkiOiAiWnVyaWNoIiwKICAgICAgImNvdW50cnkiOiAiU3dpdHplcmxhbmQiLAogICAgICAiZmxhZyI6ICLwn4eo8J+HrSIsCiAgICAgICJlbW9qaSI6ICLwn4+mIiwKICAgICAgIm5pZ2h0cyI6IDIsCiAgICAgICJhY3Rpdml0aWVzIjogWwogICAgICAgICJUcmFpbiBmcm9tIEludGVybGFrZW4gdG8gWnVyaWNoICh+MiBocnMpIiwKICAgICAgICAiRXhwbG9yZSBBbHRzdGFkdCAoT2xkIFRvd24pICYgTGluZGVuaMO8Z2VsIiwKICAgICAgICAiQm9hdCB0cmlwIG9uIExha2UgWnVyaWNoIiwKICAgICAgICAiU3dpc3MgTmF0aW9uYWwgTXVzZXVtICYgQmFobmhvZnN0cmFzc2UiCiAgICAgIF0sCiAgICAgICJub3RlcyI6ICJTbGVlaywgd2Fsa2FibGUsIGFuZCBvbiB0aGUgbGFrZS4gR3JlYXQgbGFzdCBzdG9wIGJlZm9yZSBmbHlpbmcgaG9tZSBmcm9tIFpSSC4iCiAgICB9LAogICAgewogICAgICAiZGF0ZSI6ICIyMDI2LTA5LTIwIiwKICAgICAgImNpdHkiOiAiSG9tZSIsCiAgICAgICJjb3VudHJ5IjogIiIsCiAgICAgICJmbGFnIjogIvCfh7rwn4e4IiwKICAgICAgImVtb2ppIjogIuKciO+4jyIsCiAgICAgICJuaWdodHMiOiAwLAogICAgICAiYWN0aXZpdGllcyI6IFsKICAgICAgICAiVHJhdmVsIHRvIFpSSCBhaXJwb3J0IiwKICAgICAgICAiRmxpZ2h0IGZyb20gWnVyaWNoIGJhY2sgdG8gTEFYIgogICAgICBdLAogICAgICAibm90ZXMiOiAiRW5kIG9mIHRyaXAuIFNhZmUgdHJhdmVscyBob21lISIKICAgIH0KICBdLAogICJmbGlnaHRzIjogWwogICAgewogICAgICAiaWQiOiAiZjEiLAogICAgICAidHlwZSI6ICJmbGlnaHQiLAogICAgICAiZGF0ZSI6ICIyMDI2LTA5LTEyIiwKICAgICAgImZyb20iOiAiTEFYIiwKICAgICAgInRvIjogIkJMUSIsCiAgICAgICJmcm9tQ2l0eSI6ICJMb3MgQW5nZWxlcyIsCiAgICAgICJ0b0NpdHkiOiAiQm9sb2duYSIsCiAgICAgICJhaXJsaW5lIjogIlRCRCIsCiAgICAgICJmbGlnaHROdW0iOiAiVEJEIiwKICAgICAgImRlcGFydHVyZSI6ICJUQkQiLAogICAgICAiYXJyaXZhbCI6ICJUQkQiLAogICAgICAiY29uZmlybWF0aW9uIjogIlRCRCIsCiAgICAgICJzdGF0dXMiOiAicGxhbm5lZCIsCiAgICAgICJub3RlcyI6ICJMaWtlbHkgY29ubmVjdGlvbiB0aHJvdWdoIGEgbWFqb3IgaHViIChlLmcuIExIUiwgQ0RHLCBGQ08pIgogICAgfSwKICAgIHsKICAgICAgImlkIjogImYyIiwKICAgICAgInR5cGUiOiAiZmxpZ2h0IiwKICAgICAgImRhdGUiOiAiMjAyNi0wOS0yMCIsCiAgICAgICJmcm9tIjogIlpSSCIsCiAgICAgICJ0byI6ICJMQVgiLAogICAgICAiZnJvbUNpdHkiOiAiWnVyaWNoIiwKICAgICAgInRvQ2l0eSI6ICJMb3MgQW5nZWxlcyIsCiAgICAgICJhaXJsaW5lIjogIlRCRCIsCiAgICAgICJmbGlnaHROdW0iOiAiVEJEIiwKICAgICAgImRlcGFydHVyZSI6ICJUQkQiLAogICAgICAiYXJyaXZhbCI6ICJUQkQiLAogICAgICAiY29uZmlybWF0aW9uIjogIlRCRCIsCiAgICAgICJzdGF0dXMiOiAicGxhbm5lZCIsCiAgICAgICJub3RlcyI6ICJNb3JuaW5nIGRlcGFydHVyZSIKICAgIH0KICBdLAogICJob3RlbHMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJoMWEiLAogICAgICAiY2l0eSI6ICJCb2xvZ25hIiwKICAgICAgInR5cGUiOiAiYWlyYm5iIiwKICAgICAgInN0YXR1cyI6ICJjYW5kaWRhdGUiLAogICAgICAibmFtZSI6ICJbQm9sb2duYUNlbnRyb10tOSBQZW9wbGUgTG9mdC1Qcml2YXRlIExpZnQmVGVycmFjZSIsCiAgICAgICJ1cmwiOiAiaHR0cHM6Ly93d3cuYWlyYm5iLmNvbS9yb29tcy8xNDk0MTYzNzcwMDIyNjQ5OTg0IiwKICAgICAgImltYWdlIjogImh0dHBzOi8vYTAubXVzY2FjaGUuY29tL2ltL3BpY3R1cmVzL2hvc3RpbmcvSG9zdGluZy0xNDk0MTYzNzcwMDIyNjQ5OTg0L29yaWdpbmFsLzNhODRmMjg4LWE4NGEtNDJjMy05YjMyLTZjN2RmNTE4ODI2YS5qcGVnP2ltX3c9NzIwIiwKICAgICAgImNoZWNrSW4iOiAiMjAyNi0wOS0xMiIsCiAgICAgICJjaGVja091dCI6ICIyMDI2LTA5LTE1IiwKICAgICAgIm5pZ2h0cyI6IDMsCiAgICAgICJndWVzdHMiOiA5LAogICAgICAiYmVkcm9vbXMiOiAyLAogICAgICAiYmF0aHJvb21zIjogMiwKICAgICAgImJlZHMiOiA1LAogICAgICAicmF0aW5nIjogNC45MywKICAgICAgInJldmlld3MiOiAyOCwKICAgICAgImhvc3QiOiAiRmVuaWNlIFN0YXlzIChTdXBlcmhvc3QpIiwKICAgICAgImNvbmZpcm1hdGlvbiI6ICJUQkQiLAogICAgICAiYWRkcmVzcyI6ICJIaXN0b3JpYyBDZW50ZXIg4oCUIH4yMCBtaW4gd2FsayB0byBQaWF6emEgTWFnZ2lvcmUgJiB0aGUgVHdvIFRvd2VycywgfjEwIG1pbiB0byBCb2xvZ25hIENlbnRyYWxlIHN0YXRpb24iLAogICAgICAidG90YWxQcmljZSI6IDE3NzcsCiAgICAgICJib29rZWQiOiBmYWxzZSwKICAgICAgIm5vdGVzIjogIkxvZnQgd2l0aCBhIHByaXZhdGUgcm9vZnRvcCB0ZXJyYWNlICYgcHJpdmF0ZSBlbGV2YXRvci4gUG9vbCB0YWJsZSwgYm9hcmQgZ2FtZXMsIGVzcHJlc3NvIG1hY2hpbmUuIgogICAgfSwKICAgIHsKICAgICAgImlkIjogImgxYiIsCiAgICAgICJjaXR5IjogIkJvbG9nbmEiLAogICAgICAidHlwZSI6ICJhaXJibmIiLAogICAgICAic3RhdHVzIjogImNhbmRpZGF0ZSIsCiAgICAgICJuYW1lIjogIlJveWFsIFF1YWRyaXZpbyAtIDQgQmVkcm9vbXMgNCBCYXRocm9vbXMiLAogICAgICAidXJsIjogImh0dHBzOi8vd3d3LmFpcmJuYi5jb20vcm9vbXMvMTYxODI4NDYyOTU4Mjk3ODA2NiIsCiAgICAgICJpbWFnZSI6ICJodHRwczovL2EwLm11c2NhY2hlLmNvbS9pbS9waWN0dXJlcy9ob3N0aW5nL0hvc3RpbmctMTYxODI4NDYyOTU4Mjk3ODA2Ni9vcmlnaW5hbC9iN2ViNTlkMC1iNjlhLTRlYzUtOTIzYy0yYjE3MzZiY2MyMTYuanBlZz9pbV93PTcyMCIsCiAgICAgICJjaGVja0luIjogIjIwMjYtMDktMTIiLAogICAgICAiY2hlY2tPdXQiOiAiMjAyNi0wOS0xNSIsCiAgICAgICJuaWdodHMiOiAzLAogICAgICAiZ3Vlc3RzIjogOSwKICAgICAgImJlZHJvb21zIjogNCwKICAgICAgImJhdGhyb29tcyI6IDQsCiAgICAgICJiZWRzIjogNSwKICAgICAgInJhdGluZyI6IDUuMCwKICAgICAgInJldmlld3MiOiA5LAogICAgICAiaG9zdCI6ICJBbGVzc2lvIChTdXBlcmhvc3QpIiwKICAgICAgImNvbmZpcm1hdGlvbiI6ICJUQkQiLAogICAgICAiYWRkcmVzcyI6ICJIaXN0b3JpYyBjZW50ZXIg4oCUIH4zIG1pbiB3YWxrIHRvIHRoZSBUd28gVG93ZXJzLCB+MTAgbWluIHRvIFBpYXp6YSBNYWdnaW9yZSIsCiAgICAgICJ0b3RhbFByaWNlIjogMTY3OSwKICAgICAgImJvb2tlZCI6IGZhbHNlLAogICAgICAibm90ZXMiOiAiTmV3bHkgcmVub3ZhdGVkLCA0IGVuLXN1aXRlIGJlZHJvb21zIOKAlCBtb3JlIHNwYWNlICYgcHJpdmFjeSwgYnV0IGEgbG9uZ2VyIHdhbGsgZnJvbSB0aGUgc3RhdGlvbi4iCiAgICB9LAogICAgewogICAgICAiaWQiOiAiaDJhIiwKICAgICAgImNpdHkiOiAiTWlsYW4iLAogICAgICAidHlwZSI6ICJhaXJibmIiLAogICAgICAic3RhdHVzIjogImNhbmRpZGF0ZSIsCiAgICAgICJuYW1lIjogIkx1eHVyeSBOZXcgSG9tZSAtIEdhcmliYWxkaSBTdGF0aW9uIDUgbWludXRlcyBhd2F5IiwKICAgICAgInVybCI6ICJodHRwczovL3d3dy5haXJibmIuY29tL3Jvb21zLzE1NDM1MjYxNzU3MTc1NjE4NjUiLAogICAgICAiaW1hZ2UiOiAiaHR0cHM6Ly9hMC5tdXNjYWNoZS5jb20vaW0vcGljdHVyZXMvaG9zdGluZy9Ib3N0aW5nLTE1NDM1MjYxNzU3MTc1NjE4NjUvb3JpZ2luYWwvMzYwNjYzZjQtNDEwNS00NTJmLTg4ZDktZTA4YzJmM2IyOTljLmpwZWc/aW1fdz03MjAiLAogICAgICAiY2hlY2tJbiI6ICIyMDI2LTA5LTE1IiwKICAgICAgImNoZWNrT3V0IjogIjIwMjYtMDktMTYiLAogICAgICAibmlnaHRzIjogMSwKICAgICAgImd1ZXN0cyI6IDksCiAgICAgICJiZWRyb29tcyI6IDMsCiAgICAgICJiYXRocm9vbXMiOiAyLAogICAgICAiYmVkcyI6IDYsCiAgICAgICJyYXRpbmciOiA0LjY5LAogICAgICAicmV2aWV3cyI6IDQ1LAogICAgICAiaG9zdCI6ICJPbWFyIiwKICAgICAgImNvbmZpcm1hdGlvbiI6ICJUQkQiLAogICAgICAiYWRkcmVzcyI6ICJOZWFyIFBvcnRhIEdhcmliYWxkaSAmIENvcnNvIENvbW8sIElzb2xhIGRpc3RyaWN0IOKAlCB+NSBtaW4gZnJvbSBHYXJpYmFsZGkgc3RhdGlvbiIsCiAgICAgICJ0b3RhbFByaWNlIjogNzYwLAogICAgICAiYm9va2VkIjogZmFsc2UsCiAgICAgICJub3RlcyI6ICJNb2Rlcm4gcmVub3ZhdGVkIGFwYXJ0bWVudCBpbiB0aGUgdHJlbmR5IElzb2xhIGRpc3RyaWN0LiIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJoMmIiLAogICAgICAiY2l0eSI6ICJNaWxhbiIsCiAgICAgICJ0eXBlIjogImFpcmJuYiIsCiAgICAgICJzdGF0dXMiOiAiY2FuZGlkYXRlIiwKICAgICAgIm5hbWUiOiAiQm9jY29uaSBIb3VzZSwgNCBiZWRyb29tcyIsCiAgICAgICJ1cmwiOiAiaHR0cHM6Ly93d3cuYWlyYm5iLmNvbS9yb29tcy8xNjA4MzAwMDUxNjg4MDE5NjQ2IiwKICAgICAgImltYWdlIjogImh0dHBzOi8vYTAubXVzY2FjaGUuY29tL2ltL3BpY3R1cmVzL2hvc3RpbmcvSG9zdGluZy0xNjA4MzAwMDUxNjg4MDE5NjQ2L29yaWdpbmFsL2Y0M2ExMDAwLTM3NGEtNGRjYi1iOGYwLWY4ODg0NGY3ZTg1OC5qcGVnP2ltX3c9NzIwIiwKICAgICAgImNoZWNrSW4iOiAiMjAyNi0wOS0xNSIsCiAgICAgICJjaGVja091dCI6ICIyMDI2LTA5LTE2IiwKICAgICAgIm5pZ2h0cyI6IDEsCiAgICAgICJndWVzdHMiOiA5LAogICAgICAiYmVkcm9vbXMiOiA0LAogICAgICAiYmF0aHJvb21zIjogMiwKICAgICAgImJlZHMiOiAyLAogICAgICAicmF0aW5nIjogNS4wLAogICAgICAicmV2aWV3cyI6IDExLAogICAgICAiaG9zdCI6ICJHdWFybmllcmkgU29sdXRpb25zIChTdXBlcmhvc3QpIiwKICAgICAgImNvbmZpcm1hdGlvbiI6ICJUQkQiLAogICAgICAiYWRkcmVzcyI6ICJBY3Jvc3MgZnJvbSBCb2Njb25pIFVuaXZlcnNpdHkg4oCUIG5lYXIgdGhlIE5hdmlnbGkgJiBEdW9tbywgY2xvc2UgdG8gdGhlIG1ldHJvIiwKICAgICAgInRvdGFsUHJpY2UiOiA1OTMsCiAgICAgICJib29rZWQiOiBmYWxzZSwKICAgICAgIm5vdGVzIjogIjQgc2VwYXJhdGUgcHJpdmF0ZSBiZWRyb29tcywgcXVpZXRlciByZXNpZGVudGlhbCBhcmVhLiBEaXNjb3VudGVkIHJhdGUgZm9yIHRoZXNlIGRhdGVzLiIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJoMmMiLAogICAgICAiY2l0eSI6ICJNaWxhbiIsCiAgICAgICJ0eXBlIjogImFpcmJuYiIsCiAgICAgICJzdGF0dXMiOiAiY2FuZGlkYXRlIiwKICAgICAgIm5hbWUiOiAiLTIwJSBbMyBCYXRocyAtIDMgQmVkcm9vbXNdIDEwUEFYIC0gTmVhciBNZXRybyIsCiAgICAgICJ1cmwiOiAiaHR0cHM6Ly93d3cuYWlyYm5iLmNvbS9yb29tcy8xNjA4MDQyMDQzOTc5OTY2MzM2IiwKICAgICAgImltYWdlIjogImh0dHBzOi8vYTAubXVzY2FjaGUuY29tL2ltL3BpY3R1cmVzL2hvc3RpbmcvSG9zdGluZy0xNjA4MDQyMDQzOTc5OTY2MzM2L29yaWdpbmFsL2NiNzc1YmJjLTZhODktNDRkZC04NzcyLTMwNjA2ZTE3MjA3OS5wbmc/aW1fdz03MjAiLAogICAgICAiY2hlY2tJbiI6ICIyMDI2LTA5LTE1IiwKICAgICAgImNoZWNrT3V0IjogIjIwMjYtMDktMTYiLAogICAgICAibmlnaHRzIjogMSwKICAgICAgImd1ZXN0cyI6IDksCiAgICAgICJiZWRyb29tcyI6IDMsCiAgICAgICJiYXRocm9vbXMiOiAzLAogICAgICAiYmVkcyI6IDcsCiAgICAgICJyYXRpbmciOiA1LjAsCiAgICAgICJyZXZpZXdzIjogMTEsCiAgICAgICJob3N0IjogIlJhZmZhZWxlIChTdXBlcmhvc3QpIiwKICAgICAgImNvbmZpcm1hdGlvbiI6ICJUQkQiLAogICAgICAiYWRkcmVzcyI6ICJNaWxhbiDigJQgbmVhciBhIE1ldHJvIHN0b3AgKGV4YWN0IG5laWdoYm9yaG9vZCBub3QgbGlzdGVkKTsgaG9zdCBub3RlcyBlYXN5IGFjY2VzcyB0byBjaXR5IGNlbnRlciIsCiAgICAgICJ0b3RhbFByaWNlIjogNTUyLAogICAgICAiYm9va2VkIjogZmFsc2UsCiAgICAgICJub3RlcyI6ICJDb25kbyB3aXRoIHByaXZhdGUgaG90IHR1YiwgMyBiYXRocm9vbXMsIHNsZWVwcyB1cCB0byAxMC4gRGlzY291bnRlZCByYXRlIGZvciB0aGVzZSBkYXRlcy4iCiAgICB9LAogICAgewogICAgICAiaWQiOiAiaDNhIiwKICAgICAgImNpdHkiOiAiSW50ZXJsYWtlbiIsCiAgICAgICJ0eXBlIjogImFpcmJuYiIsCiAgICAgICJzdGF0dXMiOiAiY2FuZGlkYXRlIiwKICAgICAgIm5hbWUiOiAiQ296eSA0IHJvb20gZmxhdCBuZXh0IHRvIHRyYWluc3RhdGlvbiBCdXJnbGF1ZW5lbiIsCiAgICAgICJ1cmwiOiAiaHR0cHM6Ly93d3cuYWlyYm5iLmNvbS9yb29tcy80Njc1MTc3OCIsCiAgICAgICJpbWFnZSI6ICJodHRwczovL2EwLm11c2NhY2hlLmNvbS9pbS9waWN0dXJlcy9hMmFmNTE5OC00MzFmLTQ3NGUtYmYzMi1lNzBhZDJjYTE3YTMuanBnP2ltX3c9NzIwIiwKICAgICAgImNoZWNrSW4iOiAiMjAyNi0wOS0xNiIsCiAgICAgICJjaGVja091dCI6ICIyMDI2LTA5LTE4IiwKICAgICAgIm5pZ2h0cyI6IDIsCiAgICAgICJndWVzdHMiOiA5LAogICAgICAiYmVkcm9vbXMiOiA0LAogICAgICAiYmF0aHJvb21zIjogMiwKICAgICAgImJlZHMiOiA2LAogICAgICAicmF0aW5nIjogNC44MSwKICAgICAgInJldmlld3MiOiAxNzgsCiAgICAgICJob3N0IjogIkRhbnkgKFN1cGVyaG9zdCkiLAogICAgICAiY29uZmlybWF0aW9uIjogIlRCRCIsCiAgICAgICJhZGRyZXNzIjogIkdyaW5kZWx3YWxkIC8gTMO8dHNjaGVudGFsIOKAlCByaWdodCBuZXh0IHRvIEJ1cmdsYXVlbmVuIHN0YXRpb24sIG9uIHRoZSBJbnRlcmxha2Vu4oCTR3JpbmRlbHdhbGQgcmFpbCBsaW5lIChub3QgaW4gSW50ZXJsYWtlbiB0b3duIGl0c2VsZjsgfjI1LTMwIG1pbiB0cmFpbiB0byBjZW50cmFsIEludGVybGFrZW4pIiwKICAgICAgInRvdGFsUHJpY2UiOiAxNTU1LAogICAgICAiYm9va2VkIjogZmFsc2UsCiAgICAgICJub3RlcyI6ICJDb252ZXJ0ZWQgY2hhbGV0IHJlc3RhdXJhbnQgd2l0aCBtb3VudGFpbi92YWxsZXkgdmlld3MgYW5kIGEgZ2FyZGVuIHRlcnJhY2Ugb24gYSBicm9vay4gR3JlYXQgYmFzZSBmb3IgSnVuZ2ZyYXVqb2NoIGFuZCBCZXJuZXNlIE9iZXJsYW5kIGhpa2VzLCBidXQgY2hlY2sgdGhlIGNvbW11dGUgaW50byBJbnRlcmxha2VuIHRvd24gd29ya3MgZm9yIHRoZSBncm91cCBiZWZvcmUgbG9ja2luZyBpdCBpbi4iCiAgICB9LAogICAgewogICAgICAiaWQiOiAiaDNiIiwKICAgICAgImNpdHkiOiAiSW50ZXJsYWtlbiIsCiAgICAgICJ0eXBlIjogImFpcmJuYiIsCiAgICAgICJzdGF0dXMiOiAiY2FuZGlkYXRlIiwKICAgICAgIm5hbWUiOiAiQ2hhbGV0IDE3NTIiLAogICAgICAidXJsIjogImh0dHBzOi8vd3d3LmFpcmJuYi5jb20vcm9vbXMvMjQ0ODEyNTYiLAogICAgICAiaW1hZ2UiOiAiaHR0cHM6Ly9hMC5tdXNjYWNoZS5jb20vaW0vcGljdHVyZXMvcHJvaG9zdC1hcGkvSG9zdGluZy0yNDQ4MTI1Ni9vcmlnaW5hbC9iNzM3YmYyZi03ODFjLTRjMDktODIyNS1lY2MzNmNhZWJhYTUuanBlZz9pbV93PTcyMCIsCiAgICAgICJjaGVja0luIjogIjIwMjYtMDktMTYiLAogICAgICAiY2hlY2tPdXQiOiAiMjAyNi0wOS0xOCIsCiAgICAgICJuaWdodHMiOiAyLAogICAgICAiZ3Vlc3RzIjogOSwKICAgICAgImJlZHJvb21zIjogNCwKICAgICAgImJhdGhyb29tcyI6IDEuNSwKICAgICAgImJlZHMiOiA5LAogICAgICAicmF0aW5nIjogNC44NSwKICAgICAgInJldmlld3MiOiAxNzEsCiAgICAgICJob3N0IjogIlBhdHJpayAoU3VwZXJob3N0KSIsCiAgICAgICJjb25maXJtYXRpb24iOiAiVEJEIiwKICAgICAgImFkZHJlc3MiOiAiUmluZ2dlbmJlcmcg4oCUIDgwbSB0byB0aGUgYnVzIHN0b3AsIDYwMG0gdG8gdGhlIHRyYWluIHN0YXRpb24sIH41IG1pbiBkcml2ZSB0byBJbnRlcmxha2VuIE9zdDsgNTAwbSB3YWxrIHRvIExha2UgQnJpZW56IiwKICAgICAgInRvdGFsUHJpY2UiOiAxOTYwLAogICAgICAiYm9va2VkIjogZmFsc2UsCiAgICAgICJub3RlcyI6ICJIaXN0b3JpYyAxNzUyIGNoYWxldCwgZnVsbHkgcmVub3ZhdGVkLCBwcml2YXRlIHNhdW5hLCB0ZXJyYWNlIHdpdGggQkJRLCBsYWtlICYgbW91bnRhaW4gdmlld3MuIE11Y2ggY2xvc2VyIHRvIEludGVybGFrZW4gT3N0IHRoYW4gdGhlIEJ1cmdsYXVlbmVuIHBpY2sgKG1pbnV0ZXMgdnMuIH4yNS0zMCBtaW4pIGFuZCB3ZWxsLXJldmlld2VkLCBmb3IgYSBiaXQgbW9yZSB0aGFuIEJ1cmdsYXVlbmVuLiIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJoNCIsCiAgICAgICJjaXR5IjogIlp1cmljaCIsCiAgICAgICJ0eXBlIjogInRiZCIsCiAgICAgICJzdGF0dXMiOiAic2VhcmNoaW5nIiwKICAgICAgIm5hbWUiOiAiVEJEIC0gWnVyaWNoIEhvdXNpbmciLAogICAgICAiY2hlY2tJbiI6ICIyMDI2LTA5LTE4IiwKICAgICAgImNoZWNrT3V0IjogIjIwMjYtMDktMjAiLAogICAgICAibmlnaHRzIjogMiwKICAgICAgImd1ZXN0cyI6IDksCiAgICAgICJjb25maXJtYXRpb24iOiAiVEJEIiwKICAgICAgImFkZHJlc3MiOiAiIiwKICAgICAgInJhdGluZyI6IDAsCiAgICAgICJwcmljZVBlck5pZ2h0IjogMjAwLAogICAgICAiYm9va2VkIjogZmFsc2UsCiAgICAgICJub3RlcyI6ICJOZWFyIEFsdHN0YWR0IG9yIFp1cmljaCBIQiBmb3IgZWFzeSBaUkggYWlycG9ydCBhY2Nlc3MiCiAgICB9CiAgXSwKICAiY2l0eVN1Z2dlc3Rpb25zIjogWwogICAgewogICAgICAiaWQiOiAibG9uZG9uIiwKICAgICAgIm5hbWUiOiAiTG9uZG9uIiwKICAgICAgImNvdW50cnkiOiAiRW5nbGFuZCIsCiAgICAgICJmbGFnIjogIvCfh6zwn4ejIiwKICAgICAgImVtb2ppIjogIvCfjqEiLAogICAgICAiY29vcmRzIjogWzUxLjUwNzQsIC0wLjEyNzhdLAogICAgICAic3RhdHVzIjogInN1Z2dlc3RlZCIsCiAgICAgICJzdWdnZXN0ZWRCeSI6IFtdLAogICAgICAiYmx1cmIiOiAiQSB3b3JsZC1jbGFzcyBjaXR5IHdpdGggZnJlZSBtdXNldW1zLCBpY29uaWMgbGFuZG1hcmtzLCBCb3JvdWdoIE1hcmtldCwgYW5kIGEgbGVnZW5kYXJ5IHB1YiBzY2VuZS4gR29vZCBqZXQtbGFnIGRheSBvbmUg4oCUIGJ1dCB0aGUgZ3JvdXAgbGVhbnMgbGVzcyBvbiBMb25kb24gdGhhbiB0aGUgb3RoZXIgc3RvcHMuIgogICAgfSwKICAgIHsKICAgICAgImlkIjogInBhcmlzIiwKICAgICAgIm5hbWUiOiAiUGFyaXMiLAogICAgICAiY291bnRyeSI6ICJGcmFuY2UiLAogICAgICAiZmxhZyI6ICLwn4er8J+HtyIsCiAgICAgICJlbW9qaSI6ICLwn5e877iPIiwKICAgICAgImNvb3JkcyI6IFs0OC44NTY2LCAyLjM1MjJdLAogICAgICAic3RhdHVzIjogInN1Z2dlc3RlZCIsCiAgICAgICJzdWdnZXN0ZWRCeSI6IFtdLAogICAgICAiYmx1cmIiOiAiVGhlIEVpZmZlbCBUb3dlciwgdGhlIExvdXZyZSwgdGhlIGJlc3QgYnJlYWQgb2YgeW91ciBsaWZlLCBhbmQgYSAyLjUtaG91ciBFdXJvc3RhciBob3AgZnJvbSBMb25kb24uIEJvb2sgTG91dnJlIHRpY2tldHMgd2F5IGluIGFkdmFuY2UuIgogICAgfSwKICAgIHsKICAgICAgImlkIjogInJvbWUiLAogICAgICAibmFtZSI6ICJSb21lIiwKICAgICAgImNvdW50cnkiOiAiSXRhbHkiLAogICAgICAiZmxhZyI6ICLwn4eu8J+HuSIsCiAgICAgICJlbW9qaSI6ICLwn4+b77iPIiwKICAgICAgImNvb3JkcyI6IFs0MS45MDI4LCAxMi40OTY0XSwKICAgICAgInN0YXR1cyI6ICJzdWdnZXN0ZWQiLAogICAgICAic3VnZ2VzdGVkQnkiOiBbXSwKICAgICAgImJsdXJiIjogIjIsMDAwIHllYXJzIG9mIGhpc3RvcnkgaW4gb25lIGNpdHkg4oCUIENvbG9zc2V1bSwgVmF0aWNhbiwgVHJhc3RldmVyZSwgYW5kIGluY3JlZGlibGUgcGFzdGEuIFZhdGljYW4gdGlja2V0cyBtdXN0IGJlIHByZS1ib29rZWQgbW9udGhzIGFoZWFkLiIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJhbXN0ZXJkYW0iLAogICAgICAibmFtZSI6ICJBbXN0ZXJkYW0iLAogICAgICAiY291bnRyeSI6ICJOZXRoZXJsYW5kcyIsCiAgICAgICJmbGFnIjogIvCfh7Pwn4ewIiwKICAgICAgImVtb2ppIjogIvCfjLciLAogICAgICAiY29vcmRzIjogWzUyLjM2NzYsIDQuOTA0MV0sCiAgICAgICJzdGF0dXMiOiAic3VnZ2VzdGVkIiwKICAgICAgInN1Z2dlc3RlZEJ5IjogWyJKb25hdGhhbiIsICJTZWFuIl0sCiAgICAgICJibHVyYiI6ICJDYW5hbHMsIFJpamtzbXVzZXVtLCB2aWJyYW50IGZvb2Qgc2NlbmUsIGFuZCBhIGdyZWF0IGh1YiBmb3IgZ2V0dGluZyBhcm91bmQgbm9ydGh3ZXN0IEV1cm9wZS4gSm9uYXRoYW4gY2FsbGVkIGl0IG91dCBhbmQgU2VhbiB3YXMgaW1tZWRpYXRlbHkgb24gYm9hcmQuIgogICAgfSwKICAgIHsKICAgICAgImlkIjogIm11bmljaCIsCiAgICAgICJuYW1lIjogIk11bmljaCIsCiAgICAgICJjb3VudHJ5IjogIkdlcm1hbnkiLAogICAgICAiZmxhZyI6ICLwn4er8J+HqiIsCiAgICAgICJlbW9qaSI6ICLwn461IiwKICAgICAgImNvb3JkcyI6IFs0OC4xMzUxLCAxMS41ODJdLAogICAgICAic3RhdHVzIjogInN1Z2dlc3RlZCIsCiAgICAgICJzdWdnZXN0ZWRCeSI6IFsiSm9uYXRoYW4iXSwKICAgICAgImJsdXJiIjogIkpvbmF0aGFuJ3MgdG9wIHBpY2sg4oCUIGdyZWF0IGJlZXIgaGFsbHMsIEJNVyBNdXNldW0sIGRheSB0cmlwcyB0byB0aGUgQWxwcywgYW5kIGEgdmliZSB0aGF0J3MgbW9yZSBjaGlsbCB0aGFuIEJlcmxpbi4gU2VhbiBlY2hvZWQgR2VybWFueSBhcyBhIHNvbGlkIGNob2ljZS4iCiAgICB9LAogICAgewogICAgICAiaWQiOiAibWlsYW4iLAogICAgICAibmFtZSI6ICJNaWxhbiIsCiAgICAgICJjb3VudHJ5IjogIkl0YWx5IiwKICAgICAgImZsYWciOiAi8J+HrvCfh7kiLAogICAgICAiZW1vamkiOiAi8J+Ps++4jyIsCiAgICAgICJjb29yZHMiOiBbNDUuNDY0MiwgOS4xOTAwXSwKICAgICAgInN0YXR1cyI6ICJwbGFubmVkIiwKICAgICAgInN1Z2dlc3RlZEJ5IjogW10sCiAgICAgICJibHVyYiI6ICJJdGFseSdzIGZhc2hpb24gYW5kIGRlc2lnbiBjYXBpdGFsIOKAlCB0aGUgRHVvbW8sIHRoZSBOYXZpZ2xpIGNhbmFscywgd29ybGQtY2xhc3Mgc2hvcHBpbmcsIGFuZCBkYSBWaW5jaSdzIFRoZSBMYXN0IFN1cHBlci4gQSBidXp6aW5nIGdhdGV3YXkgaW50byB0aGUgQWxwcy4iCiAgICB9LAogICAgewogICAgICAiaWQiOiAiaW50ZXJsYWtlbiIsCiAgICAgICJuYW1lIjogIkludGVybGFrZW4iLAogICAgICAiY291bnRyeSI6ICJTd2l0emVybGFuZCIsCiAgICAgICJmbGFnIjogIvCfh6jwn4etIiwKICAgICAgImVtb2ppIjogIuKbtOjvuI8iLAogICAgICAiY29vcmRzIjogWzQ2LjY4NjMsIDguMTYzOF0sCiAgICAgICJzdGF0dXMiOiAicGxhbm5lZCIsCiAgICAgICJzdWdnZXN0ZWRCeSI6IFsiSm9uYXRoYW4iXSwKICAgICAgImJsdXJiIjogIkdhdGV3YXkgdG8gdGhlIFN3aXNzIEFscHMgd2l0aCBzdHVubmluZyBtb3VudGFpbiB2aWV3cywgYWR2ZW50dXJlIGFjdGl2aXRpZXMgbGlrZSBwYXJhZ2xpZGluZyBhbmQgaGlraW5nLCBhbmQgYSBjaGFybWluZyBzbWFsbC10b3duIHZpYmUgbmVzdGxlZCBiZXR3ZWVuIHR3byBsYWtlcy4iCiAgICB9LAogICAgewogICAgICAiaWQiOiAiYm9sb2duYSIsCiAgICAgICJuYW1lIjogIkJvbG9nbmEiLAogICAgICAiY291bnRyeSI6ICJJdGFseSIsCiAgICAgICJmbGFnIjogIvCfh6zwn4e5IiwKICAgICAgImVtb2ppIjogIvCfjZ0iLAogICAgICAiY29vcmRzIjogWzQ0LjQ5MzksIDExLjM0MjZdLAogICAgICAic3RhdHVzIjogInBsYW5uZWQiLAogICAgICAic3VnZ2VzdGVkQnkiOiBbIlNlYW4gQ2hlbiJdLAogICAgICAiYmx1cmIiOiAiVGhlIGN1bGluYXJ5IGhlYXJ0IG9mIEl0YWx5IOKAlCBmYW1vdXMgZm9yIGZyZXNoIHRhZ2xpYXRlbGxlLCB0b3J0ZWxsaW5pLCBhbmQgbW9ydGFkZWxsYS4gTWVkaWV2YWwgdG93ZXJzLCB2aWJyYW50IHBpYXp6YXMsIGFuZCBzb21lIG9mIHRoZSBiZXN0IGZvb2QgeW91J2xsIGV2ZXIgZWF0LiIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJ6dXJpY2giLAogICAgICAibmFtZSI6ICJadXJpY2giLAogICAgICAiY291bnRyeSI6ICJTd2l0emVybGFuZCIsCiAgICAgICJmbGFnIjogIvCfh6jwn4etIiwKICAgICAgImVtb2ppIjogIvCfj6YiLAogICAgICAiY29vcmRzIjogWzQ3LjM3NjksIDguNTQxN10sCiAgICAgICJzdGF0dXMiOiAicGxhbm5lZCIsCiAgICAgICJzdWdnZXN0ZWRCeSI6IFtdLAogICAgICAiYmx1cmIiOiAiU3dpdHplcmxhbmQncyBsYXJnZXN0IGNpdHkg4oCUIGEgY2xlYW4sIHdhbGthYmxlIG1peCBvZiBtZWRpZXZhbCBBbHRzdGFkdCwgbGFrZXNpZGUgcHJvbWVuYWRlcywgd29ybGQtY2xhc3MgbXVzZXVtcywgYW5kIGVhc3kgYWNjZXNzIHRvIFpSSCBmb3IgdGhlIGZsaWdodCBob21lLiIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJsanVibGphbmEiLAogICAgICAibmFtZSI6ICJManVibGphbmEiLAogICAgICAiY291bnRyeSI6ICJTbG92ZW5pYSIsCiAgICAgICJmbGFnIjogIvCfh7jwn4epIiwKICAgICAgImVtb2ppIjogIvCfj7AiLAogICAgICAiY29vcmRzIjogWzQ2LjA1NjksIDE0LjUwNThdLAogICAgICAic3RhdHVzIjogInN1Z2dlc3RlZCIsCiAgICAgICJzdWdnZXN0ZWRCeSI6IFtdLAogICAgICAiYmx1cmIiOiAiU2xvdmVuaWEncyB1bmRlcnJhdGVkIGdlbSDigJQgYSBjb21wYWN0LCBjYXItZnJlZSBPbGQgVG93biBkcmFwZWQgYWxvbmcgdGhlIExqdWJsamFuaWNhIFJpdmVyLCBjcm93bmVkIGJ5IGEgbWVkaWV2YWwgY2FzdGxlLiBQZXJmZWN0bHkgcG9zaXRpb25lZCBiZXR3ZWVuIEl0YWx5IGFuZCBTd2l0emVybGFuZCBmb3IgYSBvbmUtbmlnaHQgc3RvcC4iCiAgICB9CiAgXSwKICAiYnVkZ2V0IjogewogICAgInRvdGFsIjogODAwMCwKICAgICJjdXJyZW5jeSI6ICJVU0QiLAogICAgImNhdGVnb3JpZXMiOiBbCiAgICAgIHsgIm5hbWUiOiAiRmxpZ2h0cyIsICJlbW9qaSI6ICLinIjvuI8iLCAiYnVkZ2V0ZWQiOiAyNTAwLCAic3BlbnQiOiAwIH0sCiAgICAgIHsgIm5hbWUiOiAiSG90ZWxzIiwgImVtb2ppIjogIvCfj4giLCAiYnVkZ2V0ZWQiOiAxNDAwLCAic3BlbnQiOiAwIH0sCiAgICAgIHsgIm5hbWUiOiAiRm9vZCAmIERyaW5rIiwgImVtb2ppIjogIvCfjb3vuI8iLCAiYnVkZ2V0ZWQiOiAxMDAwLCAic3BlbnQiOiAwIH0sCiAgICAgIHsgIm5hbWUiOiAiQWN0aXZpdGllcyIsICJlbW9qaSI6ICLwn4+f77iPIiwgImJ1ZGdldGVkIjogNjAwLCAic3BlbnQiOiAwIH0sCiAgICAgIHsgIm5hbWUiOiAiVHJhbnNwb3J0IiwgImVtb2ppIjogIvCfmoYiLCAiYnVkZ2V0ZWQiOiA0MDAsICJzcGVudCI6IDAgfSwKICAgICAgeyAibmFtZSI6ICJTaG9wcGluZyIsICJlbW9qaSI6ICLwn5uN77iPIiwgImJ1ZGdldGVkIjogNTAwLCAic3BlbnQiOiAwIH0sCiAgICAgIHsgIm5hbWUiOiAiTWlzYyIsICJlbW9qaSI6ICLwn5KhIiwgImJ1ZGdldGVkIjogMzAwLCAic3BlbnQiOiAwIH0KICAgIF0KICB9Cn0K
+{
+  "trip": {
+    "name": "Europe 2026",
+    "startDate": "2026-09-12",
+    "endDate": "2026-09-20",
+    "travelers": 1,
+    "homeAirport": "LAX"
+  },
+  "attendees": [
+    { "name": "Jonathan Hsieh", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Sean Chen", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Derek Wen", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Yongjae Lee", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Aiden Zhang", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Brian Zhu", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Trevor Guo", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Michael Chen", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Shreyank Kadadi", "confirmed": true, "joinedDate": "2026-05-04" },
+    { "name": "Tompson Hsu", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
+    { "name": "Kyle Lu", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
+    { "name": "Andy Nilipour", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
+    { "name": "Anthony Yao", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" },
+    { "name": "Demitrius Hong", "confirmed": false, "notGoing": true, "joinedDate": "2026-05-04" }
+  ],
+  "itinerary": [
+    {
+      "date": "2026-09-12",
+      "city": "Bologna",
+      "country": "Italy",
+      "flag": "🇮🇹",
+      "emoji": "🍝",
+      "nights": 3,
+      "activities": [
+        "Arrive at BLQ airport, check in",
+        "Explore historic center & medieval towers",
+        "Food tour: tagliatelle, tortellini, mortadella",
+        "Visit Piazza Maggiore & San Petronio Basilica",
+        "Depart for Milan ~9:00am on the 15th (Frecciarossa/Italo, ~1 hr)"
+      ],
+      "notes": "Culinary heart of Italy. Book food tours in advance. Leave for Milan on a morning train (~9am) on the 15th instead of overnight — opens up a full day in Milan."
+    },
+    {
+      "date": "2026-09-15",
+      "city": "Milan",
+      "country": "Italy",
+      "flag": "🇮🇹",
+      "emoji": "🏙️",
+      "nights": 1,
+      "activities": [
+        "Morning train from Bologna (~9:00am departure, arrive ~10am)",
+        "Duomo di Milano & Galleria Vittorio Emanuele II",
+        "Navigli canal district for lunch/dinner",
+        "Early night — early train to Interlaken tomorrow"
+      ],
+      "notes": "Arriving mid-morning instead of overnight gives a full day in Milan. Leave early (~7:00-7:30am) the next morning for Interlaken."
+    },
+    {
+      "date": "2026-09-16",
+      "city": "Interlaken",
+      "country": "Switzerland",
+      "flag": "🇨🇭",
+      "emoji": "⛰️",
+      "nights": 2,
+      "activities": [
+        "Early morning train from Milan (~7:00-7:30am, Trenitalia EuroCity to Spiez, then SBB to Interlaken Ost, ~3h15m total)",
+        "Jungfraujoch (Top of Europe) day trip",
+        "Hiking in the Bernese Oberland",
+        "Paragliding or adventure activities"
+      ],
+      "notes": "Gateway to the Swiss Alps. Book Jungfraujoch tickets in advance. Early departure from Milan maximizes the first afternoon in the Alps."
+    },
+    {
+      "date": "2026-09-18",
+      "city": "Zurich",
+      "country": "Switzerland",
+      "flag": "🇨🇭",
+      "emoji": "🏦",
+      "nights": 2,
+      "activities": [
+        "Train from Interlaken to Zurich (~2 hrs)",
+        "Explore Altstadt (Old Town) & Lindenhügel",
+        "Boat trip on Lake Zurich",
+        "Swiss National Museum & Bahnhofstrasse"
+      ],
+      "notes": "Sleek, walkable, and on the lake. Great last stop before flying home from ZRH."
+    },
+    {
+      "date": "2026-09-20",
+      "city": "Home",
+      "country": "",
+      "flag": "🇺🇸",
+      "emoji": "✈️",
+      "nights": 0,
+      "activities": [
+        "Travel to ZRH airport",
+        "Flight from Zurich back to LAX"
+      ],
+      "notes": "End of trip. Safe travels home!"
+    }
+  ],
+  "flights": [
+    {
+      "id": "f1",
+      "type": "flight",
+      "date": "2026-09-12",
+      "from": "LAX",
+      "to": "BLQ",
+      "fromCity": "Los Angeles",
+      "toCity": "Bologna",
+      "airline": "TBD",
+      "flightNum": "TBD",
+      "departure": "TBD",
+      "arrival": "TBD",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": "Likely connection through a major hub (e.g. LHR, CDG, FCO)"
+    },
+    {
+      "id": "f2",
+      "type": "flight",
+      "date": "2026-09-20",
+      "from": "ZRH",
+      "to": "LAX",
+      "fromCity": "Zurich",
+      "toCity": "Los Angeles",
+      "airline": "TBD",
+      "flightNum": "TBD",
+      "departure": "TBD",
+      "arrival": "TBD",
+      "confirmation": "TBD",
+      "status": "planned",
+      "notes": "Morning departure"
+    }
+  ],
+  "hotels": [
+    {
+      "id": "h1",
+      "city": "Bologna",
+      "name": "TBD - Bologna Hotel",
+      "checkIn": "2026-09-12",
+      "checkOut": "2026-09-15",
+      "nights": 3,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 140,
+      "booked": false,
+      "notes": "Historic center near Piazza Maggiore and food scene"
+    },
+    {
+      "id": "h2",
+      "city": "Milan",
+      "name": "TBD - Milan Hotel",
+      "checkIn": "2026-09-15",
+      "checkOut": "2026-09-16",
+      "nights": 1,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 160,
+      "booked": false,
+      "notes": "Central location near Duomo or Navigli district"
+    },
+    {
+      "id": "h3",
+      "city": "Interlaken",
+      "name": "TBD - Interlaken Hotel",
+      "checkIn": "2026-09-16",
+      "checkOut": "2026-09-18",
+      "nights": 2,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 180,
+      "booked": false,
+      "notes": "Gateway to Jungfraujoch and Bernese Oberland hikes"
+    },
+    {
+      "id": "h4",
+      "city": "Zurich",
+      "name": "TBD - Zurich Hotel",
+      "checkIn": "2026-09-18",
+      "checkOut": "2026-09-20",
+      "nights": 2,
+      "confirmation": "TBD",
+      "address": "",
+      "rating": 0,
+      "pricePerNight": 200,
+      "booked": false,
+      "notes": "Near Altstadt or Zurich HB for easy ZRH airport access"
+    }
+  ],
+  "citySuggestions": [
+    {
+      "id": "london",
+      "name": "London",
+      "country": "England",
+      "flag": "🇬🇧",
+      "emoji": "🎡",
+      "coords": [51.5074, -0.1278],
+      "status": "suggested",
+      "suggestedBy": [],
+      "blurb": "A world-class city with free museums, iconic landmarks, Borough Market, and a legendary pub scene. Good jet-lag day one — but the group leans less on London than the other stops."
+    },
+    {
+      "id": "paris",
+      "name": "Paris",
+      "country": "France",
+      "flag": "🇫🇷",
+      "emoji": "🗼",
+      "coords": [48.8566, 2.3522],
+      "status": "suggested",
+      "suggestedBy": [],
+      "blurb": "The Eiffel Tower, the Louvre, the best bread of your life, and a 2.5-hour Eurostar hop from London. Book Louvre tickets way in advance."
+    },
+    {
+      "id": "rome",
+      "name": "Rome",
+      "country": "Italy",
+      "flag": "🇮🇹",
+      "emoji": "🏛️",
+      "coords": [41.9028, 12.4964],
+      "status": "suggested",
+      "suggestedBy": [],
+      "blurb": "2,000 years of history in one city — Colosseum, Vatican, Trastevere, and incredible pasta. Vatican tickets must be pre-booked months ahead."
+    },
+    {
+      "id": "amsterdam",
+      "name": "Amsterdam",
+      "country": "Netherlands",
+      "flag": "🇳🇱",
+      "emoji": "🌷",
+      "coords": [52.3676, 4.9041],
+      "status": "suggested",
+      "suggestedBy": ["Jonathan", "Sean"],
+      "blurb": "Canals, Rijksmuseum, vibrant food scene, and a great hub for getting around northwest Europe. Jonathan called it out and Sean was immediately on board."
+    },
+    {
+      "id": "munich",
+      "name": "Munich",
+      "country": "Germany",
+      "flag": "🇩🇪",
+      "emoji": "🎺",
+      "coords": [48.1351, 11.582],
+      "status": "suggested",
+      "suggestedBy": ["Jonathan"],
+      "blurb": "Jonathan's top pick — great beer halls, BMW Museum, day trips to the Alps, and a vibe that's more chill than Berlin. Sean echoed Germany as a solid choice."
+    },
+    {
+      "id": "milan",
+      "name": "Milan",
+      "country": "Italy",
+      "flag": "🇮🇹",
+      "emoji": "🏙️",
+      "coords": [45.4642, 9.1900],
+      "status": "planned",
+      "suggestedBy": [],
+      "blurb": "Italy's fashion and design capital — the Duomo, the Navigli canals, world-class shopping, and da Vinci's The Last Supper. A buzzing gateway into the Alps."
+    },
+    {
+      "id": "interlaken",
+      "name": "Interlaken",
+      "country": "Switzerland",
+      "flag": "🇨🇭",
+      "emoji": "⛰️",
+      "coords": [46.6863, 8.1638],
+      "status": "planned",
+      "suggestedBy": ["Jonathan"],
+      "blurb": "Gateway to the Swiss Alps with stunning mountain views, adventure activities like paragliding and hiking, and a charming small-town vibe nestled between two lakes."
+    },
+    {
+      "id": "bologna",
+      "name": "Bologna",
+      "country": "Italy",
+      "flag": "🇮🇹",
+      "emoji": "🍝",
+      "coords": [44.4939, 11.3426],
+      "status": "planned",
+      "suggestedBy": ["Sean Chen"],
+      "blurb": "The culinary heart of Italy — famous for fresh tagliatelle, tortellini, and mortadella. Medieval towers, vibrant piazzas, and some of the best food you'll ever eat."
+    },
+    {
+      "id": "zurich",
+      "name": "Zurich",
+      "country": "Switzerland",
+      "flag": "🇨🇭",
+      "emoji": "🏦",
+      "coords": [47.3769, 8.5417],
+      "status": "planned",
+      "suggestedBy": [],
+      "blurb": "Switzerland's largest city — a clean, walkable mix of medieval Altstadt, lakeside promenades, world-class museums, and easy access to ZRH for the flight home."
+    },
+    {
+      "id": "ljubljana",
+      "name": "Ljubljana",
+      "country": "Slovenia",
+      "flag": "🇸🇮",
+      "emoji": "🏰",
+      "coords": [46.0569, 14.5058],
+      "status": "suggested",
+      "suggestedBy": [],
+      "blurb": "Slovenia's underrated gem — a compact, car-free Old Town draped along the Ljubljanica River, crowned by a medieval castle. Perfectly positioned between Italy and Switzerland for a one-night stop."
+    }
+  ],
+  "budget": {
+    "total": 8000,
+    "currency": "USD",
+    "categories": [
+      { "name": "Flights", "emoji": "✈️", "budgeted": 2500, "spent": 0 },
+      { "name": "Hotels", "emoji": "🏈", "budgeted": 1400, "spent": 0 },
+      { "name": "Food & Drink", "emoji": "🍽️", "budgeted": 1000, "spent": 0 },
+      { "name": "Activities", "emoji": "🏟️", "budgeted": 600, "spent": 0 },
+      { "name": "Transport", "emoji": "🚆", "budgeted": 400, "spent": 0 },
+      { "name": "Shopping", "emoji": "🛒", "budgeted": 500, "spent": 0 },
+      { "name": "Misc", "emoji": "💡", "budgeted": 300, "spent": 0 }
+    ]
+  }
+}

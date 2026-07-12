@@ -12,7 +12,7 @@ var SLOT_KEYS   = ['07:00','08:00','09:00','10:00','11:00','12:00',
                    '13:00','14:00','15:00','16:00','17:00','18:00',
                    '19:00','20:00','21:00','22:00'];
 
-// ── Render prev/next nav ────────────────────────────────────────────────────
+// ── Render prev/next nav ───────────────────────────────────────────────
 (function() {
   var idx = CITIES.indexOf(CITY_NAME);
   var html = '';
@@ -28,7 +28,7 @@ var SLOT_KEYS   = ['07:00','08:00','09:00','10:00','11:00','12:00',
   if (nav) nav.innerHTML = html;
 })();
 
-// ── Utility ─────────────────────────────────────────────────────────────────
+// ── Utility ────────────────────────────────────────────────────────────
 function fmtShort(s) {
   return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
 }
@@ -41,7 +41,7 @@ function addDays(s, n) {
   return d.toISOString().slice(0, 10);
 }
 
-// ── Fetch data and render ────────────────────────────────────────────────────
+// ── Fetch data and render ────────────────────────────────────────────────────────────
 fetch('data.json')
   .then(function(r) { return r.json(); })
   .then(function(data) {
