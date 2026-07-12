@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Housing – Europe 2026</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← Map</a>
+    <div class="hspacer"></div>
+    <div class="site-title" style="font-size:1rem">🏠 Housing</div>
+  </header>
+  <main class="housing-page" id="housingPage">
+    <p style="color:var(--muted);padding:40px 0">Loading…</p>
+  </main>
+  <script>
+  var CITY_PAGES = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
+
+  function fmtShort(s) {
+    return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+  }
+
+  fetch('data.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      renderHousing(data.itinerary || [], data.hotels || []);
+    })
+    .catch(function() {
+      document.getElementById('housingPage').innerHTML =
+        '<p style="color:var(--muted);padding:40px 0">Failed to load trip data.</p>';
+    });
+
+  function statusLabel(status) {
+    if (status === 'booked') return 'Booked';
+    if (status === 'found') return 'Found — not booked';
+    return 'Searching';
+  }
+
+  function renderHousing(itin, hotels) {
+    var stops = itin.filter(function(s) { return s.city !== 'Home'; });
+
+    var cards = stops.map(function(stop) {
+      var h = hotels.find(function(x) { return x.city === stop.city; });
+      var page = CITY_PAGES[stop.city] || '#';
+
+      if (!h) {
+        return '<div class="housing-card tbd">' +
+          '<div class="housing-img-placeholder">' + (stop.emoji || '🏠') + '</div>' +
+          '<div class="housing-body">' +
+            '<div class="housing-top"><span class="housing-city">' + (stop.flag || '') + ' ' + stop.city + '</span>' +
+            '<span class="housing-badge searching">Searching</span></div>' +
+            '<div class="housing-name">No housing added yet</div>' +
+          '</div></div>';
+      }
+
+      var statusCls = h.status === 'booked' ? 'booked' : (h.status === 'found' ? 'found' : 'searching');
+      var isReal = !!(h.url && (h.status === 'found' || h.status === 'booked'));
+
+      var img = isReal
+        ? '<img class="housing-img" src="' + h.image + '" alt="' + h.name + '">'
+        : '<div class="housing-img-placeholder">' + (stop.emoji || '🏠') + '</div>';
+
+      var stats = '<div class="housing-stats">';
+      if (h.guests) stats += '<span class="housing-stat">👥 ' + h.guests + ' guests</span>';
+      if (h.bedrooms) stats += '<span class="housing-stat">🛏️ ' + h.bedrooms + ' bd</span>';
+      if (h.bathrooms) stats += '<span class="housing-stat">🛁 ' + h.bathrooms + ' ba</span>';
+      if (h.rating) stats += '<span class="housing-stat housing-rating">★ ' + h.rating.toFixed(1) + (h.reviews ? ' (' + h.reviews + ')' : '') + '</span>';
+      stats += (h.pricePerNight ? '<span class="housing-stat">$' + h.pricePerNight + '/night</span>' : '<span class="housing-stat">Price TBD</span>');
+      stats += '</div>';
+
+      var nameHtml = isReal
+        ? '<a href="' + h.url + '" target="_blank" rel="noopener">' + h.name + '</a>'
+        : h.name;
+
+      return '<div class="housing-card' + (isReal ? '' : ' tbd') + '">' +
+        img +
+        '<div class="housing-body">' +
+          '<div class="housing-top">' +
+            '<span class="housing-city">' + (stop.flag || '') + ' <a href="' + page + '" style="color:inherit">' + stop.city + '</a></span>' +
+            '<span class="housing-badge ' + statusCls + '">' + statusLabel(h.status) + '</span>' +
+          '</div>' +
+          '<div class="housing-name">' + nameHtml + '</div>' +
+          '<div class="housing-dates">' + fmtShort(h.checkIn) + ' – ' + fmtShort(h.checkOut) + ' · ' + h.nights + ' night' + (h.nights !== 1 ? 's' : '') + (h.host ? ' · Hosted by ' + h.host : '') + '</div>' +
+          stats +
+          (h.address ? '<div class="housing-notes">📍 ' + h.address + '</div>' : '') +
+          (h.notes ? '<div class="housing-notes">' + h.notes + '</div>' : '') +
+          (isReal ? '<a class="housing-link" href="' + h.url + '" target="_blank" rel="noopener">View on Airbnb →</a>' : '') +
+        '</div></div>';
+    }).join('');
+
+    document.getElementById('housingPage').innerHTML =
+      '<p class="housing-intro">Where we\'re staying in each city.</p>' +
+      '<div class="housing-list">' + cards + '</div>';
+  }
+  </script>
+</body>
+</html>
