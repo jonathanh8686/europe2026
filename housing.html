@@ -18,6 +18,7 @@
   <script>
   var CITY_PAGES  = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
   var STOP_COLORS = ['#1e5fa8', '#f5a623', '#27ae60', '#9b59b6'];
+  var GROUP_SIZE  = 9; // price-per-person is always split across the full group
 
   function fmtShort(s) {
     return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
@@ -26,6 +27,9 @@
     var d = new Date(s + 'T00:00:00');
     d.setDate(d.getDate() + n);
     return d.toISOString().slice(0, 10);
+  }
+  function money(n) {
+    return '$' + Math.round(n).toLocaleString('en-US');
   }
 
   fetch('data.json')
@@ -48,6 +52,29 @@
     return { cls: 'option', label: 'Option' };
   }
 
+  // Total-price listings show a real per-night / per-person breakdown (split
+  // across the fixed group size of 9). Placeholder rows only have a rough
+  // per-night budget estimate, so they get a lighter "~estimate" treatment.
+  function buildPriceBox(h) {
+    if (h.totalPrice) {
+      var perNight  = h.totalPrice / (h.nights || 1);
+      var perPerson = h.totalPrice / GROUP_SIZE;
+      return '<div class="housing-price-box">' +
+        '<span class="housing-price-total">' + money(h.totalPrice) + ' total</span>' +
+        '<span class="housing-price-pp">' + money(perPerson) + '/person</span>' +
+        '<span class="housing-price-sub">' + money(perNight) + '/night · 9 guests</span>' +
+      '</div>';
+    }
+    if (h.pricePerNight) {
+      var estPerPerson = h.pricePerNight / GROUP_SIZE;
+      return '<div class="housing-price-box tbd">' +
+        '<span class="housing-price-total">~' + money(h.pricePerNight) + '/night (est.)</span>' +
+        '<span class="housing-price-pp">~' + money(estPerPerson) + '/person/night</span>' +
+      '</div>';
+    }
+    return '<div class="housing-price-box tbd"><span class="housing-price-total">Price TBD</span></div>';
+  }
+
   function buildOptionCard(h, stop, color) {
     var badge  = badgeInfo(h);
     var isReal = !!(h.url && h.status !== 'searching');
@@ -61,9 +88,6 @@
     if (h.bedrooms)  stats += '<span class="housing-stat">🛏️ ' + h.bedrooms + ' bd</span>';
     if (h.bathrooms) stats += '<span class="housing-stat">🛁 ' + h.bathrooms + ' ba</span>';
     if (h.rating)    stats += '<span class="housing-stat housing-rating">★ ' + h.rating.toFixed(2).replace(/0$/, '') + (h.reviews ? ' (' + h.reviews + ')' : '') + '</span>';
-    stats += (h.pricePerNight
-      ? '<span class="housing-stat housing-price">$' + h.pricePerNight + '/night</span>'
-      : '<span class="housing-stat">Price TBD</span>');
     stats += '</div>';
 
     var nameHtml = isReal
@@ -76,10 +100,11 @@
       img +
       '<div class="housing-body">' +
         '<div class="housing-name">' + nameHtml + '</div>' +
+        (h.address ? '<div class="housing-location">📍 ' + h.address + '</div>' : '') +
         (h.checkIn ? '<div class="housing-dates">' + fmtShort(h.checkIn) + ' – ' + fmtShort(h.checkOut) + ' · ' + h.nights + ' night' + (h.nights !== 1 ? 's' : '') + '</div>' : '') +
         (h.host ? '<div class="housing-host">Hosted by ' + h.host + '</div>' : '') +
         stats +
-        (h.address ? '<div class="housing-notes">📍 ' + h.address + '</div>' : '') +
+        buildPriceBox(h) +
         (h.notes ? '<div class="housing-notes">' + h.notes + '</div>' : '') +
         (isReal ? '<a class="housing-link" href="' + h.url + '" target="_blank" rel="noopener">View on Airbnb →</a>' : '') +
       '</div></div>';
@@ -116,7 +141,7 @@
     }).join('');
 
     document.getElementById('housingPage').innerHTML =
-      '<p class="housing-intro">Comparing 2–3 Airbnb options per city — nothing booked yet. The starred card is the current favorite.</p>' +
+      '<p class="housing-intro">Comparing 2–3 Airbnb options per city — nothing booked yet. Prices are split ' + GROUP_SIZE + ' ways. The starred card is the current favorite.</p>' +
       sections;
   }
   </script>
