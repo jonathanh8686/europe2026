@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Housing – Europe 2026</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header class="site-header">
-    <a class="back-link" href="index.html">← Map</a>
-    <div class="hspacer"></div>
-    <div class="site-title" style="font-size:1rem">🏠 Housing</div>
-  </header>
-  <main class="housing-page" id="housingPage">
-    <p style="color:var(--muted);padding:40px 0">Loading…</p>
-  </main>
-  <script>
-  var CITY_PAGES = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Housing – Europe 2026&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class="site-header"&gt;
+    &lt;a class="back-link" href="index.html"&gt;← Map&lt;/a&gt;
+    &lt;div class="hspacer"&gt;&lt;/div&gt;
+    &lt;div class="site-title" style="font-size:1rem"&gt;🏠 Housing&lt;/div&gt;
+  &lt;/header&gt;
+  &lt;main class="housing-page" id="housingPage"&gt;
+    &lt;p style="color:var(--muted);padding:40px 0"&gt;Loading…&lt;/p&gt;
+  &lt;/main&gt;
+  &lt;script&gt;
+  var CITY_PAGES  = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
+  var STOP_COLORS = ['#1e5fa8', '#f5a623', '#27ae60', '#9b59b6'];
 
   function fmtShort(s) {
     return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
@@ -29,71 +30,137 @@
     })
     .catch(function() {
       document.getElementById('housingPage').innerHTML =
-        '<p style="color:var(--muted);padding:40px 0">Failed to load trip data.</p>';
+        '&lt;p style="color:var(--muted);padding:40px 0"&gt;Failed to load trip data.&lt;/p&gt;';
     });
 
   function statusLabel(status) {
     if (status === 'booked') return 'Booked';
-    if (status === 'found') return 'Found — not booked';
+    if (status === 'found') return 'Found';
     return 'Searching';
   }
 
   function renderHousing(itin, hotels) {
     var stops = itin.filter(function(s) { return s.city !== 'Home'; });
 
-    var cards = stops.map(function(stop) {
-      var h = hotels.find(function(x) { return x.city === stop.city; });
-      var page = CITY_PAGES[stop.city] || '#';
+    var cards = stops.map(function(stop, i) {
+      var color = STOP_COLORS[i] || '#2d7dd2';
+      var h     = hotels.find(function(x) { return x.city === stop.city; });
+      var page  = CITY_PAGES[stop.city] || '#';
+
+      var head = '&lt;div class="housing-card-head"&gt;' +
+        '&lt;span class="housing-num" style="background:' + color + '"&gt;' + (i + 1) + '&lt;/span&gt;' +
+        '&lt;a class="housing-city-name" href="' + page + '"&gt;' + (stop.flag || '') + ' ' + stop.city + '&lt;/a&gt;';
 
       if (!h) {
-        return '<div class="housing-card tbd">' +
-          '<div class="housing-img-placeholder">' + (stop.emoji || '🏠') + '</div>' +
-          '<div class="housing-body">' +
-            '<div class="housing-top"><span class="housing-city">' + (stop.flag || '') + ' ' + stop.city + '</span>' +
-            '<span class="housing-badge searching">Searching</span></div>' +
-            '<div class="housing-name">No housing added yet</div>' +
-          '</div></div>';
+        return '&lt;div class="housing-card tbd" style="border-top-color:' + color + '"&gt;' +
+          head + '&lt;span class="housing-badge searching"&gt;Searching&lt;/span&gt;&lt;/div&gt;' +
+          '&lt;div class="housing-img-placeholder"&gt;' + (stop.emoji || '🏠') + '&lt;/div&gt;' +
+          '&lt;div class="housing-body"&gt;' +
+            '&lt;div class="housing-name" style="color:var(--muted)"&gt;No housing added yet&lt;/div&gt;' +
+          '&lt;/div&gt;';
       }
 
       var statusCls = h.status === 'booked' ? 'booked' : (h.status === 'found' ? 'found' : 'searching');
-      var isReal = !!(h.url && (h.status === 'found' || h.status === 'booked'));
+      var isReal    = !!(h.url &amp;&amp; (h.status === 'found' || h.status === 'booked'));
+
+      head += '&lt;span class="housing-badge ' + statusCls + '"&gt;' + statusLabel(h.status) + '&lt;/span&gt;&lt;/div&gt;';
 
       var img = isReal
-        ? '<img class="housing-img" src="' + h.image + '" alt="' + h.name + '">'
-        : '<div class="housing-img-placeholder">' + (stop.emoji || '🏠') + '</div>';
+        ? '&lt;img class="housing-img" src="' + h.image + '" alt="' + h.name + '"&gt;'
+        : '&lt;div class="housing-img-placeholder"&gt;' + (stop.emoji || '🏠') + '&lt;/div&gt;';
 
-      var stats = '<div class="housing-stats">';
-      if (h.guests) stats += '<span class="housing-stat">👥 ' + h.guests + ' guests</span>';
-      if (h.bedrooms) stats += '<span class="housing-stat">🛏️ ' + h.bedrooms + ' bd</span>';
-      if (h.bathrooms) stats += '<span class="housing-stat">🛁 ' + h.bathrooms + ' ba</span>';
-      if (h.rating) stats += '<span class="housing-stat housing-rating">★ ' + h.rating.toFixed(1) + (h.reviews ? ' (' + h.reviews + ')' : '') + '</span>';
-      stats += (h.pricePerNight ? '<span class="housing-stat">$' + h.pricePerNight + '/night</span>' : '<span class="housing-stat">Price TBD</span>');
-      stats += '</div>';
+      var stats = '&lt;div class="housing-stats"&gt;';
+      if (h.guests)    stats += '&lt;span class="housing-stat"&gt;👥 ' + h.guests + ' guests&lt;/span&gt;';
+      if (h.bedrooms)  stats += '&lt;span class="housing-stat"&gt;🛏️ ' + h.bedrooms + ' bd&lt;/span&gt;';
+      if (h.bathrooms) stats += '&lt;span class="housing-stat"&gt;🛁 ' + h.bathrooms + ' ba&lt;/span&gt;';
+      if (h.rating)    stats += '&lt;span class="housing-stat housing-rating"&gt;★ ' + h.rating.toFixed(1) + (h.reviews ? ' (' + h.reviews + ')' : '') + '&lt;/span&gt;';
+      stats += (h.pricePerNight
+        ? '&lt;span class="housing-stat housing-price"&gt;$' + h.pricePerNight + '/night&lt;/span&gt;'
+        : '&lt;span class="housing-stat"&gt;Price TBD&lt;/span&gt;');
+      stats += '&lt;/div&gt;';
 
       var nameHtml = isReal
-        ? '<a href="' + h.url + '" target="_blank" rel="noopener">' + h.name + '</a>'
+        ? '&lt;a href="' + h.url + '" target="_blank" rel="noopener"&gt;' + h.name + '&lt;/a&gt;'
         : h.name;
 
-      return '<div class="housing-card' + (isReal ? '' : ' tbd') + '">' +
+      return '&lt;div class="housing-card' + (isReal ? '' : ' tbd') + '" style="border-top-color:' + color + '"&gt;' +
+        head +
         img +
-        '<div class="housing-body">' +
-          '<div class="housing-top">' +
-            '<span class="housing-city">' + (stop.flag || '') + ' <a href="' + page + '" style="color:inherit">' + stop.city + '</a></span>' +
-            '<span class="housing-badge ' + statusCls + '">' + statusLabel(h.status) + '</span>' +
-          '</div>' +
-          '<div class="housing-name">' + nameHtml + '</div>' +
-          '<div class="housing-dates">' + fmtShort(h.checkIn) + ' – ' + fmtShort(h.checkOut) + ' · ' + h.nights + ' night' + (h.nights !== 1 ? 's' : '') + (h.host ? ' · Hosted by ' + h.host : '') + '</div>' +
+        '&lt;div class="housing-body"&gt;' +
+          '&lt;div class="housing-name"&gt;' + nameHtml + '&lt;/div&gt;' +
+          '&lt;div class="housing-dates"&gt;' + fmtShort(h.checkIn) + ' – ' + fmtShort(h.checkOut) + ' · ' + h.nights + ' night' + (h.nights !== 1 ? 's' : '') + '&lt;/div&gt;' +
+          (h.host ? '&lt;div class="housing-host"&gt;Hosted by ' + h.host + '&lt;/div&gt;' : '') +
           stats +
-          (h.address ? '<div class="housing-notes">📍 ' + h.address + '</div>' : '') +
-          (h.notes ? '<div class="housing-notes">' + h.notes + '</div>' : '') +
-          (isReal ? '<a class="housing-link" href="' + h.url + '" target="_blank" rel="noopener">View on Airbnb →</a>' : '') +
-        '</div></div>';
-    }).join('');
+          (h.address ? '&lt;div class="housing-notes"&gt;📍 ' + h.address + '&lt;/div&gt;' : '') +
+          (h.notes ? '&lt;div class="housing-notes"&gt;' + h.notes + '&lt;/div&gt;' : '') +
+          (isReal ? '&lt;a class="housing-link" href="' + h.url + '" target="_blank" rel="noopener"&gt;View on Airbnb →&lt;/a&gt;' : '') +
+        '&lt;/div&gt;';
+    }).join('').split('&lt;/div&gt;&lt;div class="housing-card').join('&lt;/div&gt;§SPLIT§&lt;div class="housing-card');
 
+    // Wrap each stop's markup (head + img + body, produced as sibling strings above)
+    // back into a single card container per stop.
     document.getElementById('housingPage').innerHTML =
-      '<p class="housing-intro">Where we\'re staying in each city.</p>' +
-      '<div class="housing-list">' + cards + '</div>';
+      '&lt;p class="housing-intro"&gt;Where we\'re staying in each city.&lt;/p&gt;' +
+      '&lt;div class="housing-grid"&gt;' + buildCards(stops, hotels) + '&lt;/div&gt;';
   }
-  </script>
-</body>
-</html>
+
+  function buildCards(stops, hotels) {
+    return stops.map(function(stop, i) {
+      var color = STOP_COLORS[i] || '#2d7dd2';
+      var h     = hotels.find(function(x) { return x.city === stop.city; });
+      var page  = CITY_PAGES[stop.city] || '#';
+
+      var head = '&lt;div class="housing-card-head"&gt;' +
+        '&lt;span class="housing-num" style="background:' + color + '"&gt;' + (i + 1) + '&lt;/span&gt;' +
+        '&lt;a class="housing-city-name" href="' + page + '"&gt;' + (stop.flag || '') + ' ' + stop.city + '&lt;/a&gt;';
+
+      if (!h) {
+        head += '&lt;span class="housing-badge searching"&gt;Searching&lt;/span&gt;&lt;/div&gt;';
+        return '&lt;div class="housing-card tbd" style="border-top-color:' + color + '"&gt;' +
+          head +
+          '&lt;div class="housing-img-placeholder"&gt;' + (stop.emoji || '🏠') + '&lt;/div&gt;' +
+          '&lt;div class="housing-body"&gt;' +
+            '&lt;div class="housing-name" style="color:var(--muted)"&gt;No housing added yet&lt;/div&gt;' +
+          '&lt;/div&gt;&lt;/div&gt;';
+      }
+
+      var statusCls = h.status === 'booked' ? 'booked' : (h.status === 'found' ? 'found' : 'searching');
+      var isReal    = !!(h.url &amp;&amp; (h.status === 'found' || h.status === 'booked'));
+
+      head += '&lt;span class="housing-badge ' + statusCls + '"&gt;' + statusLabel(h.status) + '&lt;/span&gt;&lt;/div&gt;';
+
+      var img = isReal
+        ? '&lt;img class="housing-img" src="' + h.image + '" alt="' + h.name + '"&gt;'
+        : '&lt;div class="housing-img-placeholder"&gt;' + (stop.emoji || '🏠') + '&lt;/div&gt;';
+
+      var stats = '&lt;div class="housing-stats"&gt;';
+      if (h.guests)    stats += '&lt;span class="housing-stat"&gt;👥 ' + h.guests + ' guests&lt;/span&gt;';
+      if (h.bedrooms)  stats += '&lt;span class="housing-stat"&gt;🛏️ ' + h.bedrooms + ' bd&lt;/span&gt;';
+      if (h.bathrooms) stats += '&lt;span class="housing-stat"&gt;🛁 ' + h.bathrooms + ' ba&lt;/span&gt;';
+      if (h.rating)    stats += '&lt;span class="housing-stat housing-rating"&gt;★ ' + h.rating.toFixed(1) + (h.reviews ? ' (' + h.reviews + ')' : '') + '&lt;/span&gt;';
+      stats += (h.pricePerNight
+        ? '&lt;span class="housing-stat housing-price"&gt;$' + h.pricePerNight + '/night&lt;/span&gt;'
+        : '&lt;span class="housing-stat"&gt;Price TBD&lt;/span&gt;');
+      stats += '&lt;/div&gt;';
+
+      var nameHtml = isReal
+        ? '&lt;a href="' + h.url + '" target="_blank" rel="noopener"&gt;' + h.name + '&lt;/a&gt;'
+        : h.name;
+
+      return '&lt;div class="housing-card' + (isReal ? '' : ' tbd') + '" style="border-top-color:' + color + '"&gt;' +
+        head +
+        img +
+        '&lt;div class="housing-body"&gt;' +
+          '&lt;div class="housing-name"&gt;' + nameHtml + '&lt;/div&gt;' +
+          '&lt;div class="housing-dates"&gt;' + fmtShort(h.checkIn) + ' – ' + fmtShort(h.checkOut) + ' · ' + h.nights + ' night' + (h.nights !== 1 ? 's' : '') + '&lt;/div&gt;' +
+          (h.host ? '&lt;div class="housing-host"&gt;Hosted by ' + h.host + '&lt;/div&gt;' : '') +
+          stats +
+          (h.address ? '&lt;div class="housing-notes"&gt;📍 ' + h.address + '&lt;/div&gt;' : '') +
+          (h.notes ? '&lt;div class="housing-notes"&gt;' + h.notes + '&lt;/div&gt;' : '') +
+          (isReal ? '&lt;a class="housing-link" href="' + h.url + '" target="_blank" rel="noopener"&gt;View on Airbnb →&lt;/a&gt;' : '') +
+        '&lt;/div&gt;&lt;/div&gt;';
+    }).join('');
+  }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
