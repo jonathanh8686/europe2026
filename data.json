@@ -281,7 +281,32 @@
       "address": "Grindelwald / Lütschental — right next to Burglauenen station, on the Interlaken–Grindelwald rail line (not in Interlaken town itself; ~25-30 min train to central Interlaken)",
       "totalPrice": 1555,
       "booked": false,
-      "notes": "Converted chalet restaurant with mountain/valley views and a garden terrace on a brook. Great base for Jungfraujoch and Bernese Oberland hikes, but check the commute into Interlaken town works for the group before locking it in. Current top pick."
+      "notes": "Converted chalet restaurant with mountain/valley views and a garden terrace on a brook. Great base for Jungfraujoch and Bernese Oberland hikes, but check the commute into Interlaken town works for the group before locking it in. Cheaper of the two — current top pick."
+    },
+    {
+      "id": "h3b",
+      "city": "Interlaken",
+      "primary": false,
+      "type": "airbnb",
+      "status": "candidate",
+      "name": "Cozy Chalet with Incredible Mountain Panorama",
+      "url": "https://www.airbnb.com/rooms/1656440736845442788",
+      "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1656440736845442788/original/33dcb70f-1238-459d-a838-b4ba92e286e6.jpeg?im_w=720",
+      "checkIn": "2026-09-16",
+      "checkOut": "2026-09-18",
+      "nights": 2,
+      "guests": 9,
+      "bedrooms": 3,
+      "bathrooms": 3,
+      "beds": 9,
+      "rating": 5.0,
+      "reviews": 2,
+      "host": "Stefan (Superhost)",
+      "confirmation": "TBD",
+      "address": "Beatenberg — high above Lake Thun, north side of the valley opposite Interlaken",
+      "totalPrice": 2331,
+      "booked": false,
+      "notes": "Panoramic Alpine chalet with lake & mountain views, free parking, 9 beds across 3 bedrooms. Pricier and only 2 reviews so far (host's other listings average 4.86 from 317 reviews). Nicer views but ~50% more than the Burglauenen pick."
     },
     {
       "id": "h4",
