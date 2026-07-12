@@ -191,7 +191,6 @@
   <div class="site-title">Europe <em>2026</em></div>
   <div class="site-meta" id="headerMeta"></div>
   <div class="hspacer"></div>
-  <a class="btn-ghost" href="housing.html">🏠 Housing</a>
   <button class="btn-ghost" id="sidebarToggle">👥 <span id="goingCount">9</span> going</button>
 </header>
 
@@ -242,7 +241,7 @@ document.getElementById('sidebarToggle').addEventListener('click', function() {
   document.getElementById('sidebarPanel').classList.toggle('hidden');
 });
 
-// ── Boot ────────────────────────────────────────────────────────────────────
+// ── Boot ──────────────────────────────────────────────────────────────────────────────────────
 fetch('data.json')
   .then(function(r) { return r.json(); })
   .then(function(data) {
@@ -264,7 +263,7 @@ fetch('data.json')
     initMap(stops, data.citySuggestions || []);
   });
 
-// ── Sidebar ────────────────────────────────────────────────────────────────
+// ── Sidebar ─────────────────────────────────────────────────────────────────────────
 function renderSidebar(attendees) {
   var confirmed = attendees.filter(function(a) { return a.confirmed; });
   var notGoing  = attendees.filter(function(a) { return !a.confirmed && a.notGoing; });
@@ -283,7 +282,7 @@ function renderSidebar(attendees) {
   document.getElementById('attendeeChips').innerHTML = html;
 }
 
-// ── Right panel: calendar + stop cards ────────────────────────────────────
+// ── Right panel: calendar + stop cards ─────────────────────────────────────
 function renderScheduleCol(itin, stops, suggestions) {
 
   // Build date → city info map. Each stop occupies its arrival date through its
@@ -420,7 +419,7 @@ function renderScheduleCol(itin, stops, suggestions) {
   }
 }
 
-// ── Map ────────────────────────────────────────────────────────────────────
+// ── Map ────────────────────────────────────────────────────────────────────────────────────────────
 function initMap(stops, suggestions) {
   var map = L.map('map', { zoomControl: true });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
