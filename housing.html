@@ -22,6 +22,11 @@
   function fmtShort(s) {
     return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   }
+  function addDays(s, n) {
+    var d = new Date(s + 'T00:00:00');
+    d.setDate(d.getDate() + n);
+    return d.toISOString().slice(0, 10);
+  }
 
   fetch('data.json')
     .then(function(r) { return r.json(); })
@@ -33,35 +38,19 @@
         '<p style="color:var(--muted);padding:40px 0">Failed to load trip data.</p>';
     });
 
-  function statusLabel(status) {
-    if (status === 'booked') return 'Booked';
-    if (status === 'found') return 'Found';
-    return 'Searching';
+  // Options are considered "candidates" (not yet booked) unless status is 'booked'.
+  // Within a city, the entry flagged primary:true renders first and is highlighted
+  // as the current top pick; everything else shows as a secondary option to compare.
+  function badgeInfo(h) {
+    if (h.status === 'booked')    return { cls: 'booked',    label: 'Booked' };
+    if (h.status === 'searching') return { cls: 'searching', label: 'Searching' };
+    if (h.primary)                return { cls: 'primary',   label: '★ Top Pick' };
+    return { cls: 'option', label: 'Option' };
   }
 
-  function buildCard(stop, i, hotels) {
-    var color = STOP_COLORS[i] || '#2d7dd2';
-    var h     = hotels.find(function(x) { return x.city === stop.city; });
-    var page  = CITY_PAGES[stop.city] || '#';
-
-    var head = '<div class="housing-card-head">' +
-      '<span class="housing-num" style="background:' + color + '">' + (i + 1) + '</span>' +
-      '<a class="housing-city-name" href="' + page + '">' + (stop.flag || '') + ' ' + stop.city + '</a>';
-
-    if (!h) {
-      head += '<span class="housing-badge searching">Searching</span></div>';
-      return '<div class="housing-card tbd" style="border-top-color:' + color + '">' +
-        head +
-        '<div class="housing-img-placeholder">' + (stop.emoji || '🏠') + '</div>' +
-        '<div class="housing-body">' +
-          '<div class="housing-name" style="color:var(--muted)">No housing added yet</div>' +
-        '</div></div>';
-    }
-
-    var statusCls = h.status === 'booked' ? 'booked' : (h.status === 'found' ? 'found' : 'searching');
-    var isReal    = !!(h.url && (h.status === 'found' || h.status === 'booked'));
-
-    head += '<span class="housing-badge ' + statusCls + '">' + statusLabel(h.status) + '</span></div>';
+  function buildOptionCard(h, stop, color) {
+    var badge  = badgeInfo(h);
+    var isReal = !!(h.url && h.status !== 'searching');
 
     var img = isReal
       ? '<img class="housing-img" src="' + h.image + '" alt="' + h.name + '">'
@@ -71,7 +60,7 @@
     if (h.guests)    stats += '<span class="housing-stat">👥 ' + h.guests + ' guests</span>';
     if (h.bedrooms)  stats += '<span class="housing-stat">🛏️ ' + h.bedrooms + ' bd</span>';
     if (h.bathrooms) stats += '<span class="housing-stat">🛁 ' + h.bathrooms + ' ba</span>';
-    if (h.rating)    stats += '<span class="housing-stat housing-rating">★ ' + h.rating.toFixed(1) + (h.reviews ? ' (' + h.reviews + ')' : '') + '</span>';
+    if (h.rating)    stats += '<span class="housing-stat housing-rating">★ ' + h.rating.toFixed(2).replace(/0$/, '') + (h.reviews ? ' (' + h.reviews + ')' : '') + '</span>';
     stats += (h.pricePerNight
       ? '<span class="housing-stat housing-price">$' + h.pricePerNight + '/night</span>'
       : '<span class="housing-stat">Price TBD</span>');
@@ -81,12 +70,13 @@
       ? '<a href="' + h.url + '" target="_blank" rel="noopener">' + h.name + '</a>'
       : h.name;
 
-    return '<div class="housing-card' + (isReal ? '' : ' tbd') + '" style="border-top-color:' + color + '">' +
-      head +
+    return '<div class="housing-card' + (badge.cls === 'primary' ? ' primary' : '') + (h.status === 'searching' ? ' tbd' : '') +
+      '" style="border-top-color:' + (badge.cls === 'primary' ? 'var(--accent)' : color) + '">' +
+      '<div class="housing-card-head"><span class="housing-badge ' + badge.cls + '">' + badge.label + '</span></div>' +
       img +
       '<div class="housing-body">' +
         '<div class="housing-name">' + nameHtml + '</div>' +
-        '<div class="housing-dates">' + fmtShort(h.checkIn) + ' – ' + fmtShort(h.checkOut) + ' · ' + h.nights + ' night' + (h.nights !== 1 ? 's' : '') + '</div>' +
+        (h.checkIn ? '<div class="housing-dates">' + fmtShort(h.checkIn) + ' – ' + fmtShort(h.checkOut) + ' · ' + h.nights + ' night' + (h.nights !== 1 ? 's' : '') + '</div>' : '') +
         (h.host ? '<div class="housing-host">Hosted by ' + h.host + '</div>' : '') +
         stats +
         (h.address ? '<div class="housing-notes">📍 ' + h.address + '</div>' : '') +
@@ -97,11 +87,37 @@
 
   function renderHousing(itin, hotels) {
     var stops = itin.filter(function(s) { return s.city !== 'Home'; });
-    var cards = stops.map(function(stop, i) { return buildCard(stop, i, hotels); }).join('');
+
+    var sections = stops.map(function(stop, i) {
+      var color   = STOP_COLORS[i] || '#2d7dd2';
+      var page    = CITY_PAGES[stop.city] || '#';
+      var options = hotels
+        .filter(function(x) { return x.city === stop.city; })
+        .sort(function(a, b) { return (b.primary ? 1 : 0) - (a.primary ? 1 : 0); });
+
+      var checkOut = fmtShort(addDays(stop.date, stop.nights || 0));
+
+      var cardsHtml = options.length
+        ? options.map(function(h) { return buildOptionCard(h, stop, color); }).join('')
+        : '<div class="housing-card tbd" style="border-top-color:' + color + '">' +
+            '<div class="housing-card-head"><span class="housing-badge searching">Searching</span></div>' +
+            '<div class="housing-img-placeholder">' + (stop.emoji || '🏠') + '</div>' +
+            '<div class="housing-body"><div class="housing-name" style="color:var(--muted)">No options added yet</div></div>' +
+          '</div>';
+
+      return '<section class="housing-city-section">' +
+        '<div class="housing-city-heading">' +
+          '<span class="housing-city-num" style="background:' + color + '">' + (i + 1) + '</span>' +
+          '<a class="housing-city-title" href="' + page + '">' + (stop.flag || '') + ' ' + stop.city + '</a>' +
+          '<span class="housing-city-dates">' + fmtShort(stop.date) + ' – ' + checkOut + ' · ' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : '') + '</span>' +
+        '</div>' +
+        '<div class="housing-options-grid">' + cardsHtml + '</div>' +
+      '</section>';
+    }).join('');
 
     document.getElementById('housingPage').innerHTML =
-      '<p class="housing-intro">Where we\'re staying in each city.</p>' +
-      '<div class="housing-grid">' + cards + '</div>';
+      '<p class="housing-intro">Comparing 2–3 Airbnb options per city — nothing booked yet. The starred card is the current favorite.</p>' +
+      sections;
   }
   </script>
 </body>
