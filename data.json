@@ -134,10 +134,36 @@
   ],
   "hotels": [
     {
-      "id": "h1",
+      "id": "h1a",
       "city": "Bologna",
+      "primary": true,
       "type": "airbnb",
-      "status": "found",
+      "status": "candidate",
+      "name": "[BolognaCentro]-9 People Loft-Private Lift&Terrace",
+      "url": "https://www.airbnb.com/rooms/1494163770022649984",
+      "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1494163770022649984/original/3a84f288-a84a-42c3-9b32-7c6df518826a.jpeg?im_w=720",
+      "checkIn": "2026-09-12",
+      "checkOut": "2026-09-15",
+      "nights": 3,
+      "guests": 9,
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "beds": 5,
+      "rating": 4.93,
+      "reviews": 28,
+      "host": "Fenice Stays (Superhost)",
+      "confirmation": "TBD",
+      "address": "Historic Center — ~20 min walk to Piazza Maggiore & the Two Towers, ~10 min to Bologna Centrale station",
+      "pricePerNight": null,
+      "booked": false,
+      "notes": "Loft with a private rooftop terrace & private elevator. Pool table, board games, espresso machine. Current top pick."
+    },
+    {
+      "id": "h1b",
+      "city": "Bologna",
+      "primary": false,
+      "type": "airbnb",
+      "status": "candidate",
       "name": "Royal Quadrivio - 4 Bedrooms 4 Bathrooms",
       "url": "https://www.airbnb.com/rooms/1618284629582978066",
       "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1618284629582978066/original/b7eb59d0-b69a-4ec5-923c-2b1736bcc216.jpeg?im_w=720",
@@ -155,11 +181,12 @@
       "address": "Historic center — ~3 min walk to the Two Towers, ~10 min to Piazza Maggiore",
       "pricePerNight": null,
       "booked": false,
-      "notes": "Newly renovated apartment, 4 en-suite bedrooms, sleeps up to 9. Found by Jonathan — not booked yet."
+      "notes": "Newly renovated, 4 en-suite bedrooms — more space & privacy, but a longer walk from the station. Backup option."
     },
     {
       "id": "h2",
       "city": "Milan",
+      "primary": true,
       "type": "tbd",
       "status": "searching",
       "name": "TBD - Milan Housing",
@@ -177,6 +204,7 @@
     {
       "id": "h3",
       "city": "Interlaken",
+      "primary": true,
       "type": "tbd",
       "status": "searching",
       "name": "TBD - Interlaken Housing",
@@ -194,6 +222,7 @@
     {
       "id": "h4",
       "city": "Zurich",
+      "primary": true,
       "type": "tbd",
       "status": "searching",
       "name": "TBD - Zurich Housing",
