@@ -371,6 +371,7 @@ a { color: inherit; text-decoration: none; }
 }
 .housing-name { font-size: 0.88rem; font-weight: 700; line-height: 1.3; }
 .housing-name a:hover { color: var(--bl); }
+.housing-location { font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
 .housing-dates { font-size: 0.7rem; color: var(--muted); }
 .housing-host { font-size: 0.7rem; color: var(--muted); margin-top: -3px; }
 .housing-stats { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -382,8 +383,32 @@ a { color: inherit; text-decoration: none; }
   color: var(--muted);
 }
 .housing-stat.housing-rating { color: var(--accent); }
-.housing-stat.housing-price { color: var(--text); font-weight: 700; background: rgba(45,125,210,0.14); }
 .housing-notes { font-size: 0.7rem; color: var(--muted); line-height: 1.45; }
+
+.housing-price-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 5px 8px;
+  background: rgba(39,174,96,0.08);
+  border: 1px solid rgba(39,174,96,0.25);
+  border-radius: 8px;
+  padding: 7px 9px;
+}
+.housing-price-box.tbd {
+  background: rgba(255,255,255,0.03);
+  border-color: var(--border);
+}
+.housing-price-total { font-size: 0.68rem; color: var(--muted); }
+.housing-price-pp {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--green);
+}
+.housing-price-box.tbd .housing-price-pp { color: var(--muted); font-size: 0.74rem; }
+.housing-price-box.tbd .housing-price-total { color: var(--text); font-weight: 700; }
+.housing-price-sub { font-size: 0.64rem; color: var(--muted); width: 100%; }
+
 .housing-link {
   display: flex; align-items: center; justify-content: center; gap: 4px;
   margin-top: auto; padding-top: 9px;
