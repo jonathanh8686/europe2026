@@ -363,21 +363,28 @@
       "notes": "Historic 1752 chalet, fully renovated, private sauna, terrace with BBQ, lake & mountain views. Much closer to Interlaken Ost than the Burglauenen pick (minutes vs. ~25-30 min) and well-reviewed, for a bit more than Burglauenen."
     },
     {
-      "id": "h4",
+      "id": "h4a",
       "city": "Zurich",
-      "type": "tbd",
-      "status": "searching",
-      "name": "TBD - Zurich Housing",
+      "type": "airbnb",
+      "status": "candidate",
+      "name": "Penthouse Zurich: City AC Free E-Parking Airport",
+      "url": "https://www.airbnb.com/rooms/1593994888564907008",
+      "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1593994888564907008/original/0342cd93-1d6e-49d5-b240-e155334df0da.png?im_w=720",
       "checkIn": "2026-09-18",
       "checkOut": "2026-09-20",
       "nights": 2,
       "guests": 9,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "beds": 6,
+      "rating": 5.0,
+      "reviews": 30,
+      "host": "Livia (Guest favorite, top 10%)",
       "confirmation": "TBD",
-      "address": "",
-      "rating": 0,
-      "pricePerNight": 200,
+      "address": "Opfikon (Glattbrugg) — a few minutes' walk to two train stations, ~10-15 min direct to Zurich HB & ZRH airport",
+      "totalPrice": 1393,
       "booked": false,
-      "notes": "Near Altstadt or Zurich HB for easy ZRH airport access"
+      "notes": "140m² 3BDR penthouse, Alpine views, 22m² sunroom + outdoor lounge with E-BBQ, projector, free underground parking, self check-in. Max 10 guests. Free cancellation before Sep 17."
     }
   ],
   "citySuggestions": [
