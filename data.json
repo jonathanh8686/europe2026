@@ -385,6 +385,30 @@
       "totalPrice": 1393,
       "booked": false,
       "notes": "140m² 3BDR penthouse, Alpine views, 22m² sunroom + outdoor lounge with E-BBQ, projector, free underground parking, self check-in. Max 10 guests. Free cancellation before Sep 17."
+    },
+    {
+      "id": "h4b",
+      "city": "Zurich",
+      "type": "airbnb",
+      "status": "candidate",
+      "name": "•Urban•Rooftop•Lux•Chalet•TopLocation",
+      "url": "https://www.airbnb.com/rooms/1562314858864235358",
+      "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1562314858864235358/original/33397290-3c60-4144-be9f-94f6ce89b2e4.jpeg?im_w=720",
+      "checkIn": "2026-09-18",
+      "checkOut": "2026-09-20",
+      "nights": 2,
+      "guests": 9,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "beds": 6,
+      "rating": 4.58,
+      "reviews": 65,
+      "host": "Tamara Jugovic/Radonjic",
+      "confirmation": "TBD",
+      "address": "District 4, Zürich — direct public transport connections around the city",
+      "totalPrice": 1779,
+      "booked": false,
+      "notes": "170m² two-story city chalet with private rooftop terrace, pool table, free courtyard parking (2 cars). 4th floor, no elevator. Discounted from $2,224 to $1,779. Max 10 guests."
     }
   ],
   "citySuggestions": [
