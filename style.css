@@ -291,7 +291,30 @@ a { color: inherit; text-decoration: none; }
 
 /* ── Housing page ── */
 .housing-page { max-width: 1160px; margin: 0 auto; padding: 26px 20px 60px; }
-.housing-intro { color: var(--muted); font-size: 0.84rem; margin-bottom: 22px; }
+.housing-intro { color: var(--muted); font-size: 0.84rem; margin-bottom: 14px; }
+
+.housing-summary {
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  margin-bottom: 26px;
+  overflow: hidden;
+}
+.housing-summary-item {
+  flex: 1;
+  min-width: 150px;
+  padding: 14px 18px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.housing-summary-item:last-child { border-right: none; }
+.hs-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
+.hs-value { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+.hs-value.accent { color: var(--green); }
 
 .housing-city-section { margin-bottom: 32px; }
 .housing-city-section:last-child { margin-bottom: 0; }
@@ -386,6 +409,14 @@ a { color: inherit; text-decoration: none; }
 }
 .housing-stat.housing-rating { color: var(--accent); }
 .housing-notes { font-size: 0.7rem; color: var(--muted); line-height: 1.45; }
+.housing-reservation {
+  font-size: 0.68rem;
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.housing-reservation.pending { background: rgba(245,166,35,0.1); color: var(--accent); }
+.housing-reservation.booked  { background: rgba(39,174,96,0.1); color: var(--green); }
 
 .housing-price-box {
   display: flex;
@@ -462,4 +493,6 @@ a { color: inherit; text-decoration: none; }
 }
 @media (max-width: 480px) {
   .housing-options-grid { grid-template-columns: 1fr; }
+  .housing-summary-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .housing-summary-item:last-child { border-bottom: none; }
 }

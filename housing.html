@@ -21,7 +21,7 @@
   var GROUP_SIZE  = 9; // price-per-person is always split across the full group
 
   function fmtShort(s) {
-    return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+    return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : '';
   }
   function addDays(s, n) {
     var d = new Date(s + 'T00:00:00');
@@ -58,12 +58,13 @@
   // per-night budget estimate, so they get a lighter "~estimate" treatment.
   function buildPriceBox(h) {
     if (h.totalPrice) {
-      var perNight  = h.totalPrice / (h.nights || 1);
-      var perPerson = h.totalPrice / GROUP_SIZE;
+      var perNight       = h.totalPrice / (h.nights || 1);
+      var perPerson      = h.totalPrice / GROUP_SIZE;
+      var perPersonNight = perNight / GROUP_SIZE;
       return '<div class="housing-price-box">' +
         '<span class="housing-price-total">' + money(h.totalPrice) + ' total</span>' +
         '<span class="housing-price-pp">' + money(perPerson) + '/person</span>' +
-        '<span class="housing-price-sub">' + money(perNight) + '/night · 9 guests</span>' +
+        '<span class="housing-price-sub">' + money(perNight) + '/night · ' + money(perPersonNight) + '/person/night · 9 guests</span>' +
       '</div>';
     }
     if (h.pricePerNight) {
@@ -74,6 +75,19 @@
       '</div>';
     }
     return '<div class="housing-price-box tbd"><span class="housing-price-total">Price TBD</span></div>';
+  }
+
+  // Small status line about the actual reservation, separate from the
+  // "picked" badge — the group has decided, but that's not the same as
+  // money changing hands yet.
+  function buildReservationNote(h) {
+    if (h.status === 'booked') {
+      return '<div class="housing-reservation booked">✓ Reservation confirmed' + (h.confirmation && h.confirmation !== 'TBD' ? ' · Conf# ' + h.confirmation : '') + '</div>';
+    }
+    if (h.status === 'picked') {
+      return '<div class="housing-reservation pending">Group has decided — not yet booked/paid</div>';
+    }
+    return '';
   }
 
   function buildOptionCard(h, stop, color) {
@@ -87,6 +101,7 @@
     var stats = '<div class="housing-stats">';
     if (h.guests)    stats += '<span class="housing-stat">👥 ' + h.guests + ' guests</span>';
     if (h.bedrooms)  stats += '<span class="housing-stat">🛏️ ' + h.bedrooms + ' bd</span>';
+    if (h.beds)      stats += '<span class="housing-stat">🛌 ' + h.beds + ' beds</span>';
     if (h.bathrooms) stats += '<span class="housing-stat">🛁 ' + h.bathrooms + ' ba</span>';
     if (h.rating)    stats += '<span class="housing-stat housing-rating">★ ' + h.rating.toFixed(2).replace(/0$/, '') + (h.reviews ? ' (' + h.reviews + ')' : '') + '</span>';
     stats += '</div>';
@@ -106,6 +121,7 @@
         (h.host ? '<div class="housing-host">Hosted by ' + h.host + '</div>' : '') +
         stats +
         buildPriceBox(h) +
+        buildReservationNote(h) +
         (h.notes ? '<div class="housing-notes">' + h.notes + '</div>' : '') +
         (isReal ? '<a class="housing-link" href="' + h.url + '" target="_blank" rel="noopener">View on Airbnb →</a>' : '') +
       '</div></div>';
@@ -115,6 +131,9 @@
     var stops = itin.filter(function(s) { return s.city !== 'Home'; });
     var pickedCities    = [];
     var comparingCities = [];
+    var totalCost       = 0;
+    var totalNights     = 0;
+    var pricedCount     = 0;
 
     var sections = stops.map(function(stop, i) {
       var color   = STOP_COLORS[i] || '#2d7dd2';
@@ -128,8 +147,15 @@
       var isDecided = finalists.length > 0;
       var shown     = isDecided ? finalists : options;
 
-      if (isDecided) pickedCities.push(stop.city);
-      else if (options.length) comparingCities.push(stop.city);
+      if (isDecided) {
+        pickedCities.push(stop.city);
+        finalists.forEach(function(h) {
+          if (h.totalPrice) { totalCost += h.totalPrice; pricedCount++; }
+        });
+        totalNights += stop.nights || 0;
+      } else if (options.length) {
+        comparingCities.push(stop.city);
+      }
 
       var checkOut = fmtShort(addDays(stop.date, stop.nights || 0));
 
@@ -159,8 +185,24 @@
     var intro = (introBits.length ? introBits.join(' ') : 'Comparing Airbnb options — nothing decided yet.') +
       ' Prices are split ' + GROUP_SIZE + ' ways.';
 
+    // Grand-total summary bar — only meaningful once at least one city has
+    // a priced pick locked in.
+    var summaryHtml = '';
+    if (pricedCount > 0) {
+      var perPersonTotal = totalCost / GROUP_SIZE;
+      var partial = pricedCount < pickedCities.length ? ' (partial — some picks still missing a price)' : '';
+      summaryHtml =
+        '<div class="housing-summary">' +
+          '<div class="housing-summary-item"><span class="hs-label">Total housing' + partial + '</span><span class="hs-value accent">' + money(totalCost) + '</span></div>' +
+          '<div class="housing-summary-item"><span class="hs-label">Per person</span><span class="hs-value">' + money(perPersonTotal) + '</span></div>' +
+          '<div class="housing-summary-item"><span class="hs-label">Total nights</span><span class="hs-value">' + totalNights + '</span></div>' +
+          '<div class="housing-summary-item"><span class="hs-label">Cities decided</span><span class="hs-value">' + pickedCities.length + ' / ' + stops.length + '</span></div>' +
+        '</div>';
+    }
+
     document.getElementById('housingPage').innerHTML =
       '<p class="housing-intro">' + intro + '</p>' +
+      summaryHtml +
       sections;
   }
 
