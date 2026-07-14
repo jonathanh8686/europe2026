@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Housing – Europe 2026</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,10 +16,12 @@
   <main class="housing-page" id="housingPage">
     <p style="color:var(--muted);padding:40px 0">Loading…</p>
   </main>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
   var CITY_PAGES  = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
   var STOP_COLORS = ['#1e5fa8', '#f5a623', '#27ae60', '#9b59b6'];
   var GROUP_SIZE  = 9; // price-per-person is always split across the full group
+  var mapsToInit  = []; // queued Leaflet maps — instantiated after innerHTML is set
 
   function fmtShort(s) {
     return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : '';
@@ -110,6 +113,14 @@
       ? '<a href="' + h.url + '" target="_blank" rel="noopener">' + h.name + '</a>'
       : h.name;
 
+    var mapHtml = '';
+    if (h.coords && h.coords.length === 2) {
+      var mapId = 'hmap-' + h.id;
+      mapsToInit.push({ id: mapId, coords: h.coords, color: color, label: h.name });
+      mapHtml = '<div class="housing-map" id="' + mapId + '"></div>' +
+        '<div class="housing-map-caption">📍 Approximate location — based on the listed neighborhood, not the exact address</div>';
+    }
+
     return '<div class="housing-card' + (h.status === 'searching' ? ' tbd' : '') +
       '" style="border-top-color:' + color + '">' +
       (badge ? '<div class="housing-card-head"><span class="housing-badge ' + badge.cls + '">' + badge.label + '</span></div>' : '') +
@@ -123,11 +134,13 @@
         buildPriceBox(h) +
         buildReservationNote(h) +
         (h.notes ? '<div class="housing-notes">' + h.notes + '</div>' : '') +
+        mapHtml +
         (isReal ? '<a class="housing-link" href="' + h.url + '" target="_blank" rel="noopener">View on Airbnb →</a>' : '') +
       '</div></div>';
   }
 
   function renderHousing(itin, hotels) {
+    mapsToInit = [];
     var stops = itin.filter(function(s) { return s.city !== 'Home'; });
     var pickedCities    = [];
     var comparingCities = [];
@@ -204,6 +217,28 @@
       '<p class="housing-intro">' + intro + '</p>' +
       summaryHtml +
       sections;
+
+    initHousingMaps();
+  }
+
+  // Small, non-interactive-feeling location maps — one per card, centered on
+  // an approximate neighborhood point (Airbnb doesn't expose exact
+  // coordinates in the listing data, only the general area).
+  function initHousingMaps() {
+    mapsToInit.forEach(function(m) {
+      var el = document.getElementById(m.id);
+      if (!el || typeof L === 'undefined') return;
+      var map = L.map(m.id, { zoomControl: false, attributionControl: false, scrollWheelZoom: false })
+        .setView(m.coords, 14);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(map);
+      var icon = L.divIcon({
+        className: 'c-marker',
+        html: '<div class="c-pin" style="width:26px;height:26px;background:' + m.color + '">' +
+              '<span style="font-size:0.7rem">🏠</span></div>',
+        iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -28]
+      });
+      L.marker(m.coords, { icon: icon }).addTo(map);
+    });
   }
 
   function joinNice(arr) {

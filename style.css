@@ -409,6 +409,14 @@ a { color: inherit; text-decoration: none; }
 }
 .housing-stat.housing-rating { color: var(--accent); }
 .housing-notes { font-size: 0.7rem; color: var(--muted); line-height: 1.45; }
+.housing-map {
+  width: 100%;
+  height: 170px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #0a1628;
+}
+.housing-map-caption { font-size: 0.62rem; color: var(--muted); line-height: 1.4; margin-top: -2px; }
 .housing-reservation {
   font-size: 0.68rem;
   padding: 5px 9px;
