@@ -321,6 +321,10 @@ a { color: inherit; text-decoration: none; }
   gap: 14px;
   align-items: stretch;
 }
+.housing-options-grid.picked {
+  grid-template-columns: minmax(0, 380px);
+  justify-content: start;
+}
 .housing-card {
   display: flex;
   flex-direction: column;
@@ -343,6 +347,7 @@ a { color: inherit; text-decoration: none; }
   padding: 2px 7px; border-radius: 10px; white-space: nowrap;
 }
 .housing-badge.booked    { background: rgba(39,174,96,0.15);  color: var(--green); }
+.housing-badge.picked    { background: rgba(45,125,210,0.18); color: var(--bl); }
 .housing-badge.searching { background: rgba(255,255,255,0.06); color: var(--muted); }
 .housing-img {
   width: 100%; height: 145px;

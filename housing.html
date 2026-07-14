@@ -42,11 +42,13 @@
         '<p style="color:var(--muted);padding:40px 0">Failed to load trip data.</p>';
     });
 
-  // All candidate options within a city render identically — we're still
-  // comparing them side by side, none is singled out as a "top pick".
-  // Only booked/searching status gets a badge.
+  // "picked" = the group has settled on this one, but it's not reserved/paid
+  // yet. "booked" = an actual confirmed reservation. "searching" = no
+  // candidates added yet. Plain "candidate" rows (still comparing) get no
+  // badge — none of them is singled out as a "top pick".
   function badgeInfo(h) {
     if (h.status === 'booked')    return { cls: 'booked',    label: 'Booked' };
+    if (h.status === 'picked')    return { cls: 'picked',    label: '✓ Picked' };
     if (h.status === 'searching') return { cls: 'searching', label: 'Searching' };
     return null;
   }
@@ -111,21 +113,35 @@
 
   function renderHousing(itin, hotels) {
     var stops = itin.filter(function(s) { return s.city !== 'Home'; });
+    var pickedCities    = [];
+    var comparingCities = [];
 
     var sections = stops.map(function(stop, i) {
       var color   = STOP_COLORS[i] || '#2d7dd2';
       var page    = CITY_PAGES[stop.city] || '#';
       var options = hotels.filter(function(x) { return x.city === stop.city; });
 
+      // If the group has settled on a pick (or actually booked something),
+      // only show that — otherwise fall back to the full side-by-side
+      // comparison of candidates still being weighed.
+      var finalists = options.filter(function(h) { return h.status === 'picked' || h.status === 'booked'; });
+      var isDecided = finalists.length > 0;
+      var shown     = isDecided ? finalists : options;
+
+      if (isDecided) pickedCities.push(stop.city);
+      else if (options.length) comparingCities.push(stop.city);
+
       var checkOut = fmtShort(addDays(stop.date, stop.nights || 0));
 
-      var cardsHtml = options.length
-        ? options.map(function(h) { return buildOptionCard(h, stop, color); }).join('')
+      var cardsHtml = shown.length
+        ? shown.map(function(h) { return buildOptionCard(h, stop, color); }).join('')
         : '<div class="housing-card tbd" style="border-top-color:' + color + '">' +
             '<div class="housing-card-head"><span class="housing-badge searching">Searching</span></div>' +
             '<div class="housing-img-placeholder">' + (stop.emoji || '🏠') + '</div>' +
             '<div class="housing-body"><div class="housing-name" style="color:var(--muted)">No options added yet</div></div>' +
           '</div>';
+
+      var gridClass = 'housing-options-grid' + (isDecided && shown.length === 1 ? ' picked' : '');
 
       return '<section class="housing-city-section">' +
         '<div class="housing-city-heading">' +
@@ -133,13 +149,25 @@
           '<a class="housing-city-title" href="' + page + '">' + (stop.flag || '') + ' ' + stop.city + '</a>' +
           '<span class="housing-city-dates">' + fmtShort(stop.date) + ' – ' + checkOut + ' · ' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : '') + '</span>' +
         '</div>' +
-        '<div class="housing-options-grid">' + cardsHtml + '</div>' +
+        '<div class="' + gridClass + '">' + cardsHtml + '</div>' +
       '</section>';
     }).join('');
 
+    var introBits = [];
+    if (pickedCities.length)    introBits.push('Housing is picked for ' + joinNice(pickedCities) + '.');
+    if (comparingCities.length) introBits.push('Still comparing options for ' + joinNice(comparingCities) + '.');
+    var intro = (introBits.length ? introBits.join(' ') : 'Comparing Airbnb options — nothing decided yet.') +
+      ' Prices are split ' + GROUP_SIZE + ' ways.';
+
     document.getElementById('housingPage').innerHTML =
-      '<p class="housing-intro">Comparing 2–3 Airbnb options per city — nothing booked yet. Prices are split ' + GROUP_SIZE + ' ways.</p>' +
+      '<p class="housing-intro">' + intro + '</p>' +
       sections;
+  }
+
+  function joinNice(arr) {
+    if (arr.length <= 1) return arr.join('');
+    if (arr.length === 2) return arr[0] + ' & ' + arr[1];
+    return arr.slice(0, -1).join(', ') + ' & ' + arr[arr.length - 1];
   }
   </script>
 </body>
