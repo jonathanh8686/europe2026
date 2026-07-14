@@ -180,16 +180,14 @@
             '<div class="housing-body"><div class="housing-name" style="color:var(--muted)">No options added yet</div></div>' +
           '</div>';
 
-      var gridClass = 'housing-options-grid' + (isDecided && shown.length === 1 ? ' picked' : '');
-
-      return '<section class="housing-city-section">' +
+      return '<div class="housing-city-col">' +
         '<div class="housing-city-heading">' +
           '<span class="housing-city-num" style="background:' + color + '">' + (i + 1) + '</span>' +
           '<a class="housing-city-title" href="' + page + '">' + (stop.flag || '') + ' ' + stop.city + '</a>' +
-          '<span class="housing-city-dates">' + fmtShort(stop.date) + ' – ' + checkOut + ' · ' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : '') + '</span>' +
         '</div>' +
-        '<div class="' + gridClass + '">' + cardsHtml + '</div>' +
-      '</section>';
+        '<div class="housing-city-dates">' + fmtShort(stop.date) + ' – ' + checkOut + ' · ' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : '') + '</div>' +
+        '<div class="housing-col-cards">' + cardsHtml + '</div>' +
+      '</div>';
     }).join('');
 
     var introBits = [];
@@ -216,7 +214,7 @@
     document.getElementById('housingPage').innerHTML =
       '<p class="housing-intro">' + intro + '</p>' +
       summaryHtml +
-      sections;
+      '<div class="housing-columns">' + sections + '</div>';
 
     initHousingMaps();
   }

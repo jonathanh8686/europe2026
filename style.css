@@ -290,7 +290,7 @@ a { color: inherit; text-decoration: none; }
 .t-event.free      { border-left-color: var(--green);  background: rgba(39,174,96,0.08); }
 
 /* ── Housing page ── */
-.housing-page { max-width: 1160px; margin: 0 auto; padding: 26px 20px 60px; }
+.housing-page { max-width: 1320px; margin: 0 auto; padding: 26px 20px 60px; }
 .housing-intro { color: var(--muted); font-size: 0.84rem; margin-bottom: 14px; }
 
 .housing-summary {
@@ -316,38 +316,36 @@ a { color: inherit; text-decoration: none; }
 .hs-value { font-size: 1.3rem; font-weight: 700; color: var(--text); }
 .hs-value.accent { color: var(--green); }
 
-.housing-city-section { margin-bottom: 32px; }
-.housing-city-section:last-child { margin-bottom: 0; }
+/* All 4 cities as columns in a single row, so every pick is visible at once */
+.housing-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+.housing-city-col { display: flex; flex-direction: column; min-width: 0; }
 .housing-city-heading {
   display: flex;
   align-items: baseline;
-  gap: 9px;
-  margin-bottom: 13px;
-  padding-bottom: 9px;
-  border-bottom: 1px solid var(--border);
+  gap: 7px;
+  margin-bottom: 2px;
 }
 .housing-city-num {
-  width: 22px; height: 22px;
+  width: 20px; height: 20px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.68rem; font-weight: 700; color: #fff;
+  font-size: 0.64rem; font-weight: 700; color: #fff;
   flex-shrink: 0;
   align-self: center;
 }
-.housing-city-title { font-size: 1.05rem; font-weight: 700; }
+.housing-city-title { font-size: 0.94rem; font-weight: 700; }
 .housing-city-title:hover { color: var(--bl); }
-.housing-city-dates { font-size: 0.76rem; color: var(--muted); }
-
-.housing-options-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 14px;
-  align-items: stretch;
+.housing-city-dates {
+  font-size: 0.68rem; color: var(--muted);
+  margin-bottom: 10px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
 }
-.housing-options-grid.picked {
-  grid-template-columns: minmax(0, 380px);
-  justify-content: start;
-}
+.housing-col-cards { display: flex; flex-direction: column; gap: 14px; flex: 1; }
 .housing-card {
   display: flex;
   flex-direction: column;
@@ -373,13 +371,13 @@ a { color: inherit; text-decoration: none; }
 .housing-badge.picked    { background: rgba(45,125,210,0.18); color: var(--bl); }
 .housing-badge.searching { background: rgba(255,255,255,0.06); color: var(--muted); }
 .housing-img {
-  width: 100%; height: 145px;
+  width: 100%; height: 120px;
   object-fit: cover;
   margin-top: 7px;
   background: #0a1628;
 }
 .housing-img-placeholder {
-  width: 100%; height: 145px;
+  width: 100%; height: 120px;
   margin-top: 7px;
   background: rgba(255,255,255,0.03);
   border-top: 1px dashed var(--border);
@@ -411,7 +409,7 @@ a { color: inherit; text-decoration: none; }
 .housing-notes { font-size: 0.7rem; color: var(--muted); line-height: 1.45; }
 .housing-map {
   width: 100%;
-  height: 170px;
+  height: 130px;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: #0a1628;
@@ -498,9 +496,10 @@ a { color: inherit; text-decoration: none; }
   .city-stop-link { min-width: 110px; padding: 10px 12px; }
   .city-hero-name { font-size: 1.5rem; }
   .housing-city-heading { flex-wrap: wrap; }
+  .housing-columns { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 480px) {
-  .housing-options-grid { grid-template-columns: 1fr; }
+  .housing-columns { grid-template-columns: 1fr; }
   .housing-summary-item { border-right: none; border-bottom: 1px solid var(--border); }
   .housing-summary-item:last-child { border-bottom: none; }
 }
