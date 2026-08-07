@@ -20,13 +20,14 @@
     .schedule-col {
       overflow-y: auto;
       border-left: 1px solid var(--border);
-      background: #0d1828;
+      background: var(--navy);
       padding: 20px 22px 48px;
     }
 
     /* ── Calendar ── */
     .cal-month-label {
-      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .6px;
@@ -41,9 +42,10 @@
     }
     .cal-wd {
       text-align: center;
+      font-family: var(--font-mono);
       font-size: 0.58rem;
       font-weight: 700;
-      color: rgba(143,163,188,0.45);
+      color: rgba(139,142,151,0.5);
       padding: 4px 0;
       text-transform: uppercase;
     }
@@ -54,12 +56,13 @@
       align-items: center;
       justify-content: center;
       border-radius: 6px;
+      font-family: var(--font-mono);
       font-size: 0.76rem;
       font-weight: 500;
-      color: rgba(143,163,188,0.2);
+      color: rgba(139,142,151,0.25);
     }
     .cal-cell.in-month {
-      color: rgba(143,163,188,0.4);
+      color: rgba(139,142,151,0.45);
       background: rgba(255,255,255,0.02);
     }
     .cal-cell.trip-day {
@@ -73,7 +76,7 @@
     .cal-cell.fly-home {
       color: var(--muted);
       background: rgba(255,255,255,0.04);
-      border: 1px dashed rgba(143,163,188,0.2);
+      border: 1px dashed rgba(139,142,151,0.25);
       font-size: 0.68rem;
     }
     .cal-fly-icon { font-size: 0.5rem; line-height: 1.2; }
@@ -93,14 +96,16 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 3px 9px 3px 5px;
-      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
       color: var(--muted);
     }
     .cal-leg-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 
     /* ── Stop cards ── */
     .sec-title {
-      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .6px;
@@ -129,18 +134,19 @@
       flex-shrink: 0;
     }
     .stop-body { flex: 1; min-width: 0; }
-    .stop-name  { font-size: 0.9rem; font-weight: 700; }
-    .stop-dates { font-size: 0.7rem; color: var(--muted); margin-top: 1px; }
+    .stop-name  { font-family: var(--font-mono); font-size: 0.88rem; font-weight: 700; }
+    .stop-dates { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
     .stop-nights {
       display: inline-block;
       background: rgba(255,255,255,0.07);
       border-radius: 10px;
       padding: 1px 7px;
-      font-size: 0.62rem;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
       color: var(--muted);
       margin-top: 3px;
     }
-    .stop-arrow { color: rgba(143,163,188,0.35); font-size: 0.85rem; }
+    .stop-arrow { color: rgba(139,142,151,0.4); font-size: 0.85rem; }
 
     /* ── Divider & suggested ── */
     .sec-div { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
@@ -149,7 +155,7 @@
       background: none; border: 1px solid var(--border);
       color: var(--muted); border-radius: 8px;
       padding: 7px 12px; cursor: pointer;
-      font-size: 0.74rem; font-family: inherit;
+      font-size: 0.74rem; font-family: var(--font-mono);
       transition: all .15s; margin-bottom: 10px;
     }
     .sugg-toggle:hover { color: var(--text); border-color: var(--bl); }
@@ -216,7 +222,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 var CITY_PAGES  = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
-var STOP_COLORS = ['#1e5fa8', '#f5a623', '#27ae60', '#9b59b6'];
+var STOP_COLORS = ['#C4622F', '#4C6FA5', '#3E8E76', '#8368B8'];
 var FALLBACK_COORDS = {
   Bologna: [44.4939, 11.3426], Milan: [45.4642, 9.19],
   Interlaken: [46.6863, 8.1638], Zurich: [47.3769, 8.5417],
@@ -423,9 +429,10 @@ function renderScheduleCol(itin, stops, suggestions) {
 // ── Map ────────────────────────────────────────────────────────────────────────────────────────────
 function initMap(stops, suggestions) {
   var map = L.map('map', { zoomControl: true });
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    maxZoom: 18
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    maxZoom: 18,
+    subdomains: 'abcd'
   }).addTo(map);
 
   var allCoords = [];
@@ -437,7 +444,7 @@ function initMap(stops, suggestions) {
     allCoords.push(c);
     var icon = L.divIcon({
       className: 'c-marker',
-      html: '<div class="c-pin" style="width:20px;height:20px;background:#18273d;border-color:rgba(143,163,188,0.18)">' +
+      html: '<div class="c-pin" style="width:20px;height:20px;background:#1D2027;border-color:rgba(139,142,151,0.25)">' +
             '<span style="font-size:0.58rem">' + (s.emoji || '●') + '</span></div>',
       iconSize: [20, 20], iconAnchor: [10, 20], popupAnchor: [0, -24]
     });
@@ -449,7 +456,7 @@ function initMap(stops, suggestions) {
   // Route line
   var routeCoords = stops.map(function(s) { return getCoords(s.city, s); }).filter(Boolean);
   if (routeCoords.length > 1) {
-    L.polyline(routeCoords, { color: '#2d7dd2', weight: 2.5, opacity: 0.6, dashArray: '6 4' }).addTo(map);
+    L.polyline(routeCoords, { color: '#E8A33D', weight: 2.5, opacity: 0.6, dashArray: '6 4' }).addTo(map);
   }
 
   // Planned stop markers
