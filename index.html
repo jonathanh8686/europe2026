@@ -45,7 +45,7 @@
       font-family: var(--font-mono);
       font-size: 0.58rem;
       font-weight: 700;
-      color: rgba(166,171,182,0.5);
+      color: rgba(107,112,123,0.5);
       padding: 4px 0;
       text-transform: uppercase;
     }
@@ -59,11 +59,11 @@
       font-family: var(--font-mono);
       font-size: 0.76rem;
       font-weight: 500;
-      color: rgba(166,171,182,0.25);
+      color: rgba(107,112,123,0.25);
     }
     .cal-cell.in-month {
-      color: rgba(166,171,182,0.45);
-      background: rgba(255,255,255,0.02);
+      color: rgba(107,112,123,0.55);
+      background: rgba(0,0,0,0.035);
     }
     .cal-cell.trip-day {
       color: #fff;
@@ -75,8 +75,8 @@
     .cal-cell.travel-day { text-shadow: 0 1px 3px rgba(0,0,0,.55); }
     .cal-cell.fly-home {
       color: var(--muted);
-      background: rgba(255,255,255,0.04);
-      border: 1px dashed rgba(166,171,182,0.25);
+      background: rgba(0,0,0,0.04);
+      border: 1px dashed rgba(107,112,123,0.25);
       font-size: 0.68rem;
     }
     .cal-fly-icon { font-size: 0.5rem; line-height: 1.2; }
@@ -92,7 +92,7 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      background: rgba(255,255,255,0.04);
+      background: rgba(0,0,0,0.04);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 3px 9px 3px 5px;
@@ -116,7 +116,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      background: rgba(255,255,255,0.03);
+      background: rgba(0,0,0,0.03);
       border: 1px solid var(--border);
       border-left: 3px solid transparent;
       border-radius: var(--r);
@@ -125,7 +125,7 @@
       text-decoration: none;
       transition: background .15s;
     }
-    .stop-card:hover { background: rgba(255,255,255,0.07); }
+    .stop-card:hover { background: rgba(0,0,0,0.07); }
     .stop-num {
       width: 26px; height: 26px;
       border-radius: 50%;
@@ -138,7 +138,7 @@
     .stop-dates { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
     .stop-nights {
       display: inline-block;
-      background: rgba(255,255,255,0.07);
+      background: rgba(0,0,0,0.07);
       border-radius: 10px;
       padding: 1px 7px;
       font-family: var(--font-mono);
@@ -146,7 +146,7 @@
       color: var(--muted);
       margin-top: 3px;
     }
-    .stop-arrow { color: rgba(166,171,182,0.4); font-size: 0.85rem; }
+    .stop-arrow { color: rgba(107,112,123,0.4); font-size: 0.85rem; }
 
     /* ── Divider & suggested ── */
     .sec-div { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
@@ -165,7 +165,7 @@
       gap: 7px;
     }
     .sugg-chip {
-      background: rgba(255,255,255,0.03);
+      background: rgba(0,0,0,0.03);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 8px 10px;
@@ -296,7 +296,7 @@ function renderScheduleCol(itin, stops, suggestions) {
   // checkout date (inclusive), so a checkout date that's also the next stop's
   // arrival date picks up both cities' colors — rendered below as a two-tone
   // gradient "travel day" (e.g. an early train out of one city and into the next).
-  var EMPTY_COLOR = 'rgba(255,255,255,0.03)';
+  var EMPTY_COLOR = 'rgba(0,0,0,0.03)';
   var dayMap = {};
   stops.forEach(function(stop, i) {
     for (var n = 0; n <= (stop.nights || 0); n++) {
@@ -429,7 +429,7 @@ function renderScheduleCol(itin, stops, suggestions) {
 // ── Map ────────────────────────────────────────────────────────────────────────────────────────────
 function initMap(stops, suggestions) {
   var map = L.map('map', { zoomControl: true });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
     maxZoom: 18,
     subdomains: 'abcd'
@@ -444,8 +444,8 @@ function initMap(stops, suggestions) {
     allCoords.push(c);
     var icon = L.divIcon({
       className: 'c-marker',
-      html: '<div class="c-pin" style="width:20px;height:20px;background:#1D2027;border-color:rgba(166,171,182,0.3)">' +
-            '<span style="font-size:0.58rem">' + (s.emoji || '●') + '</span></div>',
+      html: '<div class="c-pin" style="width:20px;height:20px;background:#FFFFFF;border-color:rgba(107,112,123,0.4)">' +
+            '<span style="font-size:0.58rem;color:#444">' + (s.emoji || '●') + '</span></div>',
       iconSize: [20, 20], iconAnchor: [10, 20], popupAnchor: [0, -24]
     });
     L.marker(c, { icon: icon }).addTo(map)
@@ -456,7 +456,7 @@ function initMap(stops, suggestions) {
   // Route line
   var routeCoords = stops.map(function(s) { return getCoords(s.city, s); }).filter(Boolean);
   if (routeCoords.length > 1) {
-    L.polyline(routeCoords, { color: '#FFB13D', weight: 2.5, opacity: 0.7, dashArray: '6 4' }).addTo(map);
+    L.polyline(routeCoords, { color: '#B45309', weight: 2.5, opacity: 0.75, dashArray: '6 4' }).addTo(map);
   }
 
   // Planned stop markers

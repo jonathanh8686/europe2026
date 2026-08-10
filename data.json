@@ -91,14 +91,34 @@
       "flag": "🇮🇹",
       "emoji": "🍝",
       "nights": 3,
-      "activities": [
-        "Arrive at BLQ airport, check in",
-        "Explore historic center & medieval towers",
-        "Food tour: tagliatelle, tortellini, mortadella",
-        "Visit Piazza Maggiore & San Petronio Basilica",
-        "Depart for Milan ~9:00am on the 15th (Frecciarossa/Italo, ~1 hr)"
-      ],
-      "notes": "Culinary heart of Italy. Book food tours in advance. Leave for Milan on a morning train (~9am) on the 15th instead of overnight — opens up a full day in Milan."
+      "activities": [],
+      "notes": "",
+      "days": [
+        {
+          "label": "Day 1",
+          "date": "2026-09-12",
+          "events": []
+        },
+        {
+          "label": "Day 2",
+          "date": "2026-09-13",
+          "events": []
+        },
+        {
+          "label": "Day 3",
+          "date": "2026-09-14",
+          "events": [
+            {
+              "time": "19:00",
+              "label": "Bologna Cooking Class — Pasta, Tagliatelle, Ragù & Spritz",
+              "type": "food",
+              "status": "booked",
+              "attendees": "all",
+              "link": "https://www.viator.com/tours/Bologna/Exclusive-Bologna-Cooking-Class-Pasta-Tagliatelle-Ragu-and-Spritz/d791-240444P17"
+            }
+          ]
+        }
+      ]
     },
     {
       "date": "2026-09-15",
@@ -107,13 +127,8 @@
       "flag": "🇮🇹",
       "emoji": "🏙️",
       "nights": 1,
-      "activities": [
-        "Morning train from Bologna (~9:00am departure, arrive ~10am)",
-        "Duomo di Milano & Galleria Vittorio Emanuele II",
-        "Navigli canal district for lunch/dinner",
-        "Early night — early train to Interlaken tomorrow"
-      ],
-      "notes": "Arriving mid-morning instead of overnight gives a full day in Milan. Leave early (~7:00-7:30am) the next morning for Interlaken."
+      "activities": [],
+      "notes": ""
     },
     {
       "date": "2026-09-16",
@@ -122,13 +137,8 @@
       "flag": "🇨🇭",
       "emoji": "⛰️",
       "nights": 2,
-      "activities": [
-        "Early morning train from Milan (~7:00-7:30am, Trenitalia EuroCity to Spiez, then SBB to Interlaken Ost, ~3h15m total)",
-        "Jungfraujoch (Top of Europe) day trip",
-        "Hiking in the Bernese Oberland",
-        "Paragliding or adventure activities"
-      ],
-      "notes": "Gateway to the Swiss Alps. Book Jungfraujoch tickets in advance. Early departure from Milan maximizes the first afternoon in the Alps."
+      "activities": [],
+      "notes": ""
     },
     {
       "date": "2026-09-18",
@@ -137,13 +147,8 @@
       "flag": "🇨🇭",
       "emoji": "🏦",
       "nights": 2,
-      "activities": [
-        "Train from Interlaken to Zurich (~2 hrs)",
-        "Explore Altstadt (Old Town) & Lindenhügel",
-        "Boat trip on Lake Zurich",
-        "Swiss National Museum & Bahnhofstrasse"
-      ],
-      "notes": "Sleek, walkable, and on the lake. Great last stop before flying home from ZRH."
+      "activities": [],
+      "notes": ""
     },
     {
       "date": "2026-09-20",
@@ -152,11 +157,8 @@
       "flag": "🇺🇸",
       "emoji": "✈️",
       "nights": 0,
-      "activities": [
-        "Travel to ZRH airport",
-        "Flight from Zurich back to LAX"
-      ],
-      "notes": "End of trip. Safe travels home!"
+      "activities": [],
+      "notes": ""
     }
   ],
   "flights": [
@@ -199,7 +201,10 @@
       "city": "Bologna",
       "type": "airbnb",
       "status": "booked",
-      "coords": [44.4978, 11.3432],
+      "coords": [
+        44.4978,
+        11.3432
+      ],
       "name": "[BolognaCentro]-9 People Loft-Private Lift&Terrace",
       "url": "https://www.airbnb.com/rooms/1494163770022649984",
       "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1494163770022649984/original/3a84f288-a84a-42c3-9b32-7c6df518826a.jpeg?im_w=720",
@@ -224,7 +229,10 @@
       "city": "Bologna",
       "type": "airbnb",
       "status": "candidate",
-      "coords": [44.4954, 11.3462],
+      "coords": [
+        44.4954,
+        11.3462
+      ],
       "name": "Royal Quadrivio - 4 Bedrooms 4 Bathrooms",
       "url": "https://www.airbnb.com/rooms/1618284629582978066",
       "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1618284629582978066/original/b7eb59d0-b69a-4ec5-923c-2b1736bcc216.jpeg?im_w=720",
@@ -249,7 +257,10 @@
       "city": "Milan",
       "type": "airbnb",
       "status": "booked",
-      "coords": [45.4855, 9.1870],
+      "coords": [
+        45.4855,
+        9.187
+      ],
       "name": "Luxury New Home - Garibaldi Station 5 minutes away",
       "url": "https://www.airbnb.com/rooms/1543526175717561865",
       "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1543526175717561865/original/360663f4-4105-452f-88d9-e08c2f3b299c.jpeg?im_w=720",
@@ -274,7 +285,10 @@
       "city": "Milan",
       "type": "airbnb",
       "status": "candidate",
-      "coords": [45.4510, 9.1885],
+      "coords": [
+        45.451,
+        9.1885
+      ],
       "name": "Bocconi House, 4 bedrooms",
       "url": "https://www.airbnb.com/rooms/1608300051688019646",
       "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1608300051688019646/original/f43a1000-374a-4dcb-b8f0-f88844f7e858.jpeg?im_w=720",
@@ -299,7 +313,10 @@
       "city": "Milan",
       "type": "airbnb",
       "status": "candidate",
-      "coords": [45.4700, 9.1900],
+      "coords": [
+        45.47,
+        9.19
+      ],
       "name": "-20% [3 Baths - 3 Bedrooms] 10PAX - Near Metro",
       "url": "https://www.airbnb.com/rooms/1608042043979966336",
       "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1608042043979966336/original/cb775bbc-6a89-44dd-8772-30606e172079.png?im_w=720",
@@ -324,7 +341,10 @@
       "city": "Interlaken",
       "type": "airbnb",
       "status": "candidate",
-      "coords": [46.6560, 7.9500],
+      "coords": [
+        46.656,
+        7.95
+      ],
       "name": "Cozy 4 room flat next to trainstation Burglauenen",
       "url": "https://www.airbnb.com/rooms/46751778",
       "image": "https://a0.muscache.com/im/pictures/a2af5198-431f-474e-bf32-e70ad2ca17a3.jpg?im_w=720",
@@ -349,7 +369,10 @@
       "city": "Interlaken",
       "type": "airbnb",
       "status": "booked",
-      "coords": [46.6957, 7.8930],
+      "coords": [
+        46.6957,
+        7.893
+      ],
       "name": "Chalet 1752",
       "url": "https://www.airbnb.com/rooms/24481256",
       "image": "https://a0.muscache.com/im/pictures/prohost-api/Hosting-24481256/original/b737bf2f-781c-4c09-8225-ecc36caebaa5.jpeg?im_w=720",
@@ -374,7 +397,10 @@
       "city": "Zurich",
       "type": "airbnb",
       "status": "booked",
-      "coords": [47.4308, 8.5615],
+      "coords": [
+        47.4308,
+        8.5615
+      ],
       "name": "Penthouse Zurich: City AC Free E-Parking Airport",
       "url": "https://www.airbnb.com/rooms/1593994888564907008",
       "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1593994888564907008/original/0342cd93-1d6e-49d5-b240-e155334df0da.png?im_w=720",
@@ -399,7 +425,10 @@
       "city": "Zurich",
       "type": "airbnb",
       "status": "candidate",
-      "coords": [47.3745, 8.5250],
+      "coords": [
+        47.3745,
+        8.525
+      ],
       "name": "•Urban•Rooftop•Lux•Chalet•TopLocation",
       "url": "https://www.airbnb.com/rooms/1562314858864235358",
       "image": "https://a0.muscache.com/im/pictures/hosting/Hosting-1562314858864235358/original/33397290-3c60-4144-be9f-94f6ce89b2e4.jpeg?im_w=720",

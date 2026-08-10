@@ -40,6 +40,38 @@ function addDays(s, n) {
   d.setDate(d.getDate() + n);
   return d.toISOString().slice(0, 10);
 }
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.textContent = str == null ? '' : str;
+  return div.innerHTML;
+}
+
+// One event within a time slot. `attendees` is 'all', a count, or a list of
+// names -- when it's a subset of the group, that's called out explicitly so
+// it reads as optional/split rather than a plan for everyone.
+function renderEvent(ev) {
+  var who = '';
+  if (Array.isArray(ev.attendees)) {
+    who = ev.attendees.join(', ');
+  } else if (typeof ev.attendees === 'number') {
+    who = ev.attendees + ' people';
+  } else if (ev.attendees && ev.attendees !== 'all') {
+    who = ev.attendees;
+  }
+
+  var titleHtml = ev.link
+    ? '<a href="' + ev.link + '" target="_blank" rel="noopener">' + escapeHtml(ev.label) + ' ↗</a>'
+    : escapeHtml(ev.label);
+
+  return '<div class="t-event' + (ev.type ? ' ' + ev.type : '') + (ev.status ? ' ' + ev.status : '') + '">' +
+    '<div class="t-event-top">' +
+      '<div class="t-event-label">' + titleHtml + '</div>' +
+      (ev.status === 'booked' ? '<span class="t-event-badge booked">✓ Booked</span>' : '') +
+      (ev.status === 'idea' ? '<span class="t-event-badge idea">Idea</span>' : '') +
+    '</div>' +
+    (who ? '<div class="t-event-who">👥 ' + escapeHtml(who) + '</div>' : '') +
+  '</div>';
+}
 
 // ── Fetch data and render ────────────────────────────────────────────────────────────
 fetch('data.json')
@@ -88,11 +120,14 @@ function renderCity(stop) {
     '</div>';
 
   // ── Activities ──
+  var actList = stop.activities || [];
   var acts = '<div class="panel">' +
     '<div class="panel-title">What To Do</div>' +
-    (stop.activities || []).map(function(a) {
-      return '<div class="act-item"><div class="act-dot"></div><span>' + a + '</span></div>';
-    }).join('') +
+    (actList.length
+      ? actList.map(function(a) {
+          return '<div class="act-item"><div class="act-dot"></div><span>' + a + '</span></div>';
+        }).join('')
+      : '<p class="panel-empty">Nothing planned yet — add ideas as we go.</p>') +
     '</div>';
 
   // ── Schedule ──
@@ -105,19 +140,22 @@ function renderCity(stop) {
         '" data-di="' + di + '">' + day.label + ' · ' + fmtShort(day.date) + '</button>';
     }
 
+    // Multiple events can share a time slot -- e.g. an optional activity
+    // that's only a subset of the group, running alongside something else.
     var evMap = {};
-    (day.events || []).forEach(function(e) { evMap[e.time] = e; });
+    (day.events || []).forEach(function(e) {
+      if (!evMap[e.time]) evMap[e.time] = [];
+      evMap[e.time].push(e);
+    });
 
     daysHtml += '<div class="sched-day' + (isActive ? ' active' : '') + '" data-di="' + di + '">';
     daysHtml += '<div class="sched-day-label">' + fmtLong(day.date) + '</div>';
     SLOT_KEYS.forEach(function(key, ki) {
-      var ev = evMap[key];
+      var evs = evMap[key] || [];
       daysHtml += '<div class="t-slot">' +
         '<span class="t-time">' + SLOT_LABELS[ki] + '</span>' +
         '<div class="t-content">' +
-          (ev
-            ? '<div class="t-event' + (ev.type ? ' ' + ev.type : '') + '">' + ev.label + '</div>'
-            : '') +
+          evs.map(renderEvent).join('') +
         '</div>' +
         '</div>';
     });
