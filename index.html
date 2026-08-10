@@ -45,7 +45,7 @@
       font-family: var(--font-mono);
       font-size: 0.58rem;
       font-weight: 700;
-      color: rgba(139,142,151,0.5);
+      color: rgba(166,171,182,0.5);
       padding: 4px 0;
       text-transform: uppercase;
     }
@@ -59,10 +59,10 @@
       font-family: var(--font-mono);
       font-size: 0.76rem;
       font-weight: 500;
-      color: rgba(139,142,151,0.25);
+      color: rgba(166,171,182,0.25);
     }
     .cal-cell.in-month {
-      color: rgba(139,142,151,0.45);
+      color: rgba(166,171,182,0.45);
       background: rgba(255,255,255,0.02);
     }
     .cal-cell.trip-day {
@@ -76,7 +76,7 @@
     .cal-cell.fly-home {
       color: var(--muted);
       background: rgba(255,255,255,0.04);
-      border: 1px dashed rgba(139,142,151,0.25);
+      border: 1px dashed rgba(166,171,182,0.25);
       font-size: 0.68rem;
     }
     .cal-fly-icon { font-size: 0.5rem; line-height: 1.2; }
@@ -146,7 +146,7 @@
       color: var(--muted);
       margin-top: 3px;
     }
-    .stop-arrow { color: rgba(139,142,151,0.4); font-size: 0.85rem; }
+    .stop-arrow { color: rgba(166,171,182,0.4); font-size: 0.85rem; }
 
     /* ── Divider & suggested ── */
     .sec-div { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
@@ -222,7 +222,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 var CITY_PAGES  = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
-var STOP_COLORS = ['#C4622F', '#4C6FA5', '#3E8E76', '#8368B8'];
+var STOP_COLORS = ['#FF7A3D', '#4FA3FF', '#2ED9B8', '#A374FF'];
 var FALLBACK_COORDS = {
   Bologna: [44.4939, 11.3426], Milan: [45.4642, 9.19],
   Interlaken: [46.6863, 8.1638], Zurich: [47.3769, 8.5417],
@@ -444,7 +444,7 @@ function initMap(stops, suggestions) {
     allCoords.push(c);
     var icon = L.divIcon({
       className: 'c-marker',
-      html: '<div class="c-pin" style="width:20px;height:20px;background:#1D2027;border-color:rgba(139,142,151,0.25)">' +
+      html: '<div class="c-pin" style="width:20px;height:20px;background:#1D2027;border-color:rgba(166,171,182,0.3)">' +
             '<span style="font-size:0.58rem">' + (s.emoji || '●') + '</span></div>',
       iconSize: [20, 20], iconAnchor: [10, 20], popupAnchor: [0, -24]
     });
@@ -456,7 +456,7 @@ function initMap(stops, suggestions) {
   // Route line
   var routeCoords = stops.map(function(s) { return getCoords(s.city, s); }).filter(Boolean);
   if (routeCoords.length > 1) {
-    L.polyline(routeCoords, { color: '#E8A33D', weight: 2.5, opacity: 0.6, dashArray: '6 4' }).addTo(map);
+    L.polyline(routeCoords, { color: '#FFB13D', weight: 2.5, opacity: 0.7, dashArray: '6 4' }).addTo(map);
   }
 
   // Planned stop markers
