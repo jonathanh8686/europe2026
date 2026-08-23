@@ -14,26 +14,34 @@
   <div class="site-meta" id="headerMeta"></div>
   <div class="hspacer"></div>
   <a class="btn-ghost" href="housing.html">Housing</a>
+  <a class="btn-ghost" href="expenses.html">Expenses</a>
   <button class="btn-ghost" id="sidebarToggle"><span id="goingCount">9</span> confirmed</button>
 </header>
 
-<div class="home-layout">
+<main>
 
-  <!-- Left half: Map -->
-  <div class="map-col">
-    <div id="map"></div>
-    <!-- Attendee panel — overlays the map -->
-    <div class="sidebar-panel hidden" id="sidebarPanel">
-      <div id="attendeeChips"></div>
+  <!-- The calendar is the main focus of the homepage -->
+  <section class="cal-hero">
+    <div class="cal-hero-inner" id="calHero">
+      <p style="color:var(--muted);font-size:0.82rem">Loading…</p>
+    </div>
+  </section>
+
+  <div class="home-below">
+    <div class="map-panel">
+      <div id="map"></div>
+      <!-- Attendee panel — overlays the map -->
+      <div class="sidebar-panel hidden" id="sidebarPanel">
+        <div id="attendeeChips"></div>
+      </div>
+    </div>
+
+    <div class="stops-panel" id="stopsPanel">
+      <p style="color:var(--muted);font-size:0.82rem">Loading…</p>
     </div>
   </div>
 
-  <!-- Right half: Calendar + stops -->
-  <div class="schedule-col" id="scheduleCol">
-    <p style="color:var(--muted);font-size:0.82rem">Loading…</p>
-  </div>
-
-</div>
+</main>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
@@ -82,7 +90,8 @@ fetch('data.json')
     var itin  = data.itinerary || [];
     var stops = itin.filter(function(s) { return s.city !== 'Home'; });
 
-    renderScheduleCol(itin, stops, data.citySuggestions || []);
+    renderCalendarHero(data.trip || {}, itin, stops);
+    renderStopsPanel(stops, data.citySuggestions || []);
     initMap(stops, data.citySuggestions || []);
   });
 
@@ -105,8 +114,8 @@ function renderSidebar(attendees) {
   document.getElementById('attendeeChips').innerHTML = html;
 }
 
-// ── Right panel: calendar + stop cards ─────────────────────────────────────
-function renderScheduleCol(itin, stops, suggestions) {
+// ── Calendar hero: the main focus of the homepage ──────────────────────────
+function renderCalendarHero(trip, itin, stops) {
 
   // Build date → city info map. Each stop occupies its arrival date through its
   // checkout date (inclusive), so a checkout date that's also the next stop's
@@ -117,9 +126,10 @@ function renderScheduleCol(itin, stops, suggestions) {
   stops.forEach(function(stop, i) {
     for (var n = 0; n <= (stop.nights || 0); n++) {
       var key = addDays(stop.date, n);
-      if (!dayMap[key]) dayMap[key] = { colors: [], cities: [] };
+      if (!dayMap[key]) dayMap[key] = { colors: [], cities: [], emojis: [] };
       dayMap[key].colors.push(STOP_COLORS[i]);
       dayMap[key].cities.push(stop.city);
+      dayMap[key].emojis.push(stop.emoji || '');
     }
   });
 
@@ -131,6 +141,7 @@ function renderScheduleCol(itin, stops, suggestions) {
     if (dayMap[firstKey] && dayMap[firstKey].colors.length === 1) {
       dayMap[firstKey].colors.unshift(EMPTY_COLOR);
       dayMap[firstKey].cities.unshift('Home');
+      dayMap[firstKey].emojis.unshift('✈️');
       dayMap[firstKey].partial = true;
     }
   }
@@ -144,6 +155,7 @@ function renderScheduleCol(itin, stops, suggestions) {
     dayMap[home.date] = {
       colors: [STOP_COLORS[stops.length - 1], EMPTY_COLOR],
       cities: [lastStop.city, 'Home'],
+      emojis: [lastStop.emoji || '', '✈️'],
       reverse: true,
       partial: true
     };
@@ -153,12 +165,12 @@ function renderScheduleCol(itin, stops, suggestions) {
   var firstDay    = new Date(2026, 8, 1).getDay(); // 2
   var daysInMonth = 30;
 
-  var cal = '<div class="cal-month-label">September 2026</div><div class="cal-grid">';
-  ['S','M','T','W','T','F','S'].forEach(function(d) {
+  var cal = '<div class="cal-grid">';
+  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(function(d) {
     cal += '<div class="cal-wd">' + d + '</div>';
   });
   for (var b = 0; b < firstDay; b++) {
-    cal += '<div class="cal-cell"></div>';
+    cal += '<div class="cal-cell empty"></div>';
   }
   for (var d = 1; d <= daysInMonth; d++) {
     var key  = '2026-09-' + (d < 10 ? '0' : '') + d;
@@ -174,15 +186,16 @@ function renderScheduleCol(itin, stops, suggestions) {
         : 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 5%, ' +
           info.colors[info.colors.length - 1] + ' 18%, ' + info.colors[info.colors.length - 1] + ' 100%)';
       var linkCity = info.reverse ? fromCity : toCity;
-      cal += '<div class="cal-cell trip-day travel-day" style="background:' + grad + ';border-radius:8px" ' +
+      var toEmoji  = info.emojis[info.emojis.length - 1];
+      cal += '<div class="cal-cell trip-day travel-day" style="background:' + grad + '" ' +
              'title="' + fromCity + ' → ' + toCity + ' (travel day)" onclick="location.href=\'' + (CITY_PAGES[linkCity] || '#') + '\'">' +
-             d + '</div>';
+             '<span class="cal-daynum">' + d + '</span><span class="cal-emoji">' + toEmoji + '</span></div>';
     } else if (info) {
-      cal += '<div class="cal-cell trip-day" style="background:' + info.colors[0] + ';border-radius:8px" ' +
+      cal += '<div class="cal-cell trip-day" style="background:' + info.colors[0] + '" ' +
              'title="' + info.cities[0] + '" onclick="location.href=\'' + (CITY_PAGES[info.cities[0]] || '#') + '\'">' +
-             d + '</div>';
+             '<span class="cal-daynum">' + d + '</span><span class="cal-emoji">' + info.emojis[0] + '</span></div>';
     } else {
-      cal += '<div class="cal-cell in-month">' + d + '</div>';
+      cal += '<div class="cal-cell in-month"><span class="cal-daynum">' + d + '</span></div>';
     }
   }
   cal += '</div>';
@@ -195,7 +208,40 @@ function renderScheduleCol(itin, stops, suggestions) {
   });
   legend += '</div>';
 
-  // Stop cards
+  // Countdown — days until departure, or "underway" / "wrapped" once the
+  // trip window has started or passed.
+  var countdown = '';
+  if (trip.startDate && trip.endDate) {
+    var now   = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var start = new Date(trip.startDate + 'T00:00:00');
+    var end   = new Date(trip.endDate + 'T00:00:00');
+    var msPerDay = 86400000;
+    if (today < start) {
+      var daysLeft = Math.round((start - today) / msPerDay);
+      countdown = '<div class="cal-countdown-num">' + daysLeft + '</div>' +
+        '<div class="cal-countdown-label">day' + (daysLeft !== 1 ? 's' : '') + ' to go</div>';
+    } else if (today >= start && today <= end) {
+      var dayNum = Math.round((today - start) / msPerDay) + 1;
+      countdown = '<div class="cal-countdown-num">Day ' + dayNum + '</div>' +
+        '<div class="cal-countdown-label">trip is on</div>';
+    } else {
+      countdown = '<div class="cal-countdown-num">✓</div>' +
+        '<div class="cal-countdown-label">trip complete</div>';
+    }
+  }
+
+  var head = '<div class="cal-hero-head">' +
+    '<div><div class="cal-hero-title">September 2026</div>' +
+    '<div class="cal-hero-range">' + fmtShort(trip.startDate) + ' – ' + fmtShort(trip.endDate) + ', 2026</div></div>' +
+    '<div class="cal-countdown">' + countdown + '</div>' +
+    '</div>';
+
+  document.getElementById('calHero').innerHTML = head + cal + legend;
+}
+
+// ── Stop cards + suggested cities ───────────────────────────────────────────
+function renderStopsPanel(stops, suggestions) {
   var cards = '<div class="sec-title">Stops</div>';
   stops.forEach(function(stop, i) {
     var color = STOP_COLORS[i];
@@ -228,8 +274,7 @@ function renderScheduleCol(itin, stops, suggestions) {
       '</div>';
   }
 
-  document.getElementById('scheduleCol').innerHTML =
-    cal + legend + '<hr class="sec-div">' + cards + sugg;
+  document.getElementById('stopsPanel').innerHTML = cards + sugg;
 
   var btn = document.getElementById('suggToggle');
   if (btn) {

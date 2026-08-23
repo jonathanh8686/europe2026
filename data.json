@@ -154,7 +154,7 @@
               "label": "Paragliding — Interlaken (1:30 PM, ~1.5 hrs)",
               "type": "activity",
               "status": "booked",
-              "attendees": "Jonathan Hsieh"
+              "attendees": ["Michael Chen", "Derek Wen", "Trevor Guo", "Jonathan Hsieh", "Shreyank Kadadi", "Sean Chen"]
             }
           ]
         }
@@ -618,6 +618,20 @@
       "status": "suggested",
       "suggestedBy": [],
       "blurb": "Slovenia's underrated gem — a compact, car-free Old Town draped along the Ljubljanica River, crowned by a medieval castle. Perfectly positioned between Italy and Switzerland for a one-night stop."
+    }
+  ],
+  "otherExpenses": [
+    {
+      "id": "paragliding-interlaken",
+      "label": "Paragliding — Interlaken",
+      "city": "Interlaken",
+      "category": "Activities",
+      "emoji": "🪂",
+      "amount": null,
+      "currency": "USD",
+      "status": "booked",
+      "splitAmong": ["Michael Chen", "Derek Wen", "Trevor Guo", "Jonathan Hsieh", "Shreyank Kadadi", "Sean Chen"],
+      "notes": "Sep 17, 1:30 PM, ~1.5 hrs. Price TBD — update once known."
     }
   ],
   "budget": {

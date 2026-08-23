@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expenses – Europe 2026</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← Map</a>
+    <div class="hspacer"></div>
+    <div class="site-title" style="font-size:1.05rem">Expenses</div>
+    <div class="hspacer"></div>
+    <a class="btn-ghost" href="housing.html">Housing</a>
+  </header>
+  <main class="expenses-page" id="expensesPage">
+    <p style="color:var(--muted);padding:40px 0">Loading…</p>
+  </main>
+  <script>
+  var STOP_COLORS = ['#C1603A', '#5C86AC', '#5B9668', '#93639C'];
+  var CITY_PAGES  = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
+  var GROUP_SIZE  = 9; // default split for costs that apply to the whole group
+
+  function money(n) {
+    return '$' + Math.round(n).toLocaleString('en-US');
+  }
+  function fmtShort(s) {
+    return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+  }
+  function addDays(s, n) {
+    var d = new Date(s + 'T00:00:00');
+    d.setDate(d.getDate() + n);
+    return d.toISOString().slice(0, 10);
+  }
+  function badgeHtml(status) {
+    var label = status === 'booked' ? 'Booked' : status === 'picked' ? 'Picked' : 'Searching';
+    return '<span class="exp-row-badge ' + status + '">' + label + '</span>';
+  }
+
+  fetch('data.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      renderExpenses(data.itinerary || [], data.hotels || [], data.otherExpenses || []);
+    })
+    .catch(function() {
+      document.getElementById('expensesPage').innerHTML =
+        '<p style="color:var(--muted);padding:40px 0">Failed to load trip data.</p>';
+    });
+
+  function renderExpenses(itin, hotels, otherExpenses) {
+    var stops = itin.filter(function(s) { return s.city !== 'Home'; });
+
+    // Housing: reuse the same "decided" definition housing.html uses (picked
+    // or booked) — one row per pick, so a city can show up twice if it has
+    // more than one finalist still being weighed against a booked backup.
+    var housingRows = [];
+    var housingTotal = 0, housingPriced = 0, housingPending = 0;
+    stops.forEach(function(stop, i) {
+      var color   = STOP_COLORS[i] || '#DD8452';
+      var options = hotels.filter(function(h) { return h.city === stop.city; });
+      var picks   = options.filter(function(h) { return h.status === 'picked' || h.status === 'booked'; });
+      if (!picks.length) {
+        housingPending++;
+        housingRows.push({ color: color, page: CITY_PAGES[stop.city], flag: stop.flag, city: stop.city,
+          sub: 'No housing decided yet', status: 'searching', amount: null });
+        return;
+      }
+      picks.forEach(function(h) {
+        if (h.totalPrice) { housingTotal += h.totalPrice; housingPriced++; } else { housingPending++; }
+        housingRows.push({
+          color: color, page: CITY_PAGES[stop.city], flag: stop.flag, city: stop.city, name: h.name,
+          sub: fmtShort(stop.date) + ' – ' + fmtShort(addDays(stop.date, stop.nights || 0)) + ' · ' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : ''),
+          status: h.status, amount: h.totalPrice || null, splitCount: GROUP_SIZE
+        });
+      });
+    });
+
+    // Other expenses (activities, food, transport, ... — grows over time)
+    var otherTotal = 0, otherPending = 0;
+    otherExpenses.forEach(function(e) { e.amount ? otherTotal += e.amount : otherPending++; });
+
+    var grandTotal   = housingTotal + otherTotal;
+    var pendingCount = housingPending + otherPending;
+
+    var summary = '<div class="housing-summary">' +
+      '<div class="housing-summary-item"><span class="hs-label">Committed so far</span><span class="hs-value accent">' + money(grandTotal) + '</span></div>' +
+      '<div class="housing-summary-item"><span class="hs-label">Per person (avg)</span><span class="hs-value">' + money(grandTotal / GROUP_SIZE) + '</span></div>' +
+      '<div class="housing-summary-item"><span class="hs-label">Housing</span><span class="hs-value">' + money(housingTotal) + '</span></div>' +
+      '<div class="housing-summary-item"><span class="hs-label">Activities & other</span><span class="hs-value">' + money(otherTotal) + '</span></div>' +
+      '<div class="housing-summary-item"><span class="hs-label">Awaiting a price</span><span class="hs-value">' + pendingCount + '</span></div>' +
+      '</div>';
+
+    function housingRowHtml(r) {
+      var amountHtml = r.amount
+        ? '<div class="exp-row-total">' + money(r.amount) + '</div><div class="exp-row-pp">' + money(r.amount / r.splitCount) + '/person</div>'
+        : '<div class="exp-row-total">TBD</div>';
+      return '<a class="exp-row" href="' + (r.page || '#') + '">' +
+        '<div class="exp-row-main">' +
+          '<span class="exp-row-dot" style="background:' + r.color + '"></span>' +
+          '<div class="exp-row-body">' +
+            '<div class="exp-row-label">' + r.flag + ' ' + r.city + (r.name ? ' — ' + r.name : '') + badgeHtml(r.status) + '</div>' +
+            '<div class="exp-row-sub">' + r.sub + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="exp-row-amount' + (r.amount ? '' : ' tbd') + '">' + amountHtml + '</div>' +
+        '</a>';
+    }
+
+    function otherRowHtml(e) {
+      var who = (e.splitAmong && e.splitAmong.length) ? e.splitAmong.length + ' of ' + GROUP_SIZE + ' — ' + e.splitAmong.join(', ') : 'Whole group';
+      var amountHtml = e.amount
+        ? '<div class="exp-row-total">' + money(e.amount) + '</div><div class="exp-row-pp">' + money(e.amount / (e.splitAmong ? e.splitAmong.length : GROUP_SIZE)) + '/person</div>'
+        : '<div class="exp-row-total">TBD</div>';
+      return '<div class="exp-row">' +
+        '<div class="exp-row-main">' +
+          '<span class="exp-row-dot" style="background:' + (STOP_COLORS[stops.findIndex(function(s){return s.city===e.city;})] || 'var(--faint)') + '"></span>' +
+          '<div class="exp-row-body">' +
+            '<div class="exp-row-label">' + (e.emoji || '') + ' ' + e.label + badgeHtml(e.status) + '</div>' +
+            '<div class="exp-row-sub">' + who + (e.notes ? ' · ' + e.notes : '') + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="exp-row-amount' + (e.amount ? '' : ' tbd') + '">' + amountHtml + '</div>' +
+        '</div>';
+    }
+
+    var housingSection = '<div class="exp-section">' +
+      '<div class="sec-title">Housing</div>' +
+      housingRows.map(housingRowHtml).join('') +
+      '</div>';
+
+    var otherSection = '<div class="exp-section">' +
+      '<div class="sec-title">Activities &amp; other</div>' +
+      (otherExpenses.length ? otherExpenses.map(otherRowHtml).join('') : '<p class="panel-empty">Nothing added yet.</p>') +
+      '</div>';
+
+    document.getElementById('expensesPage').innerHTML =
+      '<p class="housing-intro">Housing pulls from the picks on the Housing page; everything else is added here as it comes up — flights, food, and transport aren\'t tracked yet.</p>' +
+      summary + housingSection + otherSection;
+  }
+  </script>
+</body>
+</html>
