@@ -377,7 +377,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ── City page ── */
-.city-page { max-width: 900px; margin: 0 auto; padding: 40px 24px 64px; }
+.city-page { max-width: 1160px; margin: 0 auto; padding: 40px 24px 64px; }
 
 .city-hero { margin-bottom: 30px; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
 .city-hero-row { display: flex; align-items: baseline; gap: 12px; }
@@ -400,12 +400,18 @@ a { color: inherit; text-decoration: none; }
   max-width: 62ch;
 }
 
+/* Schedule is the main focus — wide and centered, with Activities and the
+   Airbnb info as slim sidebars flanking it. */
 .city-cols {
   display: grid;
-  grid-template-columns: 1fr 1.6fr;
+  grid-template-columns: 210px minmax(0, 1fr) 260px;
+  grid-template-areas: "activities schedule stay";
   gap: 20px;
   align-items: start;
 }
+.city-col-activities { grid-area: activities; }
+.city-col-schedule   { grid-area: schedule; min-width: 0; }
+.city-col-stay        { grid-area: stay; }
 
 /* Activities panel */
 .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 18px; }
@@ -795,9 +801,14 @@ a.exp-row:hover { border-color: var(--border-strong); }
   .site-header { padding: 0 14px; gap: 8px; }
   .btn-ghost { padding: 6px 9px; font-size: 0.74rem; }
 }
+@media (max-width: 860px) {
+  .city-cols {
+    grid-template-columns: 1fr;
+    grid-template-areas: "schedule" "activities" "stay";
+  }
+}
 @media (max-width: 700px) {
   #map { height: 52vh; }
-  .city-cols { grid-template-columns: 1fr; }
   .sidebar-panel { width: calc(100vw - 28px); }
   .city-hero-name { font-size: 1.5rem; }
   .housing-city-heading { flex-wrap: wrap; }

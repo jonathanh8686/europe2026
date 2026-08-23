@@ -164,7 +164,7 @@ function renderStay(stop, hotels) {
              hotels.find(function(h) { return h.city === stop.city && h.status === 'picked'; });
 
   if (!pick) {
-    return '<div class="panel" style="margin-top:16px">' +
+    return '<div class="panel">' +
       '<div class="panel-title">Where You\'re Staying</div>' +
       '<p class="panel-empty">Not decided yet — see the <a href="housing.html" style="color:var(--accent);text-decoration:underline;font-style:normal">Housing page</a> for options.</p>' +
       '</div>';
@@ -183,7 +183,7 @@ function renderStay(stop, hotels) {
       '<div class="housing-map-caption">📍 Approximate location — based on the listed neighborhood, not the exact address</div>';
   }
 
-  return '<div class="panel" style="margin-top:16px">' +
+  return '<div class="panel">' +
     '<div class="panel-title">Where You\'re Staying</div>' +
     '<div class="housing-body" style="padding:0">' +
       '<div class="housing-name">' + nameHtml + ' ' +
@@ -286,10 +286,15 @@ function renderCity(stop, hotels) {
     daysHtml +
     '</div>';
 
-  // ── Render ──
+  // ── Render ── Schedule is the main focus, centered and wide, with
+  // Activities and the Airbnb info as slim sidebars flanking it.
   var stayHtml = renderStay(stop, hotels);
   document.getElementById('cityPage').innerHTML =
-    hero + '<div class="city-cols">' + (acts + stayHtml) + sched + '</div>';
+    hero + '<div class="city-cols">' +
+      '<div class="city-col-activities">' + acts + '</div>' +
+      '<div class="city-col-schedule">' + sched + '</div>' +
+      '<div class="city-col-stay">' + stayHtml + '</div>' +
+    '</div>';
 
   var stayPick = hotels.find(function(h) { return h.city === stop.city && h.status === 'booked'; }) ||
                  hotels.find(function(h) { return h.city === stop.city && h.status === 'picked'; });
