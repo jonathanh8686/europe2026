@@ -97,7 +97,15 @@
         {
           "label": "Day 1",
           "date": "2026-09-12",
-          "events": []
+          "events": [
+            {
+              "time": "13:30",
+              "duration": 450,
+              "label": "Arrival",
+              "type": "arrival",
+              "attendees": "all"
+            }
+          ]
         },
         {
           "label": "Day 2",
