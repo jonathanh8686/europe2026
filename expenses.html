@@ -113,8 +113,10 @@
     }
 
     function otherRowHtml(e) {
-      var who = (e.splitAmong && e.splitAmong.length) ? e.splitAmong.length + ' of ' + GROUP_SIZE + ' — ' + e.splitAmong.join(', ') : 'Whole group';
-      var amountHtml = e.amount
+      var who = e.splitAmong === null ? 'Who\'s going: pending'
+        : (e.splitAmong && e.splitAmong.length) ? e.splitAmong.length + ' of ' + GROUP_SIZE + ' — ' + e.splitAmong.join(', ')
+        : 'Whole group';
+      var amountHtml = (e.amount && e.splitAmong !== null)
         ? '<div class="exp-row-total">' + money(e.amount) + '</div><div class="exp-row-pp">' + money(e.amount / (e.splitAmong ? e.splitAmong.length : GROUP_SIZE)) + '/person</div>'
         : '<div class="exp-row-total">TBD</div>';
       return '<div class="exp-row">' +
@@ -145,7 +147,10 @@
     var lineItems = housingRows.map(function(r) {
       return { label: r.flag + ' ' + r.city + (r.name ? ' — ' + r.name : ''), amount: r.amount, participants: people.map(function(p) { return p.full; }) };
     }).concat(otherExpenses.map(function(e) {
-      return { label: (e.emoji || '') + ' ' + e.label, amount: e.amount, participants: (e.splitAmong && e.splitAmong.length) ? e.splitAmong : people.map(function(p) { return p.full; }) };
+      var participants = e.splitAmong === null ? []
+        : (e.splitAmong && e.splitAmong.length) ? e.splitAmong
+        : people.map(function(p) { return p.full; });
+      return { label: (e.emoji || '') + ' ' + e.label, amount: e.splitAmong === null ? null : e.amount, participants: participants };
     }));
 
     var personTotals = {};

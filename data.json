@@ -153,25 +153,34 @@
       "flag": "🇨🇭",
       "emoji": "⛰️",
       "nights": 2,
-      "activities": ["Paragliding"],
+      "activities": ["Paragliding", "Canyoning"],
       "notes": "",
       "days": [
         {
           "label": "Day 1",
           "date": "2026-09-16",
-          "events": []
+          "events": [
+            {
+              "time": "16:00",
+              "duration": 90,
+              "label": "Paragliding — Interlaken",
+              "type": "activity",
+              "status": "booked",
+              "attendees": ["Michael Chen", "Derek Wen", "Trevor Guo", "Jonathan Hsieh", "Shreyank Kadadi", "Sean Chen"]
+            }
+          ]
         },
         {
           "label": "Day 2",
           "date": "2026-09-17",
           "events": [
             {
-              "time": "13:30",
-              "duration": 90,
-              "label": "Paragliding — Interlaken",
+              "time": "14:15",
+              "duration": 195,
+              "label": "Canyoning — Interlaken",
               "type": "activity",
               "status": "booked",
-              "attendees": ["Michael Chen", "Derek Wen", "Trevor Guo", "Jonathan Hsieh", "Shreyank Kadadi", "Sean Chen"]
+              "attendees": "Pending"
             }
           ]
         }
@@ -648,7 +657,19 @@
       "currency": "USD",
       "status": "booked",
       "splitAmong": ["Michael Chen", "Derek Wen", "Trevor Guo", "Jonathan Hsieh", "Shreyank Kadadi", "Sean Chen"],
-      "notes": "Sep 17, 1:30 PM, ~1.5 hrs. $1,422.12 total, split evenly."
+      "notes": "Sep 16, 4:00 – 5:30 PM. $1,422.12 total, split evenly."
+    },
+    {
+      "id": "canyoning-interlaken",
+      "label": "Canyoning — Interlaken",
+      "city": "Interlaken",
+      "category": "Activities",
+      "emoji": "🏞️",
+      "amount": null,
+      "currency": "USD",
+      "status": "booked",
+      "splitAmong": null,
+      "notes": "Sep 17, 2:15 – 5:30 PM. Attendees and price pending."
     }
   ],
   "budget": {
