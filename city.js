@@ -150,14 +150,69 @@ fetch('data.json')
         '<p style="color:var(--muted);padding:40px 0">City not found in itinerary.</p>';
       return;
     }
-    renderCity(stop);
+    renderCity(stop, data.hotels || []);
   })
   .catch(function() {
     document.getElementById('cityPage').innerHTML =
       '<p style="color:var(--muted);padding:40px 0">Failed to load trip data.</p>';
   });
 
-function renderCity(stop) {
+// ── Where you're staying: the decided (booked, or picked-but-unbooked) pick
+// for this city, with a brief description and a small location map ─────────
+function renderStay(stop, hotels) {
+  var pick = hotels.find(function(h) { return h.city === stop.city && h.status === 'booked'; }) ||
+             hotels.find(function(h) { return h.city === stop.city && h.status === 'picked'; });
+
+  if (!pick) {
+    return '<div class="panel" style="margin-top:16px">' +
+      '<div class="panel-title">Where You\'re Staying</div>' +
+      '<p class="panel-empty">Not decided yet — see the <a href="housing.html" style="color:var(--accent);text-decoration:underline;font-style:normal">Housing page</a> for options.</p>' +
+      '</div>';
+  }
+
+  var nameHtml = pick.url
+    ? '<a href="' + pick.url + '" target="_blank" rel="noopener">' + escapeHtml(pick.name) + '</a>'
+    : escapeHtml(pick.name);
+  var checkParts = [];
+  if (pick.checkInTime)  checkParts.push('Check-in ' + pick.checkInTime);
+  if (pick.checkOutTime) checkParts.push('Checkout ' + pick.checkOutTime);
+
+  var mapHtml = '';
+  if (pick.coords && pick.coords.length === 2) {
+    mapHtml = '<div class="housing-map" id="stayMap"></div>' +
+      '<div class="housing-map-caption">📍 Approximate location — based on the listed neighborhood, not the exact address</div>';
+  }
+
+  return '<div class="panel" style="margin-top:16px">' +
+    '<div class="panel-title">Where You\'re Staying</div>' +
+    '<div class="housing-body" style="padding:0">' +
+      '<div class="housing-name">' + nameHtml + ' ' +
+        '<span class="housing-badge ' + pick.status + '">' + (pick.status === 'booked' ? 'Booked' : 'Picked') + '</span>' +
+      '</div>' +
+      (pick.address ? '<div class="housing-location">📍 ' + escapeHtml(pick.address) + '</div>' : '') +
+      (checkParts.length ? '<span class="city-nights-badge" style="align-self:flex-start">' + checkParts.join(' · ') + '</span>' : '') +
+      (pick.notes ? '<p class="housing-notes">' + escapeHtml(pick.notes) + '</p>' : '') +
+      mapHtml +
+      (pick.url ? '<a class="housing-link" href="' + pick.url + '" target="_blank" rel="noopener">View on Airbnb →</a>' : '') +
+    '</div>' +
+    '</div>';
+}
+
+function initStayMap(pick) {
+  var el = document.getElementById('stayMap');
+  if (!el || typeof L === 'undefined' || !pick.coords) return;
+  var map = L.map('stayMap', { zoomControl: false, attributionControl: false, scrollWheelZoom: false })
+    .setView(pick.coords, 14);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 18, subdomains: 'abcd' }).addTo(map);
+  var icon = L.divIcon({
+    className: 'c-marker',
+    html: '<div class="c-pin" style="width:26px;height:26px;background:#DD8452"><span style="font-size:0.7rem">🏠</span></div>',
+    iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -28]
+  });
+  L.marker(pick.coords, { icon: icon }).addTo(map);
+}
+
+function renderCity(stop, hotels) {
   // Build days from data.json `days` field, or auto-generate from nights count
   var days = (stop.days && stop.days.length) ? stop.days : [];
   if (!days.length && stop.nights > 0) {
@@ -232,8 +287,13 @@ function renderCity(stop) {
     '</div>';
 
   // ── Render ──
+  var stayHtml = renderStay(stop, hotels);
   document.getElementById('cityPage').innerHTML =
-    hero + '<div class="city-cols">' + acts + sched + '</div>';
+    hero + '<div class="city-cols">' + (acts + stayHtml) + sched + '</div>';
+
+  var stayPick = hotels.find(function(h) { return h.city === stop.city && h.status === 'booked'; }) ||
+                 hotels.find(function(h) { return h.city === stop.city && h.status === 'picked'; });
+  if (stayPick) initStayMap(stayPick);
 
   // Day tab switching
   document.querySelectorAll('.day-tab-btn').forEach(function(btn) {

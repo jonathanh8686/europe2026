@@ -130,7 +130,8 @@
       '<div class="housing-body">' +
         '<div class="housing-name">' + nameHtml + '</div>' +
         (h.address ? '<div class="housing-location">📍 ' + h.address + '</div>' : '') +
-        (h.checkIn ? '<div class="housing-dates">' + fmtShort(h.checkIn) + ' – ' + fmtShort(h.checkOut) + ' · ' + h.nights + ' night' + (h.nights !== 1 ? 's' : '') + '</div>' : '') +
+        (h.checkIn ? '<div class="housing-dates">' + fmtShort(h.checkIn) + ' – ' + fmtShort(h.checkOut) + ' · ' + h.nights + ' night' + (h.nights !== 1 ? 's' : '') +
+          (h.checkInTime ? ' · in ' + h.checkInTime + (h.checkOutTime ? ', out ' + h.checkOutTime : '') : '') + '</div>' : '') +
         (h.host ? '<div class="housing-host">Hosted by ' + h.host + '</div>' : '') +
         stats +
         buildPriceBox(h) +
