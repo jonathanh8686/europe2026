@@ -110,7 +110,15 @@
         {
           "label": "Day 2",
           "date": "2026-09-13",
-          "events": []
+          "events": [
+            {
+              "time": "11:00",
+              "duration": 420,
+              "label": "City Exploration",
+              "type": "activity",
+              "attendees": "all"
+            }
+          ]
         },
         {
           "label": "Day 3",
