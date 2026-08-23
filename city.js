@@ -4,13 +4,29 @@
 var CITIES     = ['Bologna', 'Milan', 'Interlaken', 'Zurich'];
 var CITY_PAGES = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
 
-// Time slots: 7 AM – 10 PM, hourly
+// Timeline grid: 7 AM – 11 PM, one row per hour. Events are positioned by
+// their actual start time and duration rather than snapped to a slot, so a
+// 90-minute activity visibly spans an hour and a half instead of looking
+// identical to a 15-minute one.
 var SLOT_LABELS = ['7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM',
                    '1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM',
                    '7:00 PM','8:00 PM','9:00 PM','10:00 PM'];
-var SLOT_KEYS   = ['07:00','08:00','09:00','10:00','11:00','12:00',
-                   '13:00','14:00','15:00','16:00','17:00','18:00',
-                   '19:00','20:00','21:00','22:00'];
+var DAY_START_MIN  = 7 * 60;   // 7:00 AM
+var DAY_END_MIN    = 23 * 60;  // 11:00 PM — bottom of the last (10 PM) row
+var ROW_HEIGHT      = 56;       // px per hour
+var PX_PER_MIN       = ROW_HEIGHT / 60;
+var DEFAULT_DURATION = 60;      // minutes, used when an event has no duration set
+
+function timeToMinutes(t) {
+  var parts = t.split(':');
+  return (+parts[0]) * 60 + (+parts[1]);
+}
+function fmtTime(mins) {
+  var h = Math.floor(mins / 60), m = mins % 60;
+  var ap = h >= 12 ? 'PM' : 'AM';
+  var h12 = h % 12 === 0 ? 12 : h % 12;
+  return h12 + (m ? ':' + (m < 10 ? '0' : '') + m : '') + ' ' + ap;
+}
 
 // ── Render prev/next nav ───────────────────────────────────────────────
 (function() {
@@ -46,10 +62,25 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-// One event within a time slot. `attendees` is 'all', a count, or a list of
-// names -- when it's a subset of the group, that's called out explicitly so
-// it reads as optional/split rather than a plan for everyone.
+// One event block, absolutely positioned over the hour grid to span its
+// actual start time through start+duration. `attendees` is 'all', a count,
+// or a list of names -- when it's a subset of the group, that's called out
+// explicitly so it reads as optional/split rather than a plan for everyone.
 function renderEvent(ev) {
+  var start = timeToMinutes(ev.time);
+  var dur   = ev.duration || DEFAULT_DURATION;
+  var end   = start + dur;
+  var top    = (Math.max(start, DAY_START_MIN) - DAY_START_MIN) * PX_PER_MIN;
+  var height = Math.max((Math.min(end, DAY_END_MIN) - Math.max(start, DAY_START_MIN)) * PX_PER_MIN, 22);
+  // Narrow columns (several things overlapping) or short durations leave
+  // little room to work with, so trim what's shown in tiers rather than
+  // letting text spill out of the block.
+  var sizeClass = height < 40 ? ' micro' : height < 70 ? ' compact' : '';
+
+  var colPct = 100 / ev._cols;
+  var left  = 'calc(' + (ev._col * colPct) + '% + 2px)';
+  var width = 'calc(' + colPct + '% - 4px)';
+
   var who = '';
   if (Array.isArray(ev.attendees)) {
     who = ev.attendees.join(', ');
@@ -63,14 +94,50 @@ function renderEvent(ev) {
     ? '<a href="' + ev.link + '" target="_blank" rel="noopener">' + escapeHtml(ev.label) + ' ↗</a>'
     : escapeHtml(ev.label);
 
-  return '<div class="t-event' + (ev.type ? ' ' + ev.type : '') + (ev.status ? ' ' + ev.status : '') + '">' +
+  return '<div class="t-event' + (ev.type ? ' ' + ev.type : '') + (ev.status ? ' ' + ev.status : '') + sizeClass + '"' +
+    ' style="top:' + top + 'px;height:' + height + 'px;left:' + left + ';width:' + width + '">' +
     '<div class="t-event-top">' +
       '<div class="t-event-label">' + titleHtml + '</div>' +
       (ev.status === 'booked' ? '<span class="t-event-badge booked">✓ Booked</span>' : '') +
       (ev.status === 'idea' ? '<span class="t-event-badge idea">Idea</span>' : '') +
     '</div>' +
+    '<div class="t-event-time">' + fmtTime(start) + ' – ' + fmtTime(end) + '</div>' +
     (who ? '<div class="t-event-who">👥 ' + escapeHtml(who) + '</div>' : '') +
   '</div>';
+}
+
+// Greedy column packing so overlapping events sit side by side instead of
+// stacking on top of each other. Events are annotated in place with _col
+// (their column index) and _cols (how many columns *their own cluster* of
+// mutually-overlapping events needs) — scoped per cluster, not per day, so
+// one crowded overlap earlier in the day doesn't squeeze an unrelated
+// standalone event later on into needlessly narrow columns.
+function packColumns(events) {
+  var sorted = events.slice().sort(function(a, b) { return timeToMinutes(a.time) - timeToMinutes(b.time); });
+  var i = 0;
+  while (i < sorted.length) {
+    var cluster    = [sorted[i]];
+    var clusterEnd = timeToMinutes(sorted[i].time) + (sorted[i].duration || DEFAULT_DURATION);
+    var j = i + 1;
+    while (j < sorted.length && timeToMinutes(sorted[j].time) < clusterEnd) {
+      clusterEnd = Math.max(clusterEnd, timeToMinutes(sorted[j].time) + (sorted[j].duration || DEFAULT_DURATION));
+      cluster.push(sorted[j]);
+      j++;
+    }
+
+    var colEnds = []; // end time (minutes) currently occupying each column, within this cluster
+    cluster.forEach(function(ev) {
+      var start = timeToMinutes(ev.time);
+      var end   = start + (ev.duration || DEFAULT_DURATION);
+      var col = colEnds.findIndex(function(e) { return e <= start; });
+      if (col === -1) { col = colEnds.length; colEnds.push(end); } else { colEnds[col] = end; }
+      ev._col = col;
+    });
+    var cols = colEnds.length;
+    cluster.forEach(function(ev) { ev._cols = cols; });
+
+    i = j;
+  }
 }
 
 // ── Fetch data and render ────────────────────────────────────────────────────────────
@@ -140,25 +207,21 @@ function renderCity(stop) {
         '" data-di="' + di + '">' + day.label + ' · ' + fmtShort(day.date) + '</button>';
     }
 
-    // Multiple events can share a time slot -- e.g. an optional activity
-    // that's only a subset of the group, running alongside something else.
-    var evMap = {};
-    (day.events || []).forEach(function(e) {
-      if (!evMap[e.time]) evMap[e.time] = [];
-      evMap[e.time].push(e);
-    });
+    // Events overlapping in time get packed into side-by-side columns instead
+    // of stacking, so two things happening at once are both visible at once.
+    var events = day.events || [];
+    packColumns(events);
+
+    var rowsHtml = SLOT_LABELS.map(function(label) {
+      return '<div class="t-hour-row"><span class="t-time">' + label + '</span></div>';
+    }).join('');
 
     daysHtml += '<div class="sched-day' + (isActive ? ' active' : '') + '" data-di="' + di + '">';
     daysHtml += '<div class="sched-day-label">' + fmtLong(day.date) + '</div>';
-    SLOT_KEYS.forEach(function(key, ki) {
-      var evs = evMap[key] || [];
-      daysHtml += '<div class="t-slot">' +
-        '<span class="t-time">' + SLOT_LABELS[ki] + '</span>' +
-        '<div class="t-content">' +
-          evs.map(renderEvent).join('') +
-        '</div>' +
-        '</div>';
-    });
+    daysHtml += '<div class="sched-day-grid" style="height:' + ((DAY_END_MIN - DAY_START_MIN) * PX_PER_MIN) + 'px">' +
+      '<div class="t-rows">' + rowsHtml + '</div>' +
+      '<div class="t-events-layer">' + events.map(renderEvent).join('') + '</div>' +
+      '</div>';
     daysHtml += '</div>';
   });
 

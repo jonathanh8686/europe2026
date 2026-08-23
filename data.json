@@ -150,8 +150,9 @@
           "date": "2026-09-17",
           "events": [
             {
-              "time": "13:00",
-              "label": "Paragliding — Interlaken (1:30 PM, ~1.5 hrs)",
+              "time": "13:30",
+              "duration": 90,
+              "label": "Paragliding — Interlaken",
               "type": "activity",
               "status": "booked",
               "attendees": ["Michael Chen", "Derek Wen", "Trevor Guo", "Jonathan Hsieh", "Shreyank Kadadi", "Sean Chen"]
