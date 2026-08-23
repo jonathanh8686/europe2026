@@ -137,8 +137,28 @@
       "flag": "🇨🇭",
       "emoji": "⛰️",
       "nights": 2,
-      "activities": [],
-      "notes": ""
+      "activities": ["Paragliding"],
+      "notes": "",
+      "days": [
+        {
+          "label": "Day 1",
+          "date": "2026-09-16",
+          "events": []
+        },
+        {
+          "label": "Day 2",
+          "date": "2026-09-17",
+          "events": [
+            {
+              "time": "13:00",
+              "label": "Paragliding — Interlaken (1:30 PM, ~1.5 hrs)",
+              "type": "activity",
+              "status": "booked",
+              "attendees": "Jonathan Hsieh"
+            }
+          ]
+        }
+      ]
     },
     {
       "date": "2026-09-18",
