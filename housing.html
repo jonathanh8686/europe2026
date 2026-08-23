@@ -11,7 +11,7 @@
   <header class="site-header">
     <a class="back-link" href="index.html">← Map</a>
     <div class="hspacer"></div>
-    <div class="site-title" style="font-size:1rem">🏠 Housing</div>
+    <div class="site-title" style="font-size:1.05rem">Housing</div>
   </header>
   <main class="housing-page" id="housingPage">
     <p style="color:var(--muted);padding:40px 0">Loading…</p>
@@ -19,7 +19,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
   var CITY_PAGES  = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
-  var STOP_COLORS = ['#FF7A3D', '#4FA3FF', '#2ED9B8', '#A374FF'];
+  var STOP_COLORS = ['#A6462A', '#3B5B7A', '#4A7355', '#6B4A75'];
   var GROUP_SIZE  = 9; // price-per-person is always split across the full group
   var mapsToInit  = []; // queued Leaflet maps — instantiated after innerHTML is set
 
@@ -149,7 +149,7 @@
     var pricedCount     = 0;
 
     var sections = stops.map(function(stop, i) {
-      var color   = STOP_COLORS[i] || '#2d7dd2';
+      var color   = STOP_COLORS[i] || '#A6462A';
       var page    = CITY_PAGES[stop.city] || '#';
       var options = hotels.filter(function(x) { return x.city === stop.city; });
 
