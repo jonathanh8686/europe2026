@@ -627,11 +627,11 @@
       "city": "Interlaken",
       "category": "Activities",
       "emoji": "🪂",
-      "amount": null,
+      "amount": 1422.12,
       "currency": "USD",
       "status": "booked",
       "splitAmong": ["Michael Chen", "Derek Wen", "Trevor Guo", "Jonathan Hsieh", "Shreyank Kadadi", "Sean Chen"],
-      "notes": "Sep 17, 1:30 PM, ~1.5 hrs. Price TBD — update once known."
+      "notes": "Sep 17, 1:30 PM, ~1.5 hrs. $1,422.12 total, split evenly."
     }
   ],
   "budget": {

@@ -25,6 +25,9 @@
   function money(n) {
     return '$' + Math.round(n).toLocaleString('en-US');
   }
+  function moneyExact(n) {
+    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
   function fmtShort(s) {
     return s ? new Date(s + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   }
@@ -41,14 +44,16 @@
   fetch('data.json')
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      renderExpenses(data.itinerary || [], data.hotels || [], data.otherExpenses || []);
+      renderExpenses(data.itinerary || [], data.hotels || [], data.otherExpenses || [], data.attendees || []);
     })
     .catch(function() {
       document.getElementById('expensesPage').innerHTML =
         '<p style="color:var(--muted);padding:40px 0">Failed to load trip data.</p>';
     });
 
-  function renderExpenses(itin, hotels, otherExpenses) {
+  function renderExpenses(itin, hotels, otherExpenses, attendees) {
+    var people = attendees.filter(function(a) { return a.confirmed; })
+      .map(function(a) { return { full: a.name, first: a.name.split(' ')[0] }; });
     var stops = itin.filter(function(s) { return s.city !== 'Home'; });
 
     // Housing: reuse the same "decided" definition housing.html uses (picked
@@ -134,9 +139,47 @@
       (otherExpenses.length ? otherExpenses.map(otherRowHtml).join('') : '<p class="panel-empty">Nothing added yet.</p>') +
       '</div>';
 
+    // Per-person breakdown — one row per line item (housing is split across the
+    // whole group; other expenses split only among whoever's listed for it),
+    // one column per confirmed person, "–" where they don't owe anything.
+    var lineItems = housingRows.map(function(r) {
+      return { label: r.flag + ' ' + r.city + (r.name ? ' — ' + r.name : ''), amount: r.amount, participants: people.map(function(p) { return p.full; }) };
+    }).concat(otherExpenses.map(function(e) {
+      return { label: (e.emoji || '') + ' ' + e.label, amount: e.amount, participants: (e.splitAmong && e.splitAmong.length) ? e.splitAmong : people.map(function(p) { return p.full; }) };
+    }));
+
+    var personTotals = {};
+    people.forEach(function(p) { personTotals[p.full] = 0; });
+
+    var bodyRows = lineItems.map(function(item) {
+      var cells = people.map(function(p) {
+        if (item.participants.indexOf(p.full) === -1) return '<td class="exp-cell-na">–</td>';
+        if (item.amount == null) return '<td class="exp-cell-tbd">TBD</td>';
+        var share = item.amount / item.participants.length;
+        personTotals[p.full] += share;
+        return '<td>' + moneyExact(share) + '</td>';
+      }).join('');
+      var rowTotal = item.amount != null ? moneyExact(item.amount) : 'TBD';
+      return '<tr><td>' + item.label + '</td>' + cells + '<td>' + rowTotal + '</td></tr>';
+    }).join('');
+
+    var grandPersonTotal = people.reduce(function(sum, p) { return sum + personTotals[p.full]; }, 0);
+    var footRow = '<tr><td>Total per person</td>' +
+      people.map(function(p) { return '<td>' + moneyExact(personTotals[p.full]) + '</td>'; }).join('') +
+      '<td>' + moneyExact(grandPersonTotal) + '</td></tr>';
+
+    var breakdown = '<div class="exp-section">' +
+      '<div class="sec-title">Per-person breakdown</div>' +
+      '<div class="exp-table-wrap"><table class="exp-table">' +
+      '<thead><tr><th>Activity</th>' + people.map(function(p) { return '<th>' + p.first + '</th>'; }).join('') + '<th>Total</th></tr></thead>' +
+      '<tbody>' + bodyRows + '</tbody>' +
+      '<tfoot>' + footRow + '</tfoot>' +
+      '</table></div>' +
+      '</div>';
+
     document.getElementById('expensesPage').innerHTML =
       '<p class="housing-intro">Housing pulls from the picks on the Housing page; everything else is added here as it comes up — flights, food, and transport aren\'t tracked yet.</p>' +
-      summary + housingSection + otherSection;
+      summary + breakdown + housingSection + otherSection;
   }
   </script>
 </body>
