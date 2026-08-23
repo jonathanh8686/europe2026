@@ -38,7 +38,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 var CITY_PAGES  = { Bologna: 'bologna.html', Milan: 'milan.html', Interlaken: 'interlaken.html', Zurich: 'zurich.html' };
-var STOP_COLORS = ['#A6462A', '#3B5B7A', '#4A7355', '#6B4A75'];
+var STOP_COLORS = ['#C1603A', '#5C86AC', '#5B9668', '#93639C'];
 var FALLBACK_COORDS = {
   Bologna: [44.4939, 11.3426], Milan: [45.4642, 9.19],
   Interlaken: [46.6863, 8.1638], Zurich: [47.3769, 8.5417],
@@ -112,7 +112,7 @@ function renderScheduleCol(itin, stops, suggestions) {
   // checkout date (inclusive), so a checkout date that's also the next stop's
   // arrival date picks up both cities' colors — rendered below as a two-tone
   // gradient "travel day" (e.g. an early train out of one city and into the next).
-  var EMPTY_COLOR = 'rgba(0,0,0,0.03)';
+  var EMPTY_COLOR = 'rgba(255,255,255,0.05)';
   var dayMap = {};
   stops.forEach(function(stop, i) {
     for (var n = 0; n <= (stop.nights || 0); n++) {
@@ -245,7 +245,7 @@ function renderScheduleCol(itin, stops, suggestions) {
 // ── Map ────────────────────────────────────────────────────────────────────────────────────────────
 function initMap(stops, suggestions) {
   var map = L.map('map', { zoomControl: true });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
     maxZoom: 18,
     subdomains: 'abcd'
@@ -260,8 +260,8 @@ function initMap(stops, suggestions) {
     allCoords.push(c);
     var icon = L.divIcon({
       className: 'c-marker',
-      html: '<div class="c-pin" style="width:20px;height:20px;background:#FFFFFF;border-color:rgba(114,109,99,0.4)">' +
-            '<span style="font-size:0.58rem;color:#444">' + (s.emoji || '●') + '</span></div>',
+      html: '<div class="c-pin" style="width:20px;height:20px;background:#1C1A15;border-color:rgba(166,158,140,0.5)">' +
+            '<span style="font-size:0.58rem;color:#EEE9DF">' + (s.emoji || '●') + '</span></div>',
       iconSize: [20, 20], iconAnchor: [10, 20], popupAnchor: [0, -24]
     });
     L.marker(c, { icon: icon }).addTo(map)
@@ -272,7 +272,7 @@ function initMap(stops, suggestions) {
   // Route line
   var routeCoords = stops.map(function(s) { return getCoords(s.city, s); }).filter(Boolean);
   if (routeCoords.length > 1) {
-    L.polyline(routeCoords, { color: '#A6462A', weight: 2, opacity: 0.65, dashArray: '5 4' }).addTo(map);
+    L.polyline(routeCoords, { color: '#DD8452', weight: 2, opacity: 0.7, dashArray: '5 4' }).addTo(map);
   }
 
   // Planned stop markers

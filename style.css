@@ -1,26 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg:      #FAF9F6;
-  --surface: #FFFFFF;
-  --border:  #E4E1D8;
-  --border-strong: #CFCABC;
-  --text:    #1E1D1A;
-  --muted:   #726D63;
-  --faint:   #A6A196;
-  --accent:  #A6462A;
-  --accent-soft: #F2E3DB;
-  --green:   #3F6B4A;
-  --green-soft: #E7EEE7;
-  --red:     #A83A3A;
-  --red-soft: #F3E4E1;
+  --bg:      #15140F;
+  --surface: #1C1A15;
+  --border:  #332F26;
+  --border-strong: #4A4534;
+  --text:    #EEE9DF;
+  --muted:   #A69E8C;
+  --faint:   #6F6858;
+  --accent:  #DD8452;
+  --accent-soft: #3B2A1C;
+  --green:   #82BB8C;
+  --green-soft: #1F2E20;
+  --red:     #DC8484;
+  --red-soft: #332120;
 
   /* City coding — used only where the city itself is the information
-     (map pins, calendar, stop numbering, housing accents). */
-  --c1: #A6462A; /* stop 1 */
-  --c2: #3B5B7A; /* stop 2 */
-  --c3: #4A7355; /* stop 3 */
-  --c4: #6B4A75; /* stop 4 */
+     (map pins, calendar, stop numbering, housing accents). Brightened
+     enough to hold up as thin borders/dots against the dark surface. */
+  --c1: #C1603A; /* stop 1 */
+  --c2: #5C86AC; /* stop 2 */
+  --c3: #5B9668; /* stop 3 */
+  --c4: #93639C; /* stop 4 */
 
   --r: 4px;
   --font-serif: 'Newsreader', Georgia, serif;
@@ -136,7 +137,7 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--border);
   border-radius: var(--r);
   padding: 14px 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  box-shadow: 0 4px 18px rgba(0,0,0,.45);
   z-index: 500;
   transition: opacity .15s, transform .15s;
 }
@@ -203,7 +204,7 @@ a { color: inherit; text-decoration: none; }
 }
 .cal-cell.in-month {
   color: var(--muted);
-  background: rgba(0,0,0,0.02);
+  background: rgba(255,255,255,0.04);
 }
 .cal-cell.trip-day {
   color: #fff;
@@ -215,7 +216,7 @@ a { color: inherit; text-decoration: none; }
 .cal-cell.travel-day { text-shadow: 0 1px 2px rgba(0,0,0,.4); }
 .cal-cell.fly-home {
   color: var(--muted);
-  background: rgba(0,0,0,0.03);
+  background: rgba(255,255,255,0.05);
   border: 1px dashed var(--border-strong);
   font-size: 0.68rem;
 }
@@ -528,7 +529,7 @@ a { color: inherit; text-decoration: none; }
 .housing-img-placeholder {
   width: 100%; height: 130px;
   margin-top: 8px;
-  background: rgba(0,0,0,0.02);
+  background: rgba(255,255,255,0.03);
   border-top: 1px dashed var(--border);
   border-bottom: 1px dashed var(--border);
   display: flex; align-items: center; justify-content: center;
@@ -609,20 +610,20 @@ a { color: inherit; text-decoration: none; }
 /* ── Leaflet theme ── */
 .leaflet-container { background: var(--bg); font-family: var(--font-body); }
 .leaflet-popup-content-wrapper,
-.leaflet-popup-tip { background: var(--surface); color: var(--text); border: 1px solid var(--border); box-shadow: 0 4px 16px rgba(0,0,0,.1); border-radius: var(--r); }
+.leaflet-popup-tip { background: var(--surface); color: var(--text); border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,.5); border-radius: var(--r); }
 .leaflet-popup-content { margin: 12px 14px; font-size: 0.84rem; line-height: 1.5; }
 .leaflet-popup-content strong { font-family: var(--font-serif); font-size: 1rem; color: var(--text); }
 .leaflet-popup-close-button { color: var(--muted) !important; }
-.leaflet-control-attribution { background: rgba(255,255,255,.85) !important; color: var(--muted) !important; font-size: 10px !important; }
+.leaflet-control-attribution { background: rgba(21,20,15,.8) !important; color: var(--muted) !important; font-size: 10px !important; }
 .leaflet-control-attribution a { color: var(--accent) !important; }
 .leaflet-control-zoom a { background: var(--surface) !important; color: var(--text) !important; border-color: var(--border) !important; }
-.leaflet-control-zoom a:hover { background: rgba(0,0,0,0.04) !important; }
+.leaflet-control-zoom a:hover { background: rgba(255,255,255,0.06) !important; }
 .c-marker { background: transparent !important; border: none !important; }
 .c-pin {
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
-  box-shadow: 0 1px 4px rgba(0,0,0,.22);
-  border: 1.5px solid rgba(255,255,255,.6);
+  box-shadow: 0 1px 6px rgba(0,0,0,.5);
+  border: 1.5px solid rgba(21,20,15,.5);
   display: flex; align-items: center; justify-content: center;
 }
 .c-pin span { transform: rotate(45deg); color: #fff; font-weight: 600; }
