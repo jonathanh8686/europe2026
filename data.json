@@ -161,6 +161,14 @@
           "date": "2026-09-16",
           "events": [
             {
+              "time": "07:10",
+              "duration": 163,
+              "label": "Train — Milano Centrale → Spiez",
+              "type": "logistics",
+              "status": "booked",
+              "attendees": "all"
+            },
+            {
               "time": "16:00",
               "duration": 90,
               "label": "Paragliding — Interlaken",
@@ -655,6 +663,17 @@
     }
   ],
   "otherExpenses": [
+    {
+      "id": "train-milan-interlaken",
+      "label": "Train — Milano Centrale → Spiez",
+      "city": "Interlaken",
+      "category": "Transport",
+      "emoji": "🚆",
+      "amount": null,
+      "currency": "USD",
+      "status": "booked",
+      "notes": "Wed 9/16, 7:10 – 9:53 AM. Price pending."
+    },
     {
       "id": "paragliding-interlaken",
       "label": "Paragliding — Interlaken",
