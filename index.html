@@ -90,7 +90,7 @@ fetch('data.json')
     var itin  = data.itinerary || [];
     var stops = itin.filter(function(s) { return s.city !== 'Home'; });
 
-    renderCalendarHero(data.trip || {}, itin, stops, data.hotels || []);
+    renderCalendarHero(data.trip || {}, itin, stops);
     renderStopsPanel(stops, data.citySuggestions || []);
     initMap(stops, data.citySuggestions || []);
   });
@@ -115,17 +115,7 @@ function renderSidebar(attendees) {
 }
 
 // ── Calendar hero: the main focus of the homepage ──────────────────────────
-function renderCalendarHero(trip, itin, stops, hotels) {
-
-  // Check-in time for whichever pick is decided (booked, else picked) for
-  // each stop, keyed by that stop's arrival date — so the calendar cell for
-  // the day you actually walk in the door can say when you can.
-  var arrivalTimes = {};
-  stops.forEach(function(stop) {
-    var pick = hotels.find(function(h) { return h.city === stop.city && h.status === 'booked'; }) ||
-               hotels.find(function(h) { return h.city === stop.city && h.status === 'picked'; });
-    if (pick && pick.checkInTime) arrivalTimes[stop.date] = pick.checkInTime;
-  });
+function renderCalendarHero(trip, itin, stops) {
 
   // Build date → city info map. Each stop occupies its arrival date through its
   // checkout date (inclusive), so a checkout date that's also the next stop's
@@ -195,23 +185,15 @@ function renderCalendarHero(trip, itin, stops, hotels) {
           info.colors[info.colors.length - 1] + ' 95%, ' + info.colors[info.colors.length - 1] + ' 100%)'
         : 'linear-gradient(90deg, ' + info.colors[0] + ' 0%, ' + info.colors[0] + ' 5%, ' +
           info.colors[info.colors.length - 1] + ' 18%, ' + info.colors[info.colors.length - 1] + ' 100%)';
-      var linkCity  = info.reverse ? fromCity : toCity;
-      var toEmoji   = info.emojis[info.emojis.length - 1];
-      var checkin   = arrivalTimes[key];
-      var titleText = fromCity + ' → ' + toCity + ' (travel day)' + (checkin ? ' — check-in ' + checkin : '');
+      var linkCity = info.reverse ? fromCity : toCity;
+      var toEmoji  = info.emojis[info.emojis.length - 1];
       cal += '<div class="cal-cell trip-day travel-day" style="background:' + grad + '" ' +
-             'title="' + titleText + '" onclick="location.href=\'' + (CITY_PAGES[linkCity] || '#') + '\'">' +
-             '<div class="cal-cell-top"><span class="cal-daynum">' + d + '</span>' +
-             (checkin ? '<span class="cal-checkin">' + checkin + '</span>' : '') + '</div>' +
-             '<span class="cal-emoji">' + toEmoji + '</span></div>';
+             'title="' + fromCity + ' → ' + toCity + ' (travel day)" onclick="location.href=\'' + (CITY_PAGES[linkCity] || '#') + '\'">' +
+             '<span class="cal-daynum">' + d + '</span><span class="cal-emoji">' + toEmoji + '</span></div>';
     } else if (info) {
-      var checkin2   = arrivalTimes[key];
-      var titleText2 = info.cities[0] + (checkin2 ? ' — check-in ' + checkin2 : '');
       cal += '<div class="cal-cell trip-day" style="background:' + info.colors[0] + '" ' +
-             'title="' + titleText2 + '" onclick="location.href=\'' + (CITY_PAGES[info.cities[0]] || '#') + '\'">' +
-             '<div class="cal-cell-top"><span class="cal-daynum">' + d + '</span>' +
-             (checkin2 ? '<span class="cal-checkin">' + checkin2 + '</span>' : '') + '</div>' +
-             '<span class="cal-emoji">' + info.emojis[0] + '</span></div>';
+             'title="' + info.cities[0] + '" onclick="location.href=\'' + (CITY_PAGES[info.cities[0]] || '#') + '\'">' +
+             '<span class="cal-daynum">' + d + '</span><span class="cal-emoji">' + info.emojis[0] + '</span></div>';
     } else {
       cal += '<div class="cal-cell in-month"><span class="cal-daynum">' + d + '</span></div>';
     }
