@@ -187,12 +187,14 @@ function renderCalendarHero(trip, itin, stops) {
           info.colors[info.colors.length - 1] + ' 18%, ' + info.colors[info.colors.length - 1] + ' 100%)';
       var linkCity = info.reverse ? fromCity : toCity;
       var toEmoji  = info.emojis[info.emojis.length - 1];
+      var href1    = CITY_PAGES[linkCity] ? (CITY_PAGES[linkCity] + '#' + key) : '#';
       cal += '<div class="cal-cell trip-day travel-day" style="background:' + grad + '" ' +
-             'title="' + fromCity + ' → ' + toCity + ' (travel day)" onclick="location.href=\'' + (CITY_PAGES[linkCity] || '#') + '\'">' +
+             'title="' + fromCity + ' → ' + toCity + ' (travel day)" onclick="location.href=\'' + href1 + '\'">' +
              '<span class="cal-daynum">' + d + '</span><span class="cal-emoji">' + toEmoji + '</span></div>';
     } else if (info) {
+      var href2 = CITY_PAGES[info.cities[0]] ? (CITY_PAGES[info.cities[0]] + '#' + key) : '#';
       cal += '<div class="cal-cell trip-day" style="background:' + info.colors[0] + '" ' +
-             'title="' + info.cities[0] + '" onclick="location.href=\'' + (CITY_PAGES[info.cities[0]] || '#') + '\'">' +
+             'title="' + info.cities[0] + '" onclick="location.href=\'' + href2 + '\'">' +
              '<span class="cal-daynum">' + d + '</span><span class="cal-emoji">' + info.emojis[0] + '</span></div>';
     } else {
       cal += '<div class="cal-cell in-month"><span class="cal-daynum">' + d + '</span></div>';

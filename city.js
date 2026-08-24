@@ -253,11 +253,16 @@ function renderCity(stop, hotels) {
       : '<p class="panel-empty">Nothing planned yet — add ideas as we go.</p>') +
     '</div>';
 
-  // ── Schedule ──
+  // ── Schedule ── A calendar cell links here as e.g. bologna.html#2026-09-14,
+  // so the tab for that specific date opens active instead of always Day 1.
+  var targetDate = window.location.hash ? window.location.hash.slice(1) : null;
+  var initialIndex = targetDate ? days.findIndex(function(d) { return d.date === targetDate; }) : -1;
+  if (initialIndex === -1) initialIndex = 0;
+
   var tabsHtml = '';
   var daysHtml = '';
   days.forEach(function(day, di) {
-    var isActive = di === 0;
+    var isActive = di === initialIndex;
     if (days.length > 1) {
       tabsHtml += '<button class="day-tab-btn' + (isActive ? ' active' : '') +
         '" data-di="' + di + '">' + day.label + ' · ' + fmtShort(day.date) + '</button>';
