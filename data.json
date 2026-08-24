@@ -169,7 +169,7 @@
               "attendees": "all"
             },
             {
-              "time": "16:00",
+              "time": "13:00",
               "duration": 90,
               "label": "Paragliding — Interlaken",
               "type": "activity",
@@ -684,7 +684,7 @@
       "currency": "USD",
       "status": "booked",
       "splitAmong": ["Michael Chen", "Derek Wen", "Trevor Guo", "Jonathan Hsieh", "Shreyank Kadadi", "Sean Chen"],
-      "notes": "Sep 16, 4:00 – 5:30 PM. $1,422.12 total, split evenly."
+      "notes": "Sep 16, 1:00 – 2:30 PM. $1,422.12 total, split evenly."
     },
     {
       "id": "canyoning-interlaken",
