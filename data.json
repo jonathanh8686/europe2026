@@ -151,7 +151,7 @@
           "date": "2026-09-15",
           "events": [
             {
-              "time": "14:00",
+              "time": "14:30",
               "duration": 300,
               "label": "QC Spa — Milan",
               "type": "activity",
@@ -716,7 +716,7 @@
       "currency": "USD",
       "status": "booked",
       "splitAmong": ["Jonathan Hsieh", "Sean Chen", "Derek Wen", "Yongjae Lee", "Aiden Zhang", "Michael Chen", "Shreyank Kadadi"],
-      "notes": "Sep 15, 2:00 – 7:00 PM. €476 (~$556.21 at ~1.17 USD/EUR), split evenly among 7. Paid at check-in, not yet charged."
+      "notes": "Sep 15, 2:30 – 7:30 PM. €476 (~$556.21 at ~1.17 USD/EUR), split evenly among 7. Paid at check-in, not yet charged."
     },
     {
       "id": "train-milan-interlaken",
