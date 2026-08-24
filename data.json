@@ -155,7 +155,7 @@
               "duration": 64,
               "label": "Train — Bologna Centrale → Milano Centrale",
               "type": "logistics",
-              "status": "booked",
+              "status": "pending",
               "attendees": "all"
             },
             {
@@ -709,10 +709,10 @@
       "city": "Milan",
       "category": "Transport",
       "emoji": "🚆",
-      "amount": 288,
+      "amount": null,
       "currency": "USD",
-      "status": "booked",
-      "notes": "Tue 9/15, 8:56 – 10:00 AM. $288 total, split evenly."
+      "status": "pending",
+      "notes": "Tue 9/15, 8:56 – 10:00 AM. Booking and price pending."
     },
     {
       "id": "dinner-abba-milan",
