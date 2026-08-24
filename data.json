@@ -151,6 +151,14 @@
           "date": "2026-09-15",
           "events": [
             {
+              "time": "08:56",
+              "duration": 64,
+              "label": "Train — Bologna Centrale → Milano Centrale",
+              "type": "logistics",
+              "status": "booked",
+              "attendees": "all"
+            },
+            {
               "time": "14:30",
               "duration": 300,
               "label": "QC Spa — Milan",
@@ -695,6 +703,17 @@
     }
   ],
   "otherExpenses": [
+    {
+      "id": "train-bologna-milan",
+      "label": "Train — Bologna Centrale → Milano Centrale",
+      "city": "Milan",
+      "category": "Transport",
+      "emoji": "🚆",
+      "amount": 288,
+      "currency": "USD",
+      "status": "booked",
+      "notes": "Tue 9/15, 8:56 – 10:00 AM. $288 total, split evenly."
+    },
     {
       "id": "dinner-abba-milan",
       "label": "Dinner — Abba",
