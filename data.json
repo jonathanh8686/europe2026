@@ -160,6 +160,7 @@
             },
             {
               "time": "20:00",
+              "duration": 105,
               "label": "Dinner — Abba",
               "type": "food",
               "status": "booked",
@@ -703,7 +704,7 @@
       "amount": null,
       "currency": "USD",
       "status": "booked",
-      "notes": "Sep 15, 8:00 PM. Price pending."
+      "notes": "Sep 15, 8:00 – 9:45 PM. Price pending."
     },
     {
       "id": "qc-spa-milan",
