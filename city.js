@@ -100,6 +100,7 @@ function renderEvent(ev) {
       '<div class="t-event-label">' + titleHtml + '</div>' +
       (ev.status === 'booked' ? '<span class="t-event-badge booked">✓ Booked</span>' : '') +
       (ev.status === 'idea' ? '<span class="t-event-badge idea">Idea</span>' : '') +
+      (ev.status === 'no-booking' ? '<span class="t-event-badge no-booking">No booking needed</span>' : '') +
     '</div>' +
     '<div class="t-event-time">' + fmtTime(start) + ' – ' + fmtTime(end) + '</div>' +
     (who ? '<div class="t-event-who">👥 ' + escapeHtml(who) + '</div>' : '') +

@@ -37,7 +37,7 @@
     return d.toISOString().slice(0, 10);
   }
   function badgeHtml(status) {
-    var label = status === 'booked' ? 'Booked' : status === 'picked' ? 'Picked' : 'Searching';
+    var label = status === 'booked' ? 'Booked' : status === 'picked' ? 'Picked' : status === 'no-booking' ? 'No booking needed' : 'Searching';
     return '<span class="exp-row-badge ' + status + '">' + label + '</span>';
   }
 

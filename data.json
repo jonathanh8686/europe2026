@@ -173,7 +173,7 @@
               "duration": 20,
               "label": "Regional Train (RE9) — Spiez → Interlaken Ost",
               "type": "logistics",
-              "status": "booked",
+              "status": "no-booking",
               "attendees": "all"
             },
             {
@@ -677,10 +677,10 @@
       "city": "Interlaken",
       "category": "Transport",
       "emoji": "🚆",
-      "amount": null,
+      "amount": 640.89,
       "currency": "USD",
       "status": "booked",
-      "notes": "Wed 9/16, 7:10 – 9:53 AM. Price pending."
+      "notes": "Wed 9/16, 7:10 – 9:53 AM. $640.89 total, split evenly."
     },
     {
       "id": "train-spiez-interlaken",
@@ -690,8 +690,8 @@
       "emoji": "🚆",
       "amount": null,
       "currency": "USD",
-      "status": "booked",
-      "notes": "Wed 9/16, 10:06 – 10:26 AM. Price pending."
+      "status": "no-booking",
+      "notes": "Wed 9/16, 10:06 – 10:26 AM. No advance booking needed — price pending."
     },
     {
       "id": "paragliding-interlaken",
