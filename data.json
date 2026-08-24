@@ -157,6 +157,13 @@
               "type": "activity",
               "status": "booked",
               "attendees": ["Jonathan Hsieh", "Sean Chen", "Derek Wen", "Yongjae Lee", "Aiden Zhang", "Michael Chen", "Shreyank Kadadi"]
+            },
+            {
+              "time": "20:00",
+              "label": "Dinner — Abba",
+              "type": "food",
+              "status": "booked",
+              "attendees": "all"
             }
           ]
         }
@@ -687,6 +694,17 @@
     }
   ],
   "otherExpenses": [
+    {
+      "id": "dinner-abba-milan",
+      "label": "Dinner — Abba",
+      "city": "Milan",
+      "category": "Food",
+      "emoji": "🍽️",
+      "amount": null,
+      "currency": "USD",
+      "status": "booked",
+      "notes": "Sep 15, 8:00 PM. Price pending."
+    },
     {
       "id": "qc-spa-milan",
       "label": "QC Spa — Milan",
