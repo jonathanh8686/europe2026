@@ -223,8 +223,8 @@
           "date": "2026-09-17",
           "events": [
             {
-              "time": "14:15",
-              "duration": 195,
+              "time": "13:45",
+              "duration": 330,
               "label": "Canyoning — Interlaken",
               "type": "activity",
               "status": "booked",
@@ -781,7 +781,7 @@
       "currency": "USD",
       "status": "booked",
       "splitAmong": null,
-      "notes": "Sep 17, 2:15 – 5:30 PM. Attendees and price pending."
+      "notes": "Sep 17, 1:45 – 7:15 PM. Attendees and price pending."
     }
   ],
   "budget": {
