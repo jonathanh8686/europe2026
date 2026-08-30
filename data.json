@@ -155,8 +155,16 @@
               "duration": 64,
               "label": "Train — Bologna Centrale → Milano Centrale",
               "type": "logistics",
-              "status": "pending",
-              "attendees": "all"
+              "status": "booked",
+              "attendees": ["Trevor Guo", "Jonathan Hsieh", "Yongjae Lee", "Shreyank Kadadi"]
+            },
+            {
+              "time": "10:11",
+              "duration": 64,
+              "label": "Train — Bologna Centrale → Milano Centrale",
+              "type": "logistics",
+              "status": "booked",
+              "attendees": ["Michael Chen", "Derek Wen", "Sean Chen", "Aiden Zhang", "Brian Zhu"]
             },
             {
               "time": "14:30",
@@ -185,7 +193,7 @@
       "flag": "🇨🇭",
       "emoji": "⛰️",
       "nights": 2,
-      "activities": ["Paragliding", "Canyoning"],
+      "activities": ["Paragliding", "Canyoning", "Hiking"],
       "notes": "",
       "days": [
         {
@@ -215,6 +223,14 @@
               "type": "activity",
               "status": "booked",
               "attendees": ["Michael Chen", "Derek Wen", "Trevor Guo", "Jonathan Hsieh", "Shreyank Kadadi", "Sean Chen"]
+            },
+            {
+              "time": "17:00",
+              "duration": 270,
+              "label": "Hike — Harder Kulm",
+              "type": "activity",
+              "status": "no-booking",
+              "attendees": ["Michael Chen", "Derek Wen", "Jonathan Hsieh", "Yongjae Lee", "Sean Chen"]
             }
           ]
         },
@@ -241,8 +257,29 @@
       "flag": "🇨🇭",
       "emoji": "🏦",
       "nights": 2,
-      "activities": [],
-      "notes": ""
+      "activities": ["Waterbiking"],
+      "notes": "",
+      "days": [
+        {
+          "label": "Day 1",
+          "date": "2026-09-18",
+          "events": []
+        },
+        {
+          "label": "Day 2",
+          "date": "2026-09-19",
+          "events": [
+            {
+              "time": "10:00",
+              "duration": 120,
+              "label": "Waterbiking — Zurich",
+              "type": "activity",
+              "status": "booked",
+              "attendees": ["Derek Wen", "Jonathan Hsieh", "Brian Zhu", "Yongjae Lee", "Shreyank Kadadi", "Sean Chen"]
+            }
+          ]
+        }
+      ]
     },
     {
       "date": "2026-09-20",
@@ -704,15 +741,40 @@
   ],
   "otherExpenses": [
     {
+      "id": "waterbiking-zurich",
+      "label": "Waterbiking — Zurich",
+      "city": "Zurich",
+      "category": "Activities",
+      "emoji": "🚴",
+      "amount": 570,
+      "currency": "USD",
+      "status": "booked",
+      "splitAmong": ["Derek Wen", "Jonathan Hsieh", "Brian Zhu", "Yongjae Lee", "Shreyank Kadadi", "Sean Chen"],
+      "notes": "Sep 19, 10:00 AM – 12:00 PM. $95/person, 6 confirmed so far — more may join."
+    },
+    {
       "id": "train-bologna-milan",
-      "label": "Train — Bologna Centrale → Milano Centrale",
+      "label": "Train — Bologna → Milan (8:56 AM)",
       "city": "Milan",
       "category": "Transport",
       "emoji": "🚆",
       "amount": null,
       "currency": "USD",
-      "status": "pending",
-      "notes": "Tue 9/15, 8:56 – 10:00 AM. Booking and price pending."
+      "status": "booked",
+      "splitAmong": ["Trevor Guo", "Jonathan Hsieh", "Yongjae Lee", "Shreyank Kadadi"],
+      "notes": "Tue 9/15, 8:56 – 10:00 AM. Only 4 tickets kept — the rest were refunded. Price for these 4 pending."
+    },
+    {
+      "id": "train-bologna-milan-2",
+      "label": "Train — Bologna → Milan (10:11 AM)",
+      "city": "Milan",
+      "category": "Transport",
+      "emoji": "🚆",
+      "amount": null,
+      "currency": "USD",
+      "status": "booked",
+      "splitAmong": ["Michael Chen", "Derek Wen", "Sean Chen", "Aiden Zhang", "Brian Zhu"],
+      "notes": "Tue 9/15, 10:11 – 11:15 AM. Later train, remaining 5. Price pending."
     },
     {
       "id": "dinner-abba-milan",
