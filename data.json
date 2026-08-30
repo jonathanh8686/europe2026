@@ -245,7 +245,7 @@
               "label": "Canyoning — Interlaken",
               "type": "activity",
               "status": "booked",
-              "attendees": "Pending"
+              "attendees": "all"
             }
           ]
         }
@@ -877,9 +877,8 @@
       "amount": 2055.24,
       "currency": "USD",
       "status": "booked",
-      "splitAmong": null,
       "paidBy": "Sean Chen",
-      "notes": "Sep 17, 1:45 – 7:15 PM. $2,055.24 total once attendees are confirmed. Attendees pending."
+      "notes": "Sep 17, 1:45 – 7:15 PM. $2,055.24 total, split evenly."
     }
   ],
   "budget": {
