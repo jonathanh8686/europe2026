@@ -761,11 +761,11 @@
       "city": "Milan",
       "category": "Transport",
       "emoji": "🚆",
-      "amount": null,
+      "amount": 128,
       "currency": "USD",
       "status": "booked",
       "splitAmong": ["Trevor Guo", "Jonathan Hsieh", "Yongjae Lee", "Shreyank Kadadi"],
-      "notes": "Tue 9/15, 8:56 – 10:00 AM. Only 4 tickets kept — the rest were refunded. Price for these 4 pending."
+      "notes": "Tue 9/15, 8:56 – 10:00 AM. Only 4 tickets kept — the rest were refunded. $32/person."
     },
     {
       "id": "train-bologna-milan-2",
