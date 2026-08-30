@@ -230,7 +230,8 @@
               "label": "Hike — Harder Kulm",
               "type": "activity",
               "status": "no-booking",
-              "attendees": ["Michael Chen", "Derek Wen", "Jonathan Hsieh", "Yongjae Lee", "Sean Chen"]
+              "attendees": ["Michael Chen", "Derek Wen", "Jonathan Hsieh", "Yongjae Lee", "Sean Chen"],
+              "pendingAttendees": ["Aiden Zhang", "Brian Zhu", "Trevor Guo", "Shreyank Kadadi"]
             }
           ]
         },
@@ -275,7 +276,8 @@
               "label": "Waterbiking — Zurich",
               "type": "activity",
               "status": "booked",
-              "attendees": ["Derek Wen", "Jonathan Hsieh", "Brian Zhu", "Yongjae Lee", "Shreyank Kadadi", "Sean Chen"]
+              "attendees": ["Derek Wen", "Jonathan Hsieh", "Brian Zhu", "Yongjae Lee", "Shreyank Kadadi", "Sean Chen"],
+              "pendingAttendees": ["Aiden Zhang", "Trevor Guo", "Michael Chen"]
             }
           ]
         }
@@ -750,7 +752,8 @@
       "currency": "USD",
       "status": "booked",
       "splitAmong": ["Derek Wen", "Jonathan Hsieh", "Brian Zhu", "Yongjae Lee", "Shreyank Kadadi", "Sean Chen"],
-      "notes": "Sep 19, 10:00 AM – 12:00 PM. $95/person, 6 confirmed so far — more may join."
+      "pendingAttendees": ["Aiden Zhang", "Trevor Guo", "Michael Chen"],
+      "notes": "Sep 19, 10:00 AM – 12:00 PM. $95/person."
     },
     {
       "id": "train-bologna-milan",

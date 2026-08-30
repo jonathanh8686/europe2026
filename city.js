@@ -89,6 +89,7 @@ function renderEvent(ev) {
   } else if (ev.attendees && ev.attendees !== 'all') {
     who = ev.attendees;
   }
+  var pendingWho = (ev.pendingAttendees && ev.pendingAttendees.length) ? ev.pendingAttendees.join(', ') : '';
 
   var titleHtml = ev.link
     ? '<a href="' + ev.link + '" target="_blank" rel="noopener">' + escapeHtml(ev.label) + ' ↗</a>'
@@ -105,6 +106,7 @@ function renderEvent(ev) {
     '</div>' +
     '<div class="t-event-time">' + fmtTime(start) + ' – ' + fmtTime(end) + '</div>' +
     (who ? '<div class="t-event-who">👥 ' + escapeHtml(who) + '</div>' : '') +
+    (pendingWho ? '<div class="t-event-pending">? Pending: ' + escapeHtml(pendingWho) + '</div>' : '') +
   '</div>';
 }
 

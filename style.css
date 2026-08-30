@@ -507,12 +507,19 @@ a { color: inherit; text-decoration: none; }
   margin-top: 3px;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-/* compact: drop the who line, keep time + up to 2-line label */
-.t-event.compact .t-event-who { display: none; }
-/* micro: single line label only, no time/who — for very short or narrow blocks */
+.t-event-pending {
+  font-size: 0.7rem; color: var(--accent);
+  margin-top: 2px; font-style: italic;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+/* compact: drop the who/pending lines, keep time + up to 2-line label */
+.t-event.compact .t-event-who,
+.t-event.compact .t-event-pending { display: none; }
+/* micro: single line label only, no time/who/pending — for very short or narrow blocks */
 .t-event.micro { padding: 3px 8px; }
 .t-event.micro .t-event-time,
-.t-event.micro .t-event-who { display: none; }
+.t-event.micro .t-event-who,
+.t-event.micro .t-event-pending { display: none; }
 .t-event.micro .t-event-top { align-items: center; }
 .t-event.micro .t-event-label {
   font-size: 0.78rem; -webkit-line-clamp: 1;

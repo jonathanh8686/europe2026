@@ -116,6 +116,9 @@
       var who = e.splitAmong === null ? 'Who\'s going: pending'
         : (e.splitAmong && e.splitAmong.length) ? e.splitAmong.length + ' of ' + GROUP_SIZE + ' — ' + e.splitAmong.join(', ')
         : 'Whole group';
+      if (e.pendingAttendees && e.pendingAttendees.length) {
+        who += ' · pending: ' + e.pendingAttendees.join(', ');
+      }
       var amountHtml = (e.amount && e.splitAmong !== null)
         ? '<div class="exp-row-total">' + money(e.amount) + '</div><div class="exp-row-pp">' + money(e.amount / (e.splitAmong ? e.splitAmong.length : GROUP_SIZE)) + '/person</div>'
         : '<div class="exp-row-total">TBD</div>';
