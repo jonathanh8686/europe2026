@@ -258,13 +258,22 @@
       "flag": "🇨🇭",
       "emoji": "🏦",
       "nights": 2,
-      "activities": ["Waterbiking"],
+      "activities": ["Waterbiking", "Lindt Chocolate Museum"],
       "notes": "",
       "days": [
         {
           "label": "Day 1",
           "date": "2026-09-18",
-          "events": []
+          "events": [
+            {
+              "time": "16:30",
+              "duration": 120,
+              "label": "Lindt Chocolate Museum",
+              "type": "activity",
+              "status": "booked",
+              "attendees": "all"
+            }
+          ]
         },
         {
           "label": "Day 2",
@@ -275,7 +284,7 @@
               "duration": 120,
               "label": "Waterbiking — Zurich",
               "type": "activity",
-              "status": "booked",
+              "status": "pending",
               "attendees": ["Derek Wen", "Jonathan Hsieh", "Brian Zhu", "Yongjae Lee", "Shreyank Kadadi", "Sean Chen"],
               "pendingAttendees": ["Aiden Zhang", "Trevor Guo", "Michael Chen"]
             }
@@ -747,6 +756,17 @@
   ],
   "otherExpenses": [
     {
+      "id": "lindt-museum-zurich",
+      "label": "Lindt Chocolate Museum",
+      "city": "Zurich",
+      "category": "Activities",
+      "emoji": "🍫",
+      "amount": null,
+      "currency": "USD",
+      "status": "booked",
+      "notes": "Sep 18, 4:30 – 6:30 PM. Price pending."
+    },
+    {
       "id": "waterbiking-zurich",
       "label": "Waterbiking — Zurich",
       "city": "Zurich",
@@ -754,11 +774,11 @@
       "emoji": "🚴",
       "amount": 570,
       "currency": "USD",
-      "status": "booked",
+      "status": "pending",
       "splitAmong": ["Derek Wen", "Jonathan Hsieh", "Brian Zhu", "Yongjae Lee", "Shreyank Kadadi", "Sean Chen"],
       "pendingAttendees": ["Aiden Zhang", "Trevor Guo", "Michael Chen"],
       "paidBy": "Sean Chen",
-      "notes": "Sep 19, 10:00 AM – 12:00 PM. $95/person."
+      "notes": "Sep 19, 10:00 AM – 12:00 PM. $95/person. Not booked yet."
     },
     {
       "id": "train-bologna-milan",
