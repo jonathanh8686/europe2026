@@ -87,7 +87,7 @@
   // money changing hands yet.
   function buildReservationNote(h) {
     if (h.status === 'booked') {
-      return '<div class="housing-reservation booked">✓ Reservation confirmed' + (h.confirmation && h.confirmation !== 'TBD' ? ' · Conf# ' + h.confirmation : '') + '</div>';
+      return '<div class="housing-reservation booked">✓ Reservation confirmed' + (h.confirmation && h.confirmation !== 'TBD' ? ' · Conf# ' + h.confirmation : '') + (h.paidBy ? ' · Paid by ' + h.paidBy.split(' ')[0] : '') + '</div>';
     }
     if (h.status === 'picked') {
       return '<div class="housing-reservation pending">Group has decided — not yet booked/paid</div>';

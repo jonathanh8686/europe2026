@@ -76,7 +76,7 @@
         housingRows.push({
           color: color, page: CITY_PAGES[stop.city], flag: stop.flag, city: stop.city, name: h.name,
           sub: fmtShort(stop.date) + ' – ' + fmtShort(addDays(stop.date, stop.nights || 0)) + ' · ' + stop.nights + ' night' + (stop.nights !== 1 ? 's' : ''),
-          status: h.status, amount: h.totalPrice || null, splitCount: GROUP_SIZE
+          status: h.status, amount: h.totalPrice || null, splitCount: GROUP_SIZE, paidBy: h.paidBy
         });
       });
     });
@@ -104,7 +104,7 @@
         '<div class="exp-row-main">' +
           '<span class="exp-row-dot" style="background:' + r.color + '"></span>' +
           '<div class="exp-row-body">' +
-            '<div class="exp-row-label">' + r.flag + ' ' + r.city + (r.name ? ' — ' + r.name : '') + badgeHtml(r.status) + '</div>' +
+            '<div class="exp-row-label">' + r.flag + ' ' + r.city + (r.name ? ' — ' + r.name : '') + badgeHtml(r.status) + (r.paidBy ? '<span class="exp-row-paidby">Paid by ' + r.paidBy.split(' ')[0] + '</span>' : '') + '</div>' +
             '<div class="exp-row-sub">' + r.sub + '</div>' +
           '</div>' +
         '</div>' +
@@ -126,7 +126,7 @@
         '<div class="exp-row-main">' +
           '<span class="exp-row-dot" style="background:' + (STOP_COLORS[stops.findIndex(function(s){return s.city===e.city;})] || 'var(--faint)') + '"></span>' +
           '<div class="exp-row-body">' +
-            '<div class="exp-row-label">' + (e.emoji || '') + ' ' + e.label + badgeHtml(e.status) + '</div>' +
+            '<div class="exp-row-label">' + (e.emoji || '') + ' ' + e.label + badgeHtml(e.status) + (e.paidBy ? '<span class="exp-row-paidby">Paid by ' + e.paidBy.split(' ')[0] + '</span>' : '') + '</div>' +
             '<div class="exp-row-sub">' + who + (e.notes ? ' · ' + e.notes : '') + '</div>' +
           '</div>' +
         '</div>' +

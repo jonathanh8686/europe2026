@@ -357,6 +357,7 @@
       "address": "Historic Center — ~20 min walk to Piazza Maggiore & the Two Towers, ~10 min to Bologna Centrale station",
       "totalPrice": 1878.92,
       "booked": true,
+      "paidBy": "Jonathan Hsieh",
       "notes": "Loft with a private rooftop terrace & private elevator. Pool table, board games, espresso machine."
     },
     {
@@ -415,6 +416,7 @@
       "address": "Near Porta Garibaldi & Corso Como, Isola district — ~5 min from Garibaldi station",
       "totalPrice": 854.32,
       "booked": true,
+      "paidBy": "Jonathan Hsieh",
       "notes": "Modern renovated apartment in the trendy Isola district."
     },
     {
@@ -529,6 +531,7 @@
       "address": "Ringgenberg — 80m to the bus stop, 600m to the train station, ~5 min drive to Interlaken Ost; 500m walk to Lake Brienz",
       "totalPrice": 1960,
       "booked": true,
+      "paidBy": "Sean Chen",
       "notes": "Historic 1752 chalet, fully renovated, private sauna, terrace with BBQ, lake & mountain views. Much closer to Interlaken Ost than the Burglauenen pick (minutes vs. ~25-30 min) and well-reviewed, for a bit more than Burglauenen."
     },
     {
@@ -559,6 +562,7 @@
       "address": "Opfikon (Glattbrugg) — a few minutes' walk to two train stations, ~10-15 min direct to Zurich HB & ZRH airport",
       "totalPrice": 1393,
       "booked": true,
+      "paidBy": "Sean Chen",
       "notes": "140m² 3BDR penthouse, Alpine views, 22m² sunroom + outdoor lounge with E-BBQ, projector, free underground parking, self check-in. Max 10 guests. Free cancellation before Sep 17."
     },
     {
@@ -753,6 +757,7 @@
       "status": "booked",
       "splitAmong": ["Derek Wen", "Jonathan Hsieh", "Brian Zhu", "Yongjae Lee", "Shreyank Kadadi", "Sean Chen"],
       "pendingAttendees": ["Aiden Zhang", "Trevor Guo", "Michael Chen"],
+      "paidBy": "Sean Chen",
       "notes": "Sep 19, 10:00 AM – 12:00 PM. $95/person."
     },
     {
@@ -761,11 +766,12 @@
       "city": "Milan",
       "category": "Transport",
       "emoji": "🚆",
-      "amount": 128,
+      "amount": 80,
       "currency": "USD",
       "status": "booked",
       "splitAmong": ["Trevor Guo", "Jonathan Hsieh", "Yongjae Lee", "Shreyank Kadadi"],
-      "notes": "Tue 9/15, 8:56 – 10:00 AM. Only 4 tickets kept — the rest were refunded. $32/person."
+      "paidBy": "Jonathan Hsieh",
+      "notes": "Tue 9/15, 8:56 – 10:00 AM. Only 4 tickets kept — the rest were refunded. $20/person."
     },
     {
       "id": "train-bologna-milan-2",
@@ -773,11 +779,12 @@
       "city": "Milan",
       "category": "Transport",
       "emoji": "🚆",
-      "amount": null,
+      "amount": 98.7,
       "currency": "USD",
       "status": "booked",
       "splitAmong": ["Michael Chen", "Derek Wen", "Sean Chen", "Aiden Zhang", "Brian Zhu"],
-      "notes": "Tue 9/15, 10:11 – 11:15 AM. Later train, remaining 5. Price pending."
+      "paidBy": "Sean Chen",
+      "notes": "Tue 9/15, 10:11 – 11:15 AM. Later train, remaining 5. $98.70 total, split evenly."
     },
     {
       "id": "dinner-abba-milan",
@@ -788,6 +795,7 @@
       "amount": null,
       "currency": "USD",
       "status": "booked",
+      "paidBy": "Sean Chen",
       "notes": "Sep 15, 8:00 – 9:45 PM. Price pending."
     },
     {
@@ -800,6 +808,7 @@
       "currency": "USD",
       "status": "booked",
       "splitAmong": ["Jonathan Hsieh", "Sean Chen", "Derek Wen", "Yongjae Lee", "Aiden Zhang", "Michael Chen", "Shreyank Kadadi"],
+      "paidBy": "Sean Chen",
       "notes": "Sep 15, 2:30 – 7:30 PM. €476 (~$556.21 at ~1.17 USD/EUR), split evenly among 7. Paid at check-in, not yet charged."
     },
     {
@@ -811,6 +820,7 @@
       "amount": 640.89,
       "currency": "USD",
       "status": "booked",
+      "paidBy": "Jonathan Hsieh",
       "notes": "Wed 9/16, 7:10 – 9:53 AM. $640.89 total, split evenly."
     },
     {
@@ -822,6 +832,7 @@
       "amount": null,
       "currency": "USD",
       "status": "no-booking",
+      "paidBy": "Jonathan Hsieh",
       "notes": "Wed 9/16, 10:06 – 10:26 AM. No advance booking needed — price pending."
     },
     {
@@ -834,6 +845,7 @@
       "currency": "USD",
       "status": "booked",
       "splitAmong": ["Michael Chen", "Derek Wen", "Trevor Guo", "Jonathan Hsieh", "Shreyank Kadadi", "Sean Chen"],
+      "paidBy": "Jonathan Hsieh",
       "notes": "Sep 16, 1:00 – 2:30 PM. $1,523.22 total, split evenly."
     },
     {
@@ -842,11 +854,12 @@
       "city": "Interlaken",
       "category": "Activities",
       "emoji": "🏞️",
-      "amount": null,
+      "amount": 2055.24,
       "currency": "USD",
       "status": "booked",
       "splitAmong": null,
-      "notes": "Sep 17, 1:45 – 7:15 PM. Attendees and price pending."
+      "paidBy": "Sean Chen",
+      "notes": "Sep 17, 1:45 – 7:15 PM. $2,055.24 total once attendees are confirmed. Attendees pending."
     }
   ],
   "budget": {

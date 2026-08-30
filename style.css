@@ -560,6 +560,11 @@ a.exp-row:hover { border-color: var(--border-strong); }
 .exp-row-badge.searching { color: var(--muted); border-color: var(--border); }
 .exp-row-badge.no-booking { color: var(--faint); border-color: var(--border); font-style: italic; }
 .exp-row-badge.pending { color: var(--accent); border-color: var(--accent); }
+.exp-row-paidby {
+  font-size: 0.6rem; font-weight: 600; text-transform: uppercase;
+  padding: 2px 8px; border-radius: var(--r); white-space: nowrap;
+  color: var(--muted); border: 1px solid var(--border);
+}
 
 /* Per-person breakdown table */
 .exp-table-wrap {
